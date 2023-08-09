@@ -1,5 +1,6 @@
 "use client";
 import { ThemeProvider } from "next-themes";
+import { AppContextProvider } from "@/lib/AppStateContext";
 import AppBar from "@/components/AppBar/AppBar";
 
 export default function RootComponet({
@@ -8,9 +9,11 @@ export default function RootComponet({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider enableSystem attribute="class">
-      <AppBar />
-      {children}
-    </ThemeProvider>
+    <AppContextProvider>
+      <ThemeProvider enableSystem attribute="class">
+        <AppBar />
+        {children}
+      </ThemeProvider>
+    </AppContextProvider>
   );
 }
