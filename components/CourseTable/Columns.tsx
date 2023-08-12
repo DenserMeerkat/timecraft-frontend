@@ -81,9 +81,12 @@ export const columns: ColumnDef<Course>[] = [
       const busy: number[] = row.original.fixedHours;
       return (
         <div className="flex gap-4 w-fit">
-          {busy.map((day: number) => (
-            <div className="px-2.5 py-1.5 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]">
-              {day}
+          {busy.map((hour: number, index: number) => (
+            <div
+              key={index}
+              className="px-2.5 py-1.5 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
+            >
+              {hour}
             </div>
           ))}
         </div>
