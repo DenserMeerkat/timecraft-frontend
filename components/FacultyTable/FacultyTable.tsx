@@ -27,13 +27,13 @@ const FacultyTable = () => {
       code: "FAC004",
       name: "Emily Williams",
       workload: 17,
-      busy: [4, 5, 6],
+      busy: [4, 5, 6, 7, 8],
     },
     {
       code: "FAC005",
       name: "Daniel Brown",
       workload: 19,
-      busy: [1, 2, 6],
+      busy: [1, 2, 6, 4, 7, 8],
     },
     {
       code: "FAC006",
