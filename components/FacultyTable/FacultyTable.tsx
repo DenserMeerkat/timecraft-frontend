@@ -82,7 +82,8 @@ const AddFacultyContent = () => {
       <DialogHeader>
         <DialogTitle>Add New Faculty</DialogTitle>
         <DialogDescription>
-          Create a new Faculty with unique code. Click add when you're done.
+          Create a new Faculty with unique code. Click add when you&apos;re
+          done.
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4 py-4">

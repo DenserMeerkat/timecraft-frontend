@@ -106,7 +106,7 @@ const AddCourseContent = () => {
       <DialogHeader>
         <DialogTitle>Add New Course</DialogTitle>
         <DialogDescription>
-          Create a new Course with unique code. Click add when you're done.
+          Create a new Course with unique code. Click add when you&apos;re done.
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4 py-4">
