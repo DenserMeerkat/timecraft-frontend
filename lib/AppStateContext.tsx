@@ -13,8 +13,8 @@ interface AppContextType {
 }
 
 const defaultAppContext: AppContextType = {
-  hours: 0,
-  days: 0,
+  hours: 6,
+  days: 5,
   faculties: [],
   courses: [],
   updateHours: () => {},
