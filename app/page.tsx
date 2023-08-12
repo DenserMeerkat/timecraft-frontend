@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="">
       <Fields />
-      <div className="px-4 xl:px-0 max-w-6xl mx-auto">
+      <div className="px-4 xl:px-0 max-w-6xl mx-auto pb-8">
         <FacultyTable />
         <CourseTable />
       </div>
