@@ -17,9 +17,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -39,7 +36,7 @@ export const DataTable = (props: any) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { columns, data, filterString, itemName } = props;
+  const { columns, data, filterString, addDialog } = props;
   const table = useReactTable({
     data,
     columns,
@@ -61,13 +58,7 @@ export const DataTable = (props: any) => {
   return (
     <div>
       <div className="flex items-center justify-between py-4">
-        <Button className="mr-1 sm:mr-4 md:mr-5" size={"sm"}>
-          <p>
-            Add
-            <span className="hidden sm:inline"> </span>
-            <span className="hidden sm:inline">{itemName}</span>
-          </p>
-        </Button>
+        {addDialog}
         <Input
           placeholder={`Filter by ${filterString.toLowerCase()}...`}
           value={
