@@ -1,9 +1,22 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "@/components/DataTable";
 import { columns } from "./Columns";
 import { Faculty } from "@/lib/types";
+import AddDialog from "@/components/common/AddDialog";
+import {
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const FacultyTable = () => {
+  const [isDomLoaded, setIsDomLoaded] = useState(false);
   const data: Faculty[] = [
     {
       code: "FAC001",
@@ -42,17 +55,53 @@ const FacultyTable = () => {
       busy: [3, 4, 5],
     },
   ];
-
-  return (
-    <div className="">
-      <DataTable
-        columns={columns}
-        data={data}
-        filterString={"name"}
-        itemName={"Faculty"}
-      />
-    </div>
-  );
+  useEffect(() => {
+    setIsDomLoaded(true);
+  }, [isDomLoaded]);
+  if (!isDomLoaded) return <div></div>;
+  else
+    return (
+      <div className="">
+        <DataTable
+          columns={columns}
+          data={data}
+          filterString={"name"}
+          addDialog={
+            <AddDialog itemName={"Faculty"} content={<AddFacultyContent />} />
+          }
+        />
+      </div>
+    );
 };
 
 export default FacultyTable;
+
+const AddFacultyContent = () => {
+  return (
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>Add New Faculty</DialogTitle>
+        <DialogDescription>
+          Create a new Faculty with unique code. Click add when you're done.
+        </DialogDescription>
+      </DialogHeader>
+      <div className="grid gap-4 py-4">
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="name" className="text-right">
+            Name
+          </Label>
+          <Input id="name" value="Pedro Duarte" className="col-span-3" />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="username" className="text-right">
+            Username
+          </Label>
+          <Input id="username" value="@peduarte" className="col-span-3" />
+        </div>
+      </div>
+      <DialogFooter>
+        <Button type="submit">Add Faculty</Button>
+      </DialogFooter>
+    </DialogContent>
+  );
+};
