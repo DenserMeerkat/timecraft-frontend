@@ -72,7 +72,7 @@ export const columns: ColumnDef<Course>[] = [
   },
   {
     accessorKey: "hours",
-    header: "hours",
+    header: "Hours",
   },
   {
     accessorKey: "fixedHours",
