@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -30,6 +29,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDownIcon } from "lucide-react";
+import { useAppContext } from "@/lib/AppStateContext";
 
 export const DataTable = (props: any) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -37,6 +37,8 @@ export const DataTable = (props: any) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const { columns, data, filterString, addDialog } = props;
+  const state = useAppContext();
+  const { hours, days, lock } = state;
   const table = useReactTable({
     data,
     columns,
@@ -60,6 +62,7 @@ export const DataTable = (props: any) => {
       <div className="relative flex items-center justify-between py-4">
         {addDialog}
         <Input
+          disabled={!lock}
           placeholder={`Filter by ${filterString.toLowerCase()}...`}
           value={
             (table.getColumn(filterString)?.getFilterValue() as string) ?? ""
@@ -70,7 +73,7 @@ export const DataTable = (props: any) => {
           className="max-w-[18rem]"
         />
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger disabled={!lock} asChild>
             <Button variant="outline" className="ml-auto">
               <p className="hidden md:inline">Columns</p>
               <ChevronDownIcon className="md:ml-2 h-4 w-4" />

@@ -1,37 +1,61 @@
 "use client";
 import React from "react";
 import { useAppContext } from "@/lib/AppStateContext";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import CustomInput from "./common/CustomInput";
+import { Toggle } from "@/components/ui/toggle";
 
+import { Unlock, Lock } from "lucide-react";
+import TooltipElement from "./common/TooltipElement";
 const Test = () => {
   const state = useAppContext();
   const {
     hours,
     days,
+    lock,
     faculties,
     courses,
     updateHours,
     updateDays,
+    updateLock,
     updateCourses,
     updateFaculties,
   } = state;
   return (
     <div className="max-w-7xl mx-auto pt-10 py-6 px-2 sm:px4 md:px-6">
-      <div className="mx-auto max-w-[13rem] h-12 flex">
+      <div className="mx-auto max-w-[16rem] h-12 flex items-center">
         <CustomInput
+          disabled={lock}
           defaultVal={days}
           direction={"l"}
           suffix={"Day(s)"}
           updateContext={updateDays}
         />
         <CustomInput
+          disabled={lock}
           defaultVal={hours}
           direction={"r"}
           suffix={"Hour(s)"}
           updateContext={updateHours}
         />
+        <Toggle
+          disabled={hours == 0 || days == 0}
+          onClick={updateLock}
+          className="ml-2 h-[2.6rem] w-12"
+        >
+          {!lock ? (
+            <TooltipElement
+              element={<Unlock className="h-8 w-4" />}
+              tooltip={"Lock"}
+              side={"right"}
+            />
+          ) : (
+            <TooltipElement
+              element={<Lock className="h-8 w-4" />}
+              tooltip={"Unlock"}
+              side={"right"}
+            />
+          )}
+        </Toggle>
       </div>
     </div>
   );
