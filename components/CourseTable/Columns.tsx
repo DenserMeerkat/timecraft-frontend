@@ -75,13 +75,13 @@ export const columns: ColumnDef<Course>[] = [
     header: "Hours",
   },
   {
-    accessorKey: "fixedHours",
-    header: "Fixed Hours",
+    accessorKey: "available",
+    header: "Available Hours",
     cell: ({ row }) => {
-      const busy: number[] = row.original.fixedHours;
+      const available: number[] = row.original.available;
       return (
         <div className="flex gap-4 w-fit">
-          {busy.map((hour: number, index: number) => (
+          {available.map((hour: number, index: number) => (
             <div
               key={index}
               className="px-2.5 py-1.5 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"

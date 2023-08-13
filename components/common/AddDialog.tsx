@@ -1,17 +1,18 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useAppContext } from "@/lib/AppStateContext";
 
 const AddDialog = (props: any) => {
+  const [open, setOpen] = useState(false);
   const itemName = props.itemName;
-  const content = props.content;
+  const Content = props.Content;
   const state = useAppContext();
   const { lock } = state;
   return (
-    <Dialog>
-      <DialogTrigger asChild disabled={!lock}>
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild disabled={!lock}>
         <Button className="mr-1 sm:mr-4 md:mr-5" size={"sm"}>
           <p>
             Add
@@ -19,9 +20,9 @@ const AddDialog = (props: any) => {
             <span className="hidden sm:inline">{itemName}</span>
           </p>
         </Button>
-      </DialogTrigger>
-      {content}
-    </Dialog>
+      </AlertDialogTrigger>
+      <Content open={open} setOpen={setOpen} />
+    </AlertDialog>
   );
 };
 

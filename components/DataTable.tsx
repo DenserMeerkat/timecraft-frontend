@@ -70,7 +70,7 @@ export const DataTable = (props: any) => {
           onChange={(event) =>
             table.getColumn(filterString)?.setFilterValue(event.target.value)
           }
-          className="max-w-[18rem]"
+          className="max-w-[18rem] mr-1 sm:mr-4 "
         />
         <DropdownMenu>
           <DropdownMenuTrigger disabled={!lock} asChild>
@@ -100,7 +100,7 @@ export const DataTable = (props: any) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/[0.4] dark:bg-zinc-900/[0.6]">
+      <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/[0.4] dark:bg-zinc-950/[0.4]">
         <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
