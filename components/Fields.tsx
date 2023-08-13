@@ -19,7 +19,7 @@ const Test = () => {
   } = state;
   return (
     <div className="max-w-7xl mx-auto pt-10 py-6 px-2 sm:px4 md:px-6">
-      <div className="mx-auto max-w-[14rem] h-12 flex">
+      <div className="mx-auto max-w-[13rem] h-12 flex">
         <CustomInput
           defaultVal={days}
           direction={"l"}

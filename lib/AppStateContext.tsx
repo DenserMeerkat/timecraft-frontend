@@ -13,8 +13,8 @@ interface AppContextType {
 }
 
 const defaultAppContext: AppContextType = {
-  hours: 6,
-  days: 5,
+  hours: 0,
+  days: 0,
   faculties: [],
   courses: [],
   updateHours: () => {},
@@ -31,8 +31,8 @@ interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }) => {
-  const [hours, setHours] = useState(6);
-  const [days, setDays] = useState(5);
+  const [hours, setHours] = useState(0);
+  const [days, setDays] = useState(0);
   const [faculties, setFaculties] = useState([] as Faculty[]);
   const [courses, setCourses] = useState([] as Course[]);
   const updateHours = (hours: number) => {
