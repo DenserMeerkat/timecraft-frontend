@@ -8,19 +8,10 @@ const AddDialog = (props: any) => {
   const itemName = props.itemName;
   const content = props.content;
   const state = useAppContext();
-  const {
-    hours,
-    days,
-    faculties,
-    courses,
-    updateHours,
-    updateDays,
-    updateCourses,
-    updateFaculties,
-  } = state;
+  const { lock } = state;
   return (
     <Dialog>
-      <DialogTrigger asChild disabled={hours == 0 || days == 0}>
+      <DialogTrigger asChild disabled={!lock}>
         <Button className="mr-1 sm:mr-4 md:mr-5" size={"sm"}>
           <p>
             Add

@@ -8,11 +8,12 @@ import {
 const TooltipElement = (props: any) => {
   const element = props.element;
   const tooltip = props.tooltip;
+  const side = props.side || "top";
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>{element}</TooltipTrigger>
-        <TooltipContent sideOffset={20}>
+        <TooltipContent sideOffset={20} side={side}>
           <p>{tooltip}</p>
         </TooltipContent>
       </Tooltip>
