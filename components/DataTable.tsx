@@ -57,7 +57,7 @@ export const DataTable = (props: any) => {
   });
   return (
     <div>
-      <div className="flex items-center justify-between py-4">
+      <div className="relative flex items-center justify-between py-4">
         {addDialog}
         <Input
           placeholder={`Filter by ${filterString.toLowerCase()}...`}
@@ -72,8 +72,8 @@ export const DataTable = (props: any) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              <p className="hidden sm:block">Columns</p>
-              <ChevronDownIcon className="ml-2 h-4 w-4" />
+              <p className="hidden md:inline">Columns</p>
+              <ChevronDownIcon className="md:ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -98,7 +98,7 @@ export const DataTable = (props: any) => {
         </DropdownMenu>
       </div>
       <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/[0.4] dark:bg-zinc-900/[0.6]">
-        <Table>
+        <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow

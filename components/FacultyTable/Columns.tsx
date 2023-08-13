@@ -76,7 +76,7 @@ export const columns: ColumnDef<Faculty>[] = [
   },
   {
     accessorKey: "busy",
-    header: "Busy",
+    header: "Occupied",
     cell: ({ row }) => {
       const busy: number[] = row.original.busy;
       return (
