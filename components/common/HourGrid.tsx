@@ -5,25 +5,29 @@ const HourGrid: React.FC<{
   rows: number;
   columns: number;
   bg: "rose" | "zinc" | "sky" | undefined;
-  list: number[];
-}> = ({ rows, columns, bg, list }) => {
+  value?: number[];
+  onChange: (newValue: number[]) => void;
+}> = ({ rows, columns, bg, value, onChange }) => {
   const [isFocussed, setIsFocussed] = useState(false);
-  const indexList: number[] = [];
 
+  const indexList: number[] = [];
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       const index = i * columns + j;
       indexList.push(index);
     }
   }
+
   const updateList = (index: number) => {
-    if (list.includes(index)) {
-      const indexToRemove = list.indexOf(index);
-      list = list.filter((num) => num !== indexToRemove);
+    if (value && value.includes(index)) {
+      const updatedValue = value.filter((num) => num !== index);
+      onChange(updatedValue);
     } else {
-      list.push(index);
+      const updatedValue = [...(value || []), index];
+      onChange(updatedValue);
     }
   };
+
   const gridStyle = {
     display: "grid",
     gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,

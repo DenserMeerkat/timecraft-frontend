@@ -7,7 +7,7 @@ const CustomInput = (props: any) => {
   const suffix: string = props.suffix;
   const updateContext = props.updateContext;
   const disabled = props.disabled;
-  const [inputValue, setInputValue] = useState(defaultVal);
+  const [inputValue, setInputValue] = useState("");
   const commonClasses =
     "ml-2 m-0 pl-3 h-12 rounded-none border-0 focus-visible:ring-0 focus-visible:bg-zinc-100 focus-visible:dark:bg-zinc-900 focus-visible:border-zinc-400 focus-visible:dark:border-zinc-500 text-lg font-semibold";
   const directionalClass = `border-2 border-zinc-200 dark:border-zinc-800 

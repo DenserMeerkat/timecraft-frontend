@@ -4,21 +4,12 @@ import { DataTable } from "@/components/DataTable";
 import { columns } from "./Columns";
 import { Course } from "@/lib/types";
 import AddDialog from "@/components/common/AddDialog";
-import {
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useAppContext } from "@/lib/AppStateContext";
-import HourGrid from "../common/HourGrid";
+import { AddCourse } from "./AddCourse";
 
 const CourseTable = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
+  const { courses } = useAppContext();
   const data: Course[] = [
     {
       code: "CS101",
@@ -90,67 +81,12 @@ const CourseTable = () => {
       <div className="">
         <DataTable
           columns={columns}
-          data={data}
+          data={courses}
           filterString={"name"}
-          addDialog={
-            <AddDialog itemName={"Course"} Content={AddCourseContent} />
-          }
+          addDialog={<AddDialog itemName={"Course"} Content={AddCourse} />}
         />
       </div>
     );
 };
 
 export default CourseTable;
-
-const AddCourseContent = (props: any) => {
-  const { open, setOpen } = props;
-  const { hours, days } = useAppContext();
-  const availableList: number[] = [];
-  const closeAlertDialog = () => {
-    setOpen(false);
-  };
-  return (
-    <AlertDialogContent className="sm:max-w-[425px]">
-      <AlertDialogHeader>
-        <AlertDialogTitle>New Course</AlertDialogTitle>
-        <AlertDialogDescription>
-          Create a new Course with unique code. Click add when you&apos;re done.
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-      <div className="grid gap-4 py-4">
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="name" className="text-right">
-            Code
-          </Label>
-          <Input id="name" className="col-span-3" />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="name" className="text-right">
-            Name
-          </Label>
-          <Input id="name" placeholder="" className="col-span-3" />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="username" className="text-right">
-            Hours
-          </Label>
-          <Input id="username" className="col-span-3" />
-        </div>
-      </div>
-      <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="busy" className="text-right col-span-1">
-          Available
-        </Label>
-        <div id="busy" className={`col-span-3 gap-2`}>
-          <HourGrid columns={hours} rows={days} bg="sky" list={availableList} />
-        </div>
-      </div>
-      <AlertDialogFooter>
-        <Button variant={"secondary"} type="button" onClick={closeAlertDialog}>
-          Cancel
-        </Button>
-        <Button type="submit">Add Course</Button>
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  );
-};
