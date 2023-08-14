@@ -62,7 +62,7 @@ export const DataTable = (props: any) => {
       <div className="relative flex items-center justify-between py-4">
         {addDialog}
         <Input
-          disabled={!lock}
+          disabled={!lock || data.length === 0}
           placeholder={`Filter by ${filterString.toLowerCase()}...`}
           value={
             (table.getColumn(filterString)?.getFilterValue() as string) ?? ""
@@ -141,6 +141,24 @@ export const DataTable = (props: any) => {
                   ))}
                 </TableRow>
               ))
+            ) : !lock ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  Days & Hours must be locked.
+                </TableCell>
+              </TableRow>
+            ) : data.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No entries added yet.
+                </TableCell>
+              </TableRow>
             ) : (
               <TableRow>
                 <TableCell
