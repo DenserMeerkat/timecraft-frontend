@@ -39,7 +39,9 @@ const HourGrid: React.FC<{
     <div
       style={gridStyle}
       className={`rounded-md border ${
-        isFocussed ? "darkborder-zinc-300" : "dark:border-zinc-800"
+        isFocussed
+          ? "darkborder-zinc-300 border-black"
+          : "dark:border-zinc-800 border-zinc-200"
       }`}
       onMouseEnter={() => setIsFocussed(true)}
       onMouseLeave={() => setIsFocussed(false)}
