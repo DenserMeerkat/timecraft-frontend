@@ -24,6 +24,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { Course } from "@/lib/types";
+import { ToastAction } from "@/components/ui/toast";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
@@ -61,6 +62,22 @@ export const AddCourse = (props: any) => {
     };
     updateCourses([...courses, course]);
     closeDialog();
+    toast({
+      title: "New course added successfully",
+      description: (
+        <p>
+          {data.code}
+          {data.name != "" ? (
+            <>
+              <span className="mx-1">•</span>
+              {data.name}
+            </>
+          ) : (
+            ""
+          )}
+        </p>
+      ),
+    });
   }
 
   const closeDialog = () => {

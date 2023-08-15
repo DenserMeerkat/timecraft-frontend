@@ -22,6 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppContext } from "@/lib/AppStateContext";
 import { toast } from "@/components/ui/use-toast";
 import { Faculty } from "@/lib/types";
+import { ToastAction } from "@/components/ui/toast";
 
 export const AddFaculty = (props: any) => {
   const { open, setOpen } = props;
@@ -66,6 +67,23 @@ export const AddFaculty = (props: any) => {
     updateFaculties([...faculties, faculty]);
     form.reset();
     closeDialog();
+    toast({
+      title: "New faculty added successfully",
+      description: (
+        <p>
+          {data.code}
+          {data.name != "" ? (
+            <>
+              <span className="mx-1">•</span>
+              {data.name}
+            </>
+          ) : (
+            ""
+          )}
+        </p>
+      ),
+      action: <ToastAction altText="Ok, close Toast">Ok</ToastAction>,
+    });
   }
   const closeDialog = () => {
     form.reset();
