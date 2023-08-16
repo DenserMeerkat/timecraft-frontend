@@ -21,7 +21,7 @@ const Test = () => {
     updateFaculties,
   } = state;
   return (
-    <div className="max-w-7xl mx-auto pt-10 py-6 px-2 sm:px4 md:px-6">
+    <div className="max-w-7xl mx-auto pt-10 pb-10 md:pb-6 px-2 sm:px-4 md:px-6">
       <div className="mx-auto max-w-[16rem] h-12 flex items-center">
         <CustomInput
           disabled={lock}
