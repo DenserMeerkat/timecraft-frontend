@@ -6,6 +6,8 @@ import { Course } from "@/lib/types";
 import AddDialog from "@/components/common/AddDialog";
 import { useAppContext } from "@/lib/AppStateContext";
 import { AddCourse } from "./AddCourse";
+import SectionHeading from "../common/SectionHeading";
+import { BookOpen } from "lucide-react";
 
 const CourseTable = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -78,7 +80,8 @@ const CourseTable = () => {
   if (!isDomLoaded) return <div></div>;
   else
     return (
-      <div className="">
+      <div className=" min-h-[200px] mb-6">
+        <SectionHeading Icon={BookOpen} title={"Courses"} />
         <DataTable
           columns={columns}
           data={courses}

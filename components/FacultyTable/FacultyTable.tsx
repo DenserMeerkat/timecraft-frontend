@@ -6,6 +6,8 @@ import { Faculty } from "@/lib/types";
 import AddDialog from "@/components/common/AddDialog";
 import { useAppContext } from "@/lib/AppStateContext";
 import { AddFaculty } from "./AddFaculty";
+import { GraduationCap } from "lucide-react";
+import SectionHeading from "@/components/common/SectionHeading";
 
 const FacultyTable = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -54,7 +56,8 @@ const FacultyTable = () => {
   if (!isDomLoaded) return <div></div>;
   else
     return (
-      <div className="">
+      <div className=" min-h-[200px] mb-10">
+        <SectionHeading Icon={GraduationCap} title={"Faculties"} />
         <DataTable
           columns={columns}
           data={faculties}
