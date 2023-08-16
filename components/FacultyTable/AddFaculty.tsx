@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   AlertDialogContent,
   AlertDialogDescription,
@@ -82,7 +82,6 @@ export const AddFaculty = (props: any) => {
           )}
         </p>
       ),
-      action: <ToastAction altText="Ok, close Toast">Ok</ToastAction>,
     });
   }
   const closeDialog = () => {

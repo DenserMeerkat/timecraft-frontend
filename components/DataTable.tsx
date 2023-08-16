@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -30,8 +30,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDownIcon } from "lucide-react";
 import { useAppContext } from "@/lib/AppStateContext";
+import { TableSkeleton } from "@/components/common/TableSkeleton";
 
 export const DataTable = (props: any) => {
+  const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -57,48 +59,58 @@ export const DataTable = (props: any) => {
       rowSelection,
     },
   });
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDomLoaded(true);
+    }, 1000);
+  }, [isDomLoaded]);
+  if (!isDomLoaded) return <TableSkeleton />;
   return (
     <div>
-      <div className="relative flex items-center justify-between py-4">
-        {addDialog}
-        <Input
-          disabled={!lock || data.length === 0}
-          placeholder={`Filter by ${filterString.toLowerCase()}...`}
-          value={
-            (table.getColumn(filterString)?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn(filterString)?.setFilterValue(event.target.value)
-          }
-          className="max-w-[18rem] mr-1 sm:mr-4 "
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger disabled={!lock} asChild>
-            <Button variant="outline" className="ml-auto">
-              <p className="hidden md:inline">Columns</p>
-              <ChevronDownIcon className="md:ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: any) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="relative flex gap-1 sm:gap-2 md:gap-4 items-center justify-between py-4">
+        <div className="w-full">
+          <DropdownMenu>
+            <DropdownMenuTrigger disabled={!lock} asChild>
+              <Button variant="outline" className="ml-auto">
+                <p className="hidden md:inline">Columns</p>
+                <ChevronDownIcon className="md:ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value: any) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div className="min-w-[160px] md:w-96  mr-2 sm:mr-1">
+          <Input
+            disabled={!lock || data.length === 0}
+            placeholder={`Filter by ${filterString.toLowerCase()}...`}
+            value={
+              (table.getColumn(filterString)?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn(filterString)?.setFilterValue(event.target.value)
+            }
+            className="max-w-[18rem] mr-1 sm:mr-4 "
+          />
+        </div>
+        <div className="sm:min-w-[94px]">{addDialog}</div>
       </div>
       <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/[0.4] dark:bg-zinc-950/[0.4]">
         <Table className="relative">
