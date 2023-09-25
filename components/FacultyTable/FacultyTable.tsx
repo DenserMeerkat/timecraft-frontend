@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { DataTable } from "@/components/DataTable";
 import { columns } from "./Columns";
 import { Faculty } from "@/lib/types";
@@ -8,9 +8,9 @@ import { useAppContext } from "@/lib/AppStateContext";
 import { AddFaculty } from "./AddFaculty";
 import { GraduationCap } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";
+import { TableSkeleton } from "../common/TableSkeleton";
 
 const FacultyTable = () => {
-  const [isDomLoaded, setIsDomLoaded] = useState(false);
   const { faculties } = useAppContext();
   const data: Faculty[] = [
     {
@@ -50,22 +50,19 @@ const FacultyTable = () => {
       occupied: [3, 4, 5],
     },
   ];
-  useEffect(() => {
-    setIsDomLoaded(true);
-  }, [isDomLoaded]);
-  if (!isDomLoaded) return <div></div>;
-  else
-    return (
-      <div className=" min-h-[200px] mb-10">
-        <SectionHeading Icon={GraduationCap} title={"Faculties"} />
+  return (
+    <div className=" min-h-[200px] mb-10">
+      <SectionHeading Icon={GraduationCap} title={"Faculties"} />
+      <Suspense fallback={<TableSkeleton />}>
         <DataTable
           columns={columns}
           data={faculties}
           filterString={"name"}
           addDialog={<AddDialog itemName={"Faculty"} Content={AddFaculty} />}
         />
-      </div>
-    );
+      </Suspense>
+    </div>
+  );
 };
 
 export default FacultyTable;
