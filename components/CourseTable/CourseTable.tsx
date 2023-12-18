@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { DataTable } from "@/components/DataTable";
 import { columns } from "./Columns";
 import { Course } from "@/lib/types";
@@ -8,9 +8,9 @@ import { useAppContext } from "@/lib/AppStateContext";
 import { AddCourse } from "./AddCourse";
 import SectionHeading from "../common/SectionHeading";
 import { BookOpen } from "lucide-react";
+import { TableSkeleton } from "../common/TableSkeleton";
 
 const CourseTable = () => {
-  const [isDomLoaded, setIsDomLoaded] = useState(false);
   const { courses } = useAppContext();
   const data: Course[] = [
     {
@@ -74,22 +74,19 @@ const CourseTable = () => {
       available: [9, 10, 11],
     },
   ];
-  useEffect(() => {
-    setIsDomLoaded(true);
-  }, [isDomLoaded]);
-  if (!isDomLoaded) return <div></div>;
-  else
-    return (
-      <div className=" min-h-[200px] mb-6">
-        <SectionHeading Icon={BookOpen} title={"Courses"} />
+  return (
+    <div className=" min-h-[200px] mb-6">
+      <SectionHeading Icon={BookOpen} title={"Courses"} />
+      <Suspense fallback={<TableSkeleton />}>
         <DataTable
           columns={columns}
           data={courses}
           filterString={"name"}
           addDialog={<AddDialog itemName={"Course"} Content={AddCourse} />}
         />
-      </div>
-    );
+      </Suspense>
+    </div>
+  );
 };
 
 export default CourseTable;
