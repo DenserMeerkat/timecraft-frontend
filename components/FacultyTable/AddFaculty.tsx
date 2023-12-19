@@ -22,7 +22,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppContext } from "@/lib/AppStateContext";
 import { toast } from "@/components/ui/use-toast";
 import { Faculty } from "@/lib/types";
-import { ToastAction } from "@/components/ui/toast";
 
 export const AddFaculty = (props: any) => {
   const { open, setOpen } = props;
@@ -43,15 +42,6 @@ export const AddFaculty = (props: any) => {
         return isCodeUnique;
       }, "Code must be unique"),
     name: z.string().optional(),
-    workload: z
-      .string()
-      .refine((value) => {
-        const parsedValue = parseInt(value, 10);
-        return (
-          !isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= hours * days
-        );
-      }, `Workload should be a number between 0 and ${hours * days}`)
-      .optional(),
   });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -61,7 +51,6 @@ export const AddFaculty = (props: any) => {
     const faculty: Faculty = {
       code: data.code,
       name: data.name || "",
-      workload: +(data.workload || "0"),
       occupied: selectedHours,
     };
     updateFaculties([...faculties, faculty]);
@@ -91,7 +80,7 @@ export const AddFaculty = (props: any) => {
   };
 
   return (
-    <AlertDialogContent className="sm:max-w-[425px]">
+    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-screen overflow-y-auto">
       <AlertDialogHeader>
         <AlertDialogTitle>New Faculty</AlertDialogTitle>
         <AlertDialogDescription>
@@ -123,22 +112,7 @@ export const AddFaculty = (props: any) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="workload"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Workload</FormLabel>
-                <Input
-                  id="workload"
-                  placeholder=""
-                  defaultValue={0}
-                  {...field}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <FormItem>
             <FormLabel>Occupied</FormLabel>
             <HourGrid

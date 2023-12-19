@@ -2,12 +2,13 @@ import React, { useState, ChangeEvent } from "react";
 import { Input } from "@/components/ui/input";
 
 const CustomInput = (props: any) => {
-  const defaultVal = props.defaultValue;
+  const defaultVal = props.defaultVal;
+  console.log(defaultVal);
   const direction: string = props.direction;
   const suffix: string = props.suffix;
   const updateContext = props.updateContext;
   const disabled = props.disabled;
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(defaultVal);
   const commonClasses = `ml-2 m-0 pl-3 h-12 rounded-none border-0 focus-visible:ring-0 focus-visible:bg-zinc-100 focus-visible:dark:bg-zinc-900/[0.6] focus-visible:border-zinc-400 focus-visible:dark:border-zinc-500 ${
     disabled
       ? "bg-zinc-100 dark:bg-zinc-950/[0.4]"

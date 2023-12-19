@@ -70,10 +70,7 @@ export const columns: ColumnDef<Faculty>[] = [
     },
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
-  {
-    accessorKey: "workload",
-    header: "Workload",
-  },
+
   {
     accessorKey: "occupied",
     header: "Occupied Hours",

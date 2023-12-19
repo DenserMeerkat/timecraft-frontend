@@ -40,7 +40,7 @@ export const DataTable = (props: any) => {
   const [rowSelection, setRowSelection] = useState({});
   const { columns, data, filterString, addDialog } = props;
   const state = useAppContext();
-  const { hours, days, lock } = state;
+  const { lock } = state;
   const table = useReactTable({
     data,
     columns,
