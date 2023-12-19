@@ -9,15 +9,14 @@ import TooltipElement from "./common/TooltipElement";
 import { FieldSkeleton } from "./common/FieldSekelton";
 const Test = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
-
+  const state = useAppContext();
+  const { hours, days, lock, updateHours, updateDays, updateLock } = state;
   useEffect(() => {
     setTimeout(() => {
       setIsDomLoaded(true);
     }, 1000);
   }, [isDomLoaded]);
   if (!isDomLoaded) return <FieldSkeleton />;
-  const state = useAppContext();
-  const { hours, days, lock, updateHours, updateDays, updateLock } = state;
   return (
     <div className="max-w-7xl mx-auto pt-10 pb-10 md:pb-6 px-2 sm:px-4 md:px-6">
       <div className="mx-auto max-w-[16rem] h-12 flex items-center">
