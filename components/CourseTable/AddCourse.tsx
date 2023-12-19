@@ -87,7 +87,7 @@ export const AddCourse = (props: any) => {
   };
 
   return (
-    <AlertDialogContent className="sm:max-w-[425px]">
+    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-screen overflow-y-auto">
       <AlertDialogHeader>
         <AlertDialogTitle>New Course</AlertDialogTitle>
         <AlertDialogDescription>

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { Faculty, Course } from "./types";
 
 interface AppContextType {
@@ -67,6 +73,30 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     updateCourses,
     updateFaculties,
   };
+
+  useEffect(() => {
+    const storedState = localStorage.getItem("appState");
+    if (storedState) {
+      const parsedState = JSON.parse(storedState);
+      console.log(parsedState);
+      setHours(parsedState.hours);
+      setDays(parsedState.days);
+      setLock(parsedState.lock);
+      setFaculties(parsedState.faculties);
+      setCourses(parsedState.courses);
+    }
+  }, []);
+
+  useEffect(() => {
+    const stateToStore = JSON.stringify({
+      hours,
+      days,
+      lock,
+      faculties,
+      courses,
+    });
+    localStorage.setItem("appState", stateToStore);
+  }, [hours, days, lock, faculties, courses]);
 
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
 };

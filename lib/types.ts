@@ -8,6 +8,5 @@ export interface Course {
 export interface Faculty {
   code: string;
   name: string;
-  workload: number;
   occupied: number[];
 }
