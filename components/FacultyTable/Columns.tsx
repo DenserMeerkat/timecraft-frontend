@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
+import { useAppContext } from "@/lib/AppStateContext";
 
 export const columns: ColumnDef<Faculty>[] = [
   {
@@ -71,20 +72,31 @@ export const columns: ColumnDef<Faculty>[] = [
     },
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
-
   {
     accessorKey: "occupied",
     header: "Occupied Hours",
     cell: ({ row }) => {
+      const state = useAppContext();
+      const { hours, days } = state;
       const occupied: number[] = row.original.occupied;
+
+      function resolveCell(hour: number) {
+        let cell: string = "";
+        const day = Math.floor(hour / hours!);
+        const hourWithinDay = (hour % hours!) + 1;
+        cell = String.fromCharCode(65 + day);
+        cell += hourWithinDay;
+        return cell;
+      }
+
       return (
-        <div className="flex gap-4 w-fit">
+        <div className="flex gap-2 w-fit">
           {occupied.map((hour: number, index: number) => (
             <div
               key={index}
-              className="px-2.5 py-1.5 rounded-md bg-rose-200 dark:bg-rose-400/[0.4]"
+              className="text-xs px-2 py-1 rounded-md bg-rose-200 dark:bg-rose-400/[0.4]"
             >
-              {hour}
+              {resolveCell(hour)}
             </div>
           ))}
         </div>
@@ -98,10 +110,12 @@ export const columns: ColumnDef<Faculty>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
+            <div className="flex justify-end">
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>

@@ -8,7 +8,10 @@ const GitHubLink = () => {
     <TooltipElement
       element={
         <Button size="icon" variant={"ghost"} asChild>
-          <Link href={"https://github.com/Sajith17/timecraft"} target="_blank">
+          <Link
+            href={"https://github.com/DenserMeerkat/timecraft"}
+            target="_blank"
+          >
             <Github className={"p-0.5"} />
           </Link>
         </Button>

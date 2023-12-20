@@ -13,12 +13,6 @@ import {
 } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -27,8 +21,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ChevronDownIcon } from "lucide-react";
 import { useAppContext } from "@/lib/AppStateContext";
 import { TableSkeleton } from "@/components/skeleton/TableSkeleton";
 
@@ -146,6 +138,9 @@ export const DataTable = (props: any) => {
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
+          <Button variant={"destructive"} onClick={() => {}}>
+            {`Delete (${table.getFilteredSelectedRowModel().rows.length})`}
+          </Button>
         </div>
       )}
     </div>

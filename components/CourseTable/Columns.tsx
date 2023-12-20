@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
+import { useAppContext } from "@/lib/AppStateContext";
 
 export const columns: ColumnDef<Course>[] = [
   {
@@ -79,15 +80,27 @@ export const columns: ColumnDef<Course>[] = [
     accessorKey: "available",
     header: "Available Hours",
     cell: ({ row }) => {
+      const state = useAppContext();
+      const { hours, days } = state;
       const available: number[] = row.original.available;
+
+      function resolveCell(hour: number) {
+        let cell: string = "";
+        const day = Math.floor(hour / hours!);
+        const hourWithinDay = (hour % hours!) + 1;
+        cell = String.fromCharCode(65 + day);
+        cell += hourWithinDay;
+        return cell;
+      }
+
       return (
-        <div className="flex gap-4 w-fit">
+        <div className="flex gap-2 w-fit">
           {available.map((hour: number, index: number) => (
             <div
               key={index}
-              className="px-2.5 py-1.5 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
+              className="text-xs px-2 py-1 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
             >
-              {hour}
+              {resolveCell(hour)}
             </div>
           ))}
         </div>
@@ -101,10 +114,12 @@ export const columns: ColumnDef<Course>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
+            <div className="flex justify-end">
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
