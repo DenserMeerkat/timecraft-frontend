@@ -76,31 +76,9 @@ export const columns: ColumnDef<Faculty>[] = [
     accessorKey: "occupied",
     header: "Occupied Hours",
     cell: ({ row }) => {
-      const state = useAppContext();
-      const { hours, days } = state;
       const occupied: number[] = row.original.occupied;
 
-      function resolveCell(hour: number) {
-        let cell: string = "";
-        const day = Math.floor(hour / hours!);
-        const hourWithinDay = (hour % hours!) + 1;
-        cell = String.fromCharCode(65 + day);
-        cell += hourWithinDay;
-        return cell;
-      }
-
-      return (
-        <div className="flex gap-2 w-fit">
-          {occupied.map((hour: number, index: number) => (
-            <div
-              key={index}
-              className="text-xs px-2 py-1 rounded-md bg-rose-200 dark:bg-rose-400/[0.4]"
-            >
-              {resolveCell(hour)}
-            </div>
-          ))}
-        </div>
-      );
+      return <OccupiedCell occupied={occupied} />;
     },
   },
   {
@@ -137,3 +115,31 @@ export const columns: ColumnDef<Faculty>[] = [
     },
   },
 ];
+
+const OccupiedCell = (props: any) => {
+  const { occupied } = props;
+  const state = useAppContext();
+  const { hours, days } = state;
+
+  function resolveCell(hour: number) {
+    let cell: string = "";
+    const day = Math.floor(hour / hours!);
+    const hourWithinDay = (hour % hours!) + 1;
+    cell = String.fromCharCode(65 + day);
+    cell += hourWithinDay;
+    return cell;
+  }
+
+  return (
+    <div className="flex gap-2 w-fit">
+      {occupied.map((hour: number, index: number) => (
+        <div
+          key={index}
+          className="text-xs px-2 py-1 rounded-md bg-rose-200 dark:bg-rose-400/[0.4]"
+        >
+          {resolveCell(hour)}
+        </div>
+      ))}
+    </div>
+  );
+};

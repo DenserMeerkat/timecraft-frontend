@@ -15,6 +15,34 @@ import {
 import { PenSquare, Trash2 } from "lucide-react";
 import { useAppContext } from "@/lib/AppStateContext";
 
+const AvailableCell = (props: any) => {
+  const { available } = props;
+  const state = useAppContext();
+  const { hours, days } = state;
+
+  function resolveCell(hour: number) {
+    let cell: string = "";
+    const day = Math.floor(hour / hours!);
+    const hourWithinDay = (hour % hours!) + 1;
+    cell = String.fromCharCode(65 + day);
+    cell += hourWithinDay;
+    return cell;
+  }
+
+  return (
+    <div className="flex gap-2 w-fit">
+      {available.map((hour: number, index: number) => (
+        <div
+          key={index}
+          className="text-xs px-2 py-1 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
+        >
+          {resolveCell(hour)}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const columns: ColumnDef<Course>[] = [
   {
     id: "select",
@@ -80,31 +108,9 @@ export const columns: ColumnDef<Course>[] = [
     accessorKey: "available",
     header: "Available Hours",
     cell: ({ row }) => {
-      const state = useAppContext();
-      const { hours, days } = state;
       const available: number[] = row.original.available;
 
-      function resolveCell(hour: number) {
-        let cell: string = "";
-        const day = Math.floor(hour / hours!);
-        const hourWithinDay = (hour % hours!) + 1;
-        cell = String.fromCharCode(65 + day);
-        cell += hourWithinDay;
-        return cell;
-      }
-
-      return (
-        <div className="flex gap-2 w-fit">
-          {available.map((hour: number, index: number) => (
-            <div
-              key={index}
-              className="text-xs px-2 py-1 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
-            >
-              {resolveCell(hour)}
-            </div>
-          ))}
-        </div>
-      );
+      return <AvailableCell available={available} />;
     },
   },
   {
