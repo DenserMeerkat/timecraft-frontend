@@ -8,7 +8,7 @@ import { useAppContext } from "@/lib/AppStateContext";
 import { AddCourse } from "./AddCourse";
 import SectionHeading from "../common/SectionHeading";
 import { BookOpen } from "lucide-react";
-import { TableSkeleton } from "../common/TableSkeleton";
+import { TableSkeleton } from "../skeleton/TableSkeleton";
 
 const CourseTable = () => {
   const { courses } = useAppContext();
@@ -75,15 +75,13 @@ const CourseTable = () => {
     },
   ];
   return (
-    <div className=" min-h-[200px] mb-6">
-      <SectionHeading Icon={BookOpen} title={"Courses"} />
+    <div className=" min-h-[200px] my-6">
+      <div className="flex items-center justify-between">
+        <SectionHeading Icon={BookOpen} title={"Courses"} />
+        <AddDialog itemName={"Course"} Content={AddCourse} />
+      </div>
       <Suspense fallback={<TableSkeleton />}>
-        <DataTable
-          columns={columns}
-          data={courses}
-          filterString={"name"}
-          addDialog={<AddDialog itemName={"Course"} Content={AddCourse} />}
-        />
+        <DataTable columns={columns} data={courses} />
       </Suspense>
     </div>
   );

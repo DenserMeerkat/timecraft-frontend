@@ -8,8 +8,8 @@ import React, {
 import { Faculty, Course } from "./types";
 
 interface AppContextType {
-  hours: number;
-  days: number;
+  hours: number | null;
+  days: number | null;
   lock: boolean;
   faculties: Faculty[];
   courses: Course[];
@@ -21,8 +21,8 @@ interface AppContextType {
 }
 
 const defaultAppContext: AppContextType = {
-  hours: 0,
-  days: 0,
+  hours: null,
+  days: null,
   lock: false,
   faculties: [],
   courses: [],

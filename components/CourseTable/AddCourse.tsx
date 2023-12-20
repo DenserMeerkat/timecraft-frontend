@@ -45,9 +45,9 @@ export const AddCourse = (props: any) => {
     hours: z.string().refine((value) => {
       const parsedValue = parseInt(value, 10);
       return (
-        !isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= hours * days
+        !isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= hours! * days!
       );
-    }, `Hours should be a number between 0 and ${hours * days}`),
+    }, `Hours should be a number between 0 and ${hours! * days!}`),
   });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -141,8 +141,8 @@ export const AddCourse = (props: any) => {
             <FormLabel>Available</FormLabel>
             <FormControl>
               <HourGrid
-                columns={hours}
-                rows={days}
+                columns={hours!}
+                rows={days!}
                 bg="sky"
                 value={selectedHours}
                 onChange={handleHourChange}

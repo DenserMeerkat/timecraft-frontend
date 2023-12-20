@@ -3,11 +3,11 @@ import { Input } from "@/components/ui/input";
 
 const CustomInput = (props: any) => {
   const defaultVal = props.defaultVal;
-  console.log(defaultVal);
   const direction: string = props.direction;
   const suffix: string = props.suffix;
   const updateContext = props.updateContext;
   const disabled = props.disabled;
+  const autofocus = props.autofocus;
   const [inputValue, setInputValue] = useState(defaultVal);
   const commonClasses = `ml-2 m-0 pl-3 h-12 rounded-none border-0 focus-visible:ring-0 focus-visible:bg-zinc-100 focus-visible:dark:bg-zinc-900/[0.6] focus-visible:border-zinc-400 focus-visible:dark:border-zinc-500 ${
     disabled
@@ -31,9 +31,9 @@ const CustomInput = (props: any) => {
       <Input
         disabled={disabled}
         type="number"
-        value={inputValue}
+        value={inputValue === 0 ? "" : inputValue}
         placeholder="0"
-        autoFocus
+        autoFocus={autofocus}
         onChange={handleInputChange}
         className={`${commonClasses} ${directionalClass}`}
       />

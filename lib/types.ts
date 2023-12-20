@@ -10,3 +10,8 @@ export interface Faculty {
   name: string;
   occupied: number[];
 }
+
+export interface Group {
+  id: number;
+  name: string;
+}

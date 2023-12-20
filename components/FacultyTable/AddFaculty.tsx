@@ -116,8 +116,8 @@ export const AddFaculty = (props: any) => {
           <FormItem>
             <FormLabel>Occupied</FormLabel>
             <HourGrid
-              columns={hours}
-              rows={days}
+              columns={hours!}
+              rows={days!}
               bg="rose"
               value={selectedHours}
               onChange={handleHourChange}

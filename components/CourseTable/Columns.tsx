@@ -54,6 +54,7 @@ export const columns: ColumnDef<Course>[] = [
       );
     },
     cell: ({ row }) => <div className="">{row.getValue("code")}</div>,
+    enableHiding: false,
   },
   {
     accessorKey: "name",
