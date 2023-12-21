@@ -97,7 +97,10 @@ export const AddSubject = () => {
           Add Subject
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"} className="dark:border-zinc-700">
+      <SheetContent
+        side={"left"}
+        className="dark:border-zinc-700 overflow-y-auto"
+      >
         <SheetHeader className="mb-6">
           <SheetTitle>{`New Subject`}</SheetTitle>
           <SheetDescription hidden>

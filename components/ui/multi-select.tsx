@@ -33,9 +33,12 @@ export function MultiSelect({
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
 
-  const handleUnselect = React.useCallback((item: Record<string, string>) => {
-    onChange((selected) => selected.filter((item1) => item1.id !== item.id));
-  }, []);
+  const handleUnselect = React.useCallback(
+    (item: Record<string, string>) => {
+      onChange((selected) => selected.filter((item1) => item1.id !== item.id));
+    },
+    [onChange]
+  );
 
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -55,7 +58,7 @@ export function MultiSelect({
         }
       }
     },
-    []
+    [onChange, selected]
   );
 
   const selectables = data.filter((item) => !selected.includes(item));
