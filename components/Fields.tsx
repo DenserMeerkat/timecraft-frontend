@@ -12,9 +12,7 @@ const Test = () => {
   const state = useAppContext();
   const { hours, days, lock, updateHours, updateDays, updateLock } = state;
   useEffect(() => {
-    setTimeout(() => {
-      setIsDomLoaded(true);
-    }, 1000);
+    setIsDomLoaded(true);
   }, [isDomLoaded]);
   if (!isDomLoaded) return <FieldSkeleton />;
   return (
@@ -34,7 +32,7 @@ const Test = () => {
         updateContext={updateHours}
       />
       <Toggle
-        disabled={hours == 0 || days == 0}
+        disabled={hours == 0 || days == 0 || hours == null || days == null}
         onClick={updateLock}
         className="ml-2 h-[2.6rem] w-12"
         pressed={lock}

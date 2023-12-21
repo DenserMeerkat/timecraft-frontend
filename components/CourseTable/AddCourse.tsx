@@ -67,13 +67,11 @@ export const AddCourse = (props: any) => {
       description: (
         <p>
           {data.code}
-          {data.name != "" ? (
+          {data.name && (
             <>
               <span className="mx-1">•</span>
               {data.name}
             </>
-          ) : (
-            ""
           )}
         </p>
       ),
@@ -105,7 +103,6 @@ export const AddCourse = (props: any) => {
                 <FormControl>
                   <Input placeholder="ABC123" {...field} />
                 </FormControl>
-                {/* <FormDescription>Course code.</FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -115,11 +112,13 @@ export const AddCourse = (props: any) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Course Name</FormLabel>
+                <FormLabel>
+                  Course Name{" "}
+                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                </FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                {/* <FormDescription>Course name.</FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -138,7 +137,10 @@ export const AddCourse = (props: any) => {
             )}
           />
           <FormItem>
-            <FormLabel>Available</FormLabel>
+            <FormLabel>
+              Available{" "}
+              <span className="opacity-50 text-xs">{`(optional)`}</span>
+            </FormLabel>
             <FormControl>
               <HourGrid
                 columns={hours!}

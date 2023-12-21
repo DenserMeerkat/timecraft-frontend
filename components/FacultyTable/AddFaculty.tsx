@@ -61,13 +61,11 @@ export const AddFaculty = (props: any) => {
       description: (
         <p>
           {data.code}
-          {data.name != "" ? (
+          {data.name && (
             <>
               <span className="mx-1">•</span>
               {data.name}
             </>
-          ) : (
-            ""
           )}
         </p>
       ),
@@ -106,7 +104,10 @@ export const AddFaculty = (props: any) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>
+                  Name{" "}
+                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                </FormLabel>
                 <Input id="name" placeholder="" {...field} />
                 <FormMessage />
               </FormItem>
@@ -114,7 +115,10 @@ export const AddFaculty = (props: any) => {
           />
 
           <FormItem>
-            <FormLabel>Occupied</FormLabel>
+            <FormLabel>
+              Occupied{" "}
+              <span className="opacity-50 text-xs">{`(optional)`}</span>
+            </FormLabel>
             <HourGrid
               columns={hours!}
               rows={days!}

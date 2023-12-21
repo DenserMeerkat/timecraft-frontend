@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 
 const CustomInput = (props: any) => {
@@ -26,6 +26,11 @@ const CustomInput = (props: any) => {
       }
     }
   };
+
+  useEffect(() => {
+    setInputValue(defaultVal);
+  }, [defaultVal]);
+
   return (
     <div className="relative">
       <Input

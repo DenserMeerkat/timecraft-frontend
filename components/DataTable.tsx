@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ColumnFiltersState,
   SortingState,
@@ -52,14 +51,11 @@ export const DataTable = (props: any) => {
     },
   });
   useEffect(() => {
-    setTimeout(() => {
-      setIsDomLoaded(true);
-    }, 1000);
+    setIsDomLoaded(true);
   }, [isDomLoaded]);
   if (!isDomLoaded) return <TableSkeleton />;
   return (
     <div>
-      <div className="relative flex gap-1 sm:gap-2 md:gap-4 items-center justify-between py-4"></div>
       <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/[0.4] dark:bg-zinc-950/[0.4]">
         <Table className="relative">
           <TableHeader>

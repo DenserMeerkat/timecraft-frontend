@@ -1,7 +1,7 @@
 export enum SubjectType {
-  CORE = "CORE",
-  ELECTIVE = "ELECTIVE",
-  SHARED = "SHARED",
+  CORE = "Core",
+  ELECTIVE = "Elective",
+  SHARED = "Shared",
 }
 
 export interface Course {
@@ -23,6 +23,7 @@ export interface Subject {
   type: SubjectType;
   faculties: Faculty[];
   courses: Course[];
+  ratio?: number[];
   group: string;
 }
 

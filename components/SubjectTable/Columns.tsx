@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Course } from "@/lib/types";
+import { Subject } from "@/lib/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
@@ -13,37 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
-import { useAppContext } from "@/lib/AppStateContext";
 
-const AvailableCell = (props: any) => {
-  const { available } = props;
-  const state = useAppContext();
-  const { hours, days } = state;
-
-  function resolveCell(hour: number) {
-    let cell: string = "";
-    const day = Math.floor(hour / hours!);
-    const hourWithinDay = (hour % hours!) + 1;
-    cell = String.fromCharCode(65 + day);
-    cell += hourWithinDay;
-    return cell;
-  }
-
-  return (
-    <div className="flex gap-2 w-fit">
-      {available.map((hour: number, index: number) => (
-        <div
-          key={index}
-          className="text-xs px-2 py-1 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
-        >
-          {resolveCell(hour)}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export const columns: ColumnDef<Course>[] = [
+export const columns: ColumnDef<Subject>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -101,16 +72,40 @@ export const columns: ColumnDef<Course>[] = [
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "hours",
-    header: "Hours",
+    accessorKey: "type",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("type")}</div>,
   },
   {
-    accessorKey: "available",
-    header: "Available Hours",
+    accessorKey: "faculties",
+    header: "Faculties",
     cell: ({ row }) => {
-      const available: number[] = row.original.available;
+      const items: string[] = row.original.faculties
+        ? row.original.faculties.map((faculty) => faculty.code)
+        : [];
 
-      return <AvailableCell available={available} />;
+      return <ItemsCell items={items} type={0} />;
+    },
+  },
+  {
+    accessorKey: "courses",
+    header: "Courses",
+    cell: ({ row }) => {
+      const items: string[] = row.original.courses
+        ? row.original.courses.map((course) => course.code)
+        : [];
+
+      return <ItemsCell items={items} type={1} />;
     },
   },
   {
@@ -147,3 +142,23 @@ export const columns: ColumnDef<Course>[] = [
     },
   },
 ];
+
+const ItemsCell = (props: any) => {
+  const { items, type } = props;
+  return (
+    <div className="flex gap-2 w-fit">
+      {items?.map((item: string, index: number) => (
+        <div
+          key={index}
+          className={`text-xs px-2 py-1 rounded-md ${
+            type == 0
+              ? "bg-rose-200 dark:bg-rose-400/[0.4] "
+              : "bg-cyan-200 dark:bg-cyan-400/[0.4] "
+          } `}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+};

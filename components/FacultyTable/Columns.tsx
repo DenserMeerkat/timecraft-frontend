@@ -87,14 +87,14 @@ export const columns: ColumnDef<Faculty>[] = [
     cell: ({ row }) => {
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex justify-end">
+          <div className="flex justify-end">
+            <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
                 <DotsHorizontalIcon className="h-4 w-4" />
               </Button>
-            </div>
-          </DropdownMenuTrigger>
+            </DropdownMenuTrigger>
+          </div>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />

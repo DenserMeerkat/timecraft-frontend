@@ -15,13 +15,14 @@ interface AppContextType {
   courses: Course[];
   subjects: Subject[];
   groups: string[];
-  updateHours: (hours: number) => void;
-  updateDays: (days: number) => void;
+  updateHours: (hours: number | null) => void;
+  updateDays: (days: number | null) => void;
   updateLock: () => void;
   updateFaculties: (faculties: Faculty[]) => void;
   updateCourses: (courses: Course[]) => void;
   updateSubjects: (subjects: Subject[]) => void;
   updateGroups: (groups: string[]) => void;
+  reset: () => void;
 }
 
 const defaultAppContext: AppContextType = {
@@ -39,6 +40,7 @@ const defaultAppContext: AppContextType = {
   updateCourses: () => {},
   updateSubjects: () => {},
   updateGroups: () => {},
+  reset: () => {},
 };
 const AppContext = createContext<AppContextType>(defaultAppContext);
 
@@ -49,17 +51,17 @@ interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }) => {
-  const [hours, setHours] = useState(0);
-  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState<number | null>(null);
+  const [days, setDays] = useState<number | null>(null);
   const [lock, setLock] = useState(false);
   const [faculties, setFaculties] = useState([] as Faculty[]);
   const [courses, setCourses] = useState([] as Course[]);
   const [subjects, setSubjects] = useState([] as Subject[]);
   const [groups, setGroups] = useState([] as string[]);
-  const updateHours = (hours: number) => {
+  const updateHours = (hours: number | null) => {
     setHours(hours);
   };
-  const updateDays = (days: number) => {
+  const updateDays = (days: number | null) => {
     setDays(days);
   };
   const updateLock = () => {
@@ -77,6 +79,18 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const updateGroups = (groups: string[]) => {
     setGroups(groups);
   };
+
+  const resetState = () => {
+    setHours(0);
+    setDays(0);
+    setLock(false);
+    setFaculties([]);
+    setCourses([]);
+    setSubjects([]);
+    setGroups([]);
+    localStorage.removeItem("appState");
+  };
+
   const state: AppContextType = {
     hours,
     days,
@@ -92,6 +106,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     updateFaculties,
     updateSubjects,
     updateGroups,
+    reset: resetState,
   };
 
   useEffect(() => {
@@ -106,6 +121,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       setSubjects(parsedState.subjects);
       setGroups(parsedState.groups);
     }
+    console.log("storedState", storedState);
   }, []);
 
   useEffect(() => {
