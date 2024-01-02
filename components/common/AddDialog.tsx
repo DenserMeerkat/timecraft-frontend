@@ -13,7 +13,7 @@ const AddDialog = (props: any) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild disabled={!lock}>
-        <Button size={"sm"}>
+        <Button size={"sm"} variant={"secondary"}>
           <p>Add {itemName}</p>
         </Button>
       </AlertDialogTrigger>

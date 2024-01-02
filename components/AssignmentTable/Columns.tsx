@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Subject } from "@/lib/types";
+import { Faculty, Course, Assignment } from "@/lib/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
 
-export const columns: ColumnDef<Subject>[] = [
+export const columns: ColumnDef<Assignment>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -91,7 +91,7 @@ export const columns: ColumnDef<Subject>[] = [
     header: "Faculties",
     cell: ({ row }) => {
       const items: string[] = row.original.faculties
-        ? row.original.faculties.map((faculty) => faculty.code)
+        ? row.original.faculties.map((faculty: Faculty) => faculty.code)
         : [];
 
       return <ItemsCell items={items} type={0} />;
@@ -102,7 +102,7 @@ export const columns: ColumnDef<Subject>[] = [
     header: "Courses",
     cell: ({ row }) => {
       const items: string[] = row.original.courses
-        ? row.original.courses.map((course) => course.code)
+        ? row.original.courses.map((course: Course) => course.code)
         : [];
 
       return <ItemsCell items={items} type={1} />;

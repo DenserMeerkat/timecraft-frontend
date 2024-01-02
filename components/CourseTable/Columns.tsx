@@ -101,19 +101,6 @@ export const columns: ColumnDef<Course>[] = [
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "hours",
-    header: "Hours",
-  },
-  {
-    accessorKey: "available",
-    header: "Available Hours",
-    cell: ({ row }) => {
-      const available: number[] = row.original.available;
-
-      return <AvailableCell available={available} />;
-    },
-  },
-  {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {

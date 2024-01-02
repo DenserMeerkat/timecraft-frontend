@@ -25,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { Course } from "@/lib/types";
 import { ToastAction } from "@/components/ui/toast";
+import { courseSchema } from "@/lib/schemas";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
@@ -33,32 +34,30 @@ export const AddCourse = (props: any) => {
   const handleHourChange = (newValue: number[]) => {
     setSelectedHours(newValue);
   };
-  const FormSchema = z.object({
-    code: z
-      .string()
-      .length(6, { message: "Must be 6 characters" })
-      .refine((value) => {
-        const isCodeUnique = courses.every((course) => course.code !== value);
-        return isCodeUnique;
-      }, "Code must be unique"),
-    name: z.string().optional(),
-    hours: z.string().refine((value) => {
-      const parsedValue = parseInt(value, 10);
-      return (
-        !isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= hours! * days!
-      );
-    }, `Hours should be a number between 0 and ${hours! * days!}`),
-  });
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  // const FormSchema = z.object({
+  //   code: z
+  //     .string()
+  //     .length(6, { message: "Must be 6 characters" })
+  //     .refine((value) => {
+  //       const isCodeUnique = courses.every((course) => course.code !== value);
+  //       return isCodeUnique;
+  //     }, "Code must be unique"),
+  //   name: z.string().optional(),
+  //   hours: z.string().refine((value) => {
+  //     const parsedValue = parseInt(value, 10);
+  //     return (
+  //       !isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= hours! * days!
+  //     );
+  //   }, `Hours should be a number between 0 and ${hours! * days!}`),
+  // });
+  const form = useForm<z.infer<typeof courseSchema>>({
+    resolver: zodResolver(courseSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof courseSchema>) {
     const course: Course = {
       code: data.code,
       name: data.name || "",
-      hours: +(data.hours || "0"),
-      available: selectedHours,
     };
     updateCourses([...courses, course]);
     closeDialog();
@@ -85,7 +84,7 @@ export const AddCourse = (props: any) => {
   };
 
   return (
-    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-screen overflow-y-auto">
+    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto">
       <AlertDialogHeader>
         <AlertDialogTitle>New Course</AlertDialogTitle>
         <AlertDialogDescription>
@@ -123,7 +122,7 @@ export const AddCourse = (props: any) => {
               </FormItem>
             )}
           />{" "}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="hours"
             render={({ field }) => (
@@ -151,7 +150,7 @@ export const AddCourse = (props: any) => {
               />
             </FormControl>
             <FormMessage />
-          </FormItem>
+          </FormItem> */}
           <AlertDialogFooter className="pt-4">
             <Button
               variant={"secondary"}

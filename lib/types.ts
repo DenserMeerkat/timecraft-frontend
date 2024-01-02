@@ -1,33 +1,19 @@
-export enum SubjectType {
+import * as z from "zod";
+import { assignmentSchema, courseSchema, facultySchema } from "./schemas";
+
+export enum CourseType {
   CORE = "Core",
   ELECTIVE = "Elective",
   SHARED = "Shared",
 }
 
-export interface Course {
-  code: string;
-  name: string;
-  hours: number;
-  available: number[];
-}
+export type Course = z.infer<typeof courseSchema>;
 
-export interface Faculty {
-  code: string;
-  name: string;
-  occupied: number[];
-}
+export type Faculty = z.infer<typeof facultySchema>;
 
-export interface Subject {
-  code: string;
-  name: string;
-  type: SubjectType;
-  faculties: Faculty[];
-  courses: Course[];
-  ratio?: number[];
-  group: string;
-}
+export type Assignment = z.infer<typeof assignmentSchema>;
 
-export interface Schedule {
+export type Schedule = {
   id: string;
   periods: number[];
-}
+};

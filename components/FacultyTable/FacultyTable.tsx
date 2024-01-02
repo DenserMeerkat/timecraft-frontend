@@ -8,12 +8,14 @@ import { AddFaculty } from "./AddFaculty";
 import { GraduationCap } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";
 import { TableSkeleton } from "../skeleton/TableSkeleton";
+import { cn } from "@/lib/utils";
 
-const FacultyTable = () => {
+const FacultyTable = (props: any) => {
+  const className: string = props.className;
   const { faculties } = useAppContext();
 
   return (
-    <div className="min-h-[200px] mb-12">
+    <div className={cn("min-h-[200px] my-6 w-full", className)}>
       <div className="flex items-center justify-between mb-8">
         <SectionHeading Icon={GraduationCap} title={"Faculties"} />
         <AddDialog itemName={"Faculty"} Content={AddFaculty} />
