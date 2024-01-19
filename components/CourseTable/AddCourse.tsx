@@ -19,46 +19,35 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAppContext } from "@/lib/AppStateContext";
-import HourGrid from "../common/HourGrid";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { Course } from "@/lib/types";
 import { ToastAction } from "@/components/ui/toast";
 import { courseSchema } from "@/lib/schemas";
+import MultiSelect from "../common/MultiSelect";
+import HourDistribution from "../common/HourDistribution";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
-  const { hours, days, courses, updateCourses } = useAppContext();
-  const [selectedHours, setSelectedHours] = useState<number[]>([]);
-  const handleHourChange = (newValue: number[]) => {
-    setSelectedHours(newValue);
-  };
-  // const FormSchema = z.object({
-  //   code: z
-  //     .string()
-  //     .length(6, { message: "Must be 6 characters" })
-  //     .refine((value) => {
-  //       const isCodeUnique = courses.every((course) => course.code !== value);
-  //       return isCodeUnique;
-  //     }, "Code must be unique"),
-  //   name: z.string().optional(),
-  //   hours: z.string().refine((value) => {
-  //     const parsedValue = parseInt(value, 10);
-  //     return (
-  //       !isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= hours! * days!
-  //     );
-  //   }, `Hours should be a number between 0 and ${hours! * days!}`),
-  // });
+  const [ratioEnabled, setRatioEnabled] = useState(false);
+  const { faculties, courses, updateCourses } = useAppContext();
+
   const form = useForm<z.infer<typeof courseSchema>>({
     resolver: zodResolver(courseSchema),
   });
 
+  useEffect(() => {
+    if (form.getValues("hours") === 0) {
+      setRatioEnabled(false);
+    }
+    if (form.getValues("faculties")?.length === 0) {
+      setRatioEnabled(false);
+    }
+  }, [form.watch("hours"), form.watch("faculties")]);
+
   function onSubmit(data: z.infer<typeof courseSchema>) {
-    const course: Course = {
-      code: data.code,
-      name: data.name || "",
-    };
+    const course: Course = data;
     updateCourses([...courses, course]);
     closeDialog();
     toast({
@@ -79,7 +68,6 @@ export const AddCourse = (props: any) => {
 
   const closeDialog = () => {
     form.reset();
-    setSelectedHours([]);
     setOpen(false);
   };
 
@@ -121,8 +109,31 @@ export const AddCourse = (props: any) => {
                 <FormMessage />
               </FormItem>
             )}
-          />{" "}
-          {/* <FormField
+          />
+          <FormField
+            control={form.control}
+            name="faculties"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Faculties</FormLabel>
+                <FormControl>
+                  <MultiSelect
+                    {...field}
+                    data={faculties ?? []}
+                    placeholder={
+                      faculties?.length === 0
+                        ? "No faculties"
+                        : "Select Faculties"
+                    }
+                    value={field.value ?? []}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
             control={form.control}
             name="hours"
             render={({ field }) => (
@@ -135,22 +146,45 @@ export const AddCourse = (props: any) => {
               </FormItem>
             )}
           />
-          <FormItem>
-            <FormLabel>
-              Available{" "}
-              <span className="opacity-50 text-xs">{`(optional)`}</span>
-            </FormLabel>
-            <FormControl>
-              <HourGrid
-                columns={hours!}
-                rows={days!}
-                bg="sky"
-                value={selectedHours}
-                onChange={handleHourChange}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem> */}
+          <FormField
+            control={form.control}
+            name="hoursDistribution"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Course Name{" "}
+                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                </FormLabel>
+                <FormControl>
+                  <HourDistribution
+                    {...field}
+                    max={form.getValues("hours")}
+                    data={form.getValues("faculties")}
+                    disabled={ratioEnabled}
+                    value={field.value ?? []}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="studentGroup"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Course Name{" "}
+                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <AlertDialogFooter className="pt-4">
             <Button
               variant={"secondary"}

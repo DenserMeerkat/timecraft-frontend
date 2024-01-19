@@ -76,7 +76,7 @@ export const columns: ColumnDef<Faculty>[] = [
     accessorKey: "occupied",
     header: "Occupied Hours",
     cell: ({ row }) => {
-      const occupied: number[] = row.original.occupiedHours;
+      const occupied: number[] = row.original.occupiedSlots;
 
       return <OccupiedCell occupied={occupied} />;
     },

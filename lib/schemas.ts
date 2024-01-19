@@ -1,23 +1,21 @@
 import * as z from "zod";
-import { CourseType } from "./types";
 
 export const facultySchema = z.object({
   code: z.string(),
-  name: z.string(),
-  occupiedHours: z.array(z.number()),
+  name: z.string().optional(),
+  occupiedSlots: z.array(z.number()).optional(),
 });
 
 export const courseSchema = z.object({
   code: z.string(),
-  name: z.string(),
+  name: z.string().optional(),
+  faculties: z.array(facultySchema),
+  hours: z.number(),
+  hoursDistribution: z.array(z.number()).optional(),
+  studentGroup: z.string(),
 });
 
-export const assignmentSchema = z.object({
-  courseType: z.nativeEnum(CourseType),
-  faculties: z.array(facultySchema),
+export const joinCoursesSchema = z.object({
   courses: z.array(courseSchema),
-  ratio: z.array(z.number()).optional(),
-  studentGroup: z.string(),
-  hours: z.number(),
-  weightedHours: z.array(z.number()).optional(),
+  fixedSlots: z.array(z.number()).optional(),
 });

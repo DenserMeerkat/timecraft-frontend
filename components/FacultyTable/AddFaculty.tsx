@@ -51,7 +51,7 @@ export const AddFaculty = (props: any) => {
     const faculty: Faculty = {
       code: data.code,
       name: data.name || "",
-      occupiedHours: selectedHours,
+      occupiedSlots: selectedHours,
     };
     updateFaculties([...faculties, faculty]);
     form.reset();

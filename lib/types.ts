@@ -1,17 +1,11 @@
 import * as z from "zod";
-import { assignmentSchema, courseSchema, facultySchema } from "./schemas";
-
-export enum CourseType {
-  CORE = "Core",
-  ELECTIVE = "Elective",
-  SHARED = "Shared",
-}
+import { courseSchema, facultySchema, joinCoursesSchema } from "./schemas";
 
 export type Course = z.infer<typeof courseSchema>;
 
 export type Faculty = z.infer<typeof facultySchema>;
 
-export type Assignment = z.infer<typeof assignmentSchema>;
+export type JointCourseSchema = z.infer<typeof joinCoursesSchema>;
 
 export type Schedule = {
   id: string;

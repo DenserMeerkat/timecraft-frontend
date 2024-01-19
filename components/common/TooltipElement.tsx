@@ -10,7 +10,7 @@ const TooltipElement = (props: any) => {
   const tooltip = props.tooltip;
   const side = props.side || "top";
   return (
-    <TooltipProvider delayDuration={100}>
+    <TooltipProvider delayDuhoursDistributionn={100}>
       <Tooltip>
         <TooltipTrigger asChild>{element}</TooltipTrigger>
         <TooltipContent sideOffset={20} side={side}>
