@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { Faculty, Course, Assignment } from "./types";
+import { Faculty, Course, JointCourseSchema } from "./types";
 
 interface AppContextType {
   hours: number | null;
@@ -13,14 +13,14 @@ interface AppContextType {
   lock: boolean;
   faculties: Faculty[];
   courses: Course[];
-  subjects: Assignment[];
+  subjects: JointCourseSchema[];
   groups: string[];
   updateHours: (hours: number | null) => void;
   updateDays: (days: number | null) => void;
   updateLock: () => void;
   updateFaculties: (faculties: Faculty[]) => void;
   updateCourses: (courses: Course[]) => void;
-  updateAssignments: (subjects: Assignment[]) => void;
+  updateJointCourseSchemas: (subjects: JointCourseSchema[]) => void;
   updateGroups: (groups: string[]) => void;
   reset: () => void;
 }
@@ -38,7 +38,7 @@ const defaultAppContext: AppContextType = {
   updateLock: () => {},
   updateFaculties: () => {},
   updateCourses: () => {},
-  updateAssignments: () => {},
+  updateJointCourseSchemas: () => {},
   updateGroups: () => {},
   reset: () => {},
 };
@@ -56,7 +56,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [lock, setLock] = useState(false);
   const [faculties, setFaculties] = useState([] as Faculty[]);
   const [courses, setCourses] = useState([] as Course[]);
-  const [subjects, setAssignments] = useState([] as Assignment[]);
+  const [subjects, setJointCourseSchemas] = useState([] as JointCourseSchema[]);
   const [groups, setGroups] = useState([] as string[]);
   const updateHours = (hours: number | null) => {
     setHours(hours);
@@ -73,8 +73,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const updateCourses = (courses: Course[]) => {
     setCourses(courses);
   };
-  const updateAssignments = (subjects: Assignment[]) => {
-    setAssignments(subjects);
+  const updateJointCourseSchemas = (subjects: JointCourseSchema[]) => {
+    setJointCourseSchemas(subjects);
   };
   const updateGroups = (groups: string[]) => {
     setGroups(groups);
@@ -86,7 +86,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     setLock(false);
     setFaculties([]);
     setCourses([]);
-    setAssignments([]);
+    setJointCourseSchemas([]);
     setGroups([]);
     localStorage.removeItem("appState");
   };
@@ -104,7 +104,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     updateDays,
     updateCourses,
     updateFaculties,
-    updateAssignments,
+    updateJointCourseSchemas,
     updateGroups,
     reset: resetState,
   };
@@ -118,7 +118,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       setLock(parsedState.lock);
       setFaculties(parsedState.faculties);
       setCourses(parsedState.courses);
-      setAssignments(parsedState.subjects);
+      setJointCourseSchemas(parsedState.subjects);
       setGroups(parsedState.groups);
     }
     console.log("storedState", storedState);

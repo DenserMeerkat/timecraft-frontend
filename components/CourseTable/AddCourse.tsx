@@ -23,31 +23,68 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { Course } from "@/lib/types";
-import { ToastAction } from "@/components/ui/toast";
-import { courseSchema } from "@/lib/schemas";
+import { courseSchema, facultySchema } from "@/lib/schemas";
 import MultiSelect from "../common/MultiSelect";
-import HourDistribution from "../common/HourDistribution";
+import HourDistribution from "./HourDistribution";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
   const [ratioEnabled, setRatioEnabled] = useState(false);
-  const { faculties, courses, updateCourses } = useAppContext();
+  const [showHourDistribution, setShowHourDistribution] = useState(false);
+  const { hours, days, faculties, courses, updateCourses } = useAppContext();
 
-  const form = useForm<z.infer<typeof courseSchema>>({
-    resolver: zodResolver(courseSchema),
+  const CourseSchema = z.object({
+    code: z
+      .string()
+      .min(1, { message: "Minimum 1 character" })
+      .max(8, { message: "Maximum 8 characters" })
+      .refine((value) => {
+        const isCodeUnique = courses.every((course) => course.code !== value);
+        return isCodeUnique;
+      }, "Code must be unique"),
+    name: z.string().optional(),
+    faculties: z
+      .array(facultySchema)
+      .min(1, { message: "Select at least one" })
+      .max(2, { message: "Select at most two" }),
+    hours: z
+      .number()
+      .min(1, { message: "Enter valid hours" })
+      .max((hours ?? 1) * (days ?? 1), { message: "Exceeded max hours" }),
+    hoursDistribution: z.array(z.number()).optional(),
+    studentGroup: z.string().min(1),
+  });
+
+  const form = useForm<z.infer<typeof CourseSchema>>({
+    resolver: zodResolver(CourseSchema),
   });
 
   useEffect(() => {
+    if (form.getValues("faculties")?.length > 1) {
+      setShowHourDistribution(true);
+    } else {
+      setShowHourDistribution(false);
+    }
     if (form.getValues("hours") === 0) {
       setRatioEnabled(false);
     }
-    if (form.getValues("faculties")?.length === 0) {
+    if (
+      form.getValues("hours") > 0 &&
+      form.getValues("faculties")?.length > 0
+    ) {
       setRatioEnabled(false);
     }
-  }, [form.watch("hours"), form.watch("faculties")]);
+  }, [form]);
 
-  function onSubmit(data: z.infer<typeof courseSchema>) {
-    const course: Course = data;
+  function onSubmit(data: z.infer<typeof CourseSchema>) {
+    const course: Course = {
+      code: data.code,
+      name: data.name || "",
+      faculties: data.faculties,
+      hours: data.hours,
+      hoursDistribution: data.hoursDistribution,
+      studentGroup: data.studentGroup,
+    };
     updateCourses([...courses, course]);
     closeDialog();
     toast({
@@ -146,36 +183,38 @@ export const AddCourse = (props: any) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="hoursDistribution"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Course Name{" "}
-                  <span className="opacity-50 text-xs">{`(optional)`}</span>
-                </FormLabel>
-                <FormControl>
-                  <HourDistribution
-                    {...field}
-                    max={form.getValues("hours")}
-                    data={form.getValues("faculties")}
-                    disabled={ratioEnabled}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {showHourDistribution && (
+            <FormField
+              control={form.control}
+              name="hoursDistribution"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Course Name
+                    <span className="opacity-50 text-xs">{`(optional)`}</span>
+                  </FormLabel>
+                  <FormControl>
+                    <HourDistribution
+                      {...field}
+                      max={form.getValues("hours")}
+                      data={form.getValues("faculties")}
+                      disabled={ratioEnabled}
+                      value={field.value ?? []}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           <FormField
             control={form.control}
             name="studentGroup"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Course Name{" "}
+                  Student Group
                   <span className="opacity-50 text-xs">{`(optional)`}</span>
                 </FormLabel>
                 <FormControl>

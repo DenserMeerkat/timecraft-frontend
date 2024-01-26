@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "@/lib/utils";
-
-type ItemType = { code: string; name?: string };
+import { ItemType } from "@/lib/types";
 
 export interface MultiSelectProps<T extends ItemType> {
   label?: string;
@@ -28,16 +27,33 @@ export const MultiSelect = ({
 }: MultiSelectProps<any>) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState(value);
+  const [selectable, setSelectable] = React.useState(
+    data.filter((item) => !value.includes(item))
+  );
   const [inputValue, setInputValue] = React.useState("");
   const disabled = data.length === 0;
 
   const handleUnselect = React.useCallback(
     (item: ItemType) => {
-      onChange((selected) =>
-        selected.filter((item1) => item1.code !== item.code)
-      );
+      const newSelected = selected.filter((i) => i.code !== item.code);
+      setSelected(newSelected);
+      setSelectable((prev) => [...prev, item]);
+      onChange(newSelected);
     },
-    [onChange]
+    [onChange, selected]
+  );
+
+  const handleSelect = React.useCallback(
+    (item: ItemType) => {
+      setInputValue("");
+      if (!selected.includes(item)) {
+        setSelected((prev) => [...prev, item]);
+        setSelectable((prev) => prev.filter((i) => i !== item));
+        onChange([...selected, item]);
+      }
+    },
+    [onChange, selected]
   );
 
   const handleKeyDown = React.useCallback(
@@ -58,20 +74,16 @@ export const MultiSelect = ({
         }
       }
     },
-    []
-  );
-
-  const [selectables, setSelectables] = React.useState(
-    data.filter((item) => !value.includes(item))
+    [onChange, value]
   );
 
   React.useEffect(() => {
-    setSelectables(data.filter((item) => !value.includes(item)));
-    if (value.length === 2) {
+    setSelectable(data.filter((item) => !selected.includes(item)));
+    if (selected.length === 2) {
       setInputValue("");
       setOpen(false);
     }
-  }, [value, data]);
+  }, [value, data, selected]);
 
   return (
     <div
@@ -88,11 +100,12 @@ export const MultiSelect = ({
       >
         <div className="group border border-input dark:border-zinc-800 px-3 py-2 text-sm rounded-md focus-within:ring-1 focus-within:ring-zinc-100">
           <div className="flex gap-1 flex-wrap">
-            {value.map((item) => {
+            {selected.map((item) => {
               return (
                 <Badge key={item.code} variant="secondary">
                   {item.code}
                   <button
+                    type="button"
                     className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
@@ -112,7 +125,6 @@ export const MultiSelect = ({
                 </Badge>
               );
             })}
-            {/* Avoid having the "Search" Icon */}
             <CommandPrimitive.Input
               ref={inputRef}
               value={inputValue}
@@ -129,10 +141,10 @@ export const MultiSelect = ({
           </div>
         </div>
         <div className="relative mt-2">
-          {open && selectables.length > 0 ? (
+          {open && selectable.length > 0 ? (
             <div className="bg-zinc-50 dark:bg-zinc-950 absolute w-full top-0 rounded-md border dark:border-zinc-700 bg-popover text-popover-foreground shadow-md outline-none animate-in">
               <CommandGroup className="h-full overflow-auto">
-                {selectables.map((item) => {
+                {selectable.map((item) => {
                   return (
                     <CommandItem
                       key={item.code}
@@ -140,9 +152,8 @@ export const MultiSelect = ({
                         e.preventDefault();
                         e.stopPropagation();
                       }}
-                      onSelect={(newValue) => {
-                        setInputValue("");
-                        onChange((prev) => [...value, item]);
+                      onSelect={(value) => {
+                        handleSelect(item);
                       }}
                       className={"cursor-pointer"}
                     >

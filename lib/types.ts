@@ -11,3 +11,5 @@ export type Schedule = {
   id: string;
   periods: number[];
 };
+
+export type ItemType = { code: string; name?: string };

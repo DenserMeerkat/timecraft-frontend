@@ -1,7 +1,7 @@
 import FacultyTable from "@/components/FacultyTable/FacultyTable";
 import CourseTable from "@/components/CourseTable/CourseTable";
 import Fields from "@/components/Fields";
-import AssignmentTable from "@/components/AssignmentTable/AssignmentTable";
+// import AssignmentTable from "@/components/AssignmentTable/AssignmentTable";
 
 export default function Home() {
   return (
