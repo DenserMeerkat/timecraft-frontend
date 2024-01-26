@@ -69,17 +69,19 @@ export const AddCourse = (props: any) => {
   });
 
   useEffect(() => {
-    if (form.getValues("faculties")?.length > 1) {
+    const faculties = form.getValues("faculties");
+    const hours = form.getValues("hours");
+    if (faculties?.length > 1) {
       setShowHourDistribution(true);
     } else {
       setShowHourDistribution(false);
     }
-    if (form.getValues("hours") === 0) {
-      setRatioEnabled(false);
+    if (hours == null || hours <= 0) {
+      setRatioEnabled(true);
     } else {
       setRatioEnabled(false);
     }
-  }, [form]);
+  }, [form.watch("faculties"), form.watch("hours")]);
 
   function onSubmit(data: z.infer<typeof CourseSchema>) {
     const course: Course = {
