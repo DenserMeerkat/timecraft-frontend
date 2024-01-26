@@ -94,7 +94,13 @@ export const AddFaculty = (props: any) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Code</FormLabel>
-                <Input id="code" placeholder="" {...field} />
+                <Input
+                  id="code"
+                  placeholder=""
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -108,7 +114,13 @@ export const AddFaculty = (props: any) => {
                   Name{" "}
                   <span className="opacity-50 text-xs">{`(optional)`}</span>
                 </FormLabel>
-                <Input id="name" placeholder="" {...field} />
+                <Input
+                  id="name"
+                  placeholder=""
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
                 <FormMessage />
               </FormItem>
             )}

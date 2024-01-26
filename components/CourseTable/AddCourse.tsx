@@ -26,12 +26,21 @@ import { Course } from "@/lib/types";
 import { courseSchema, facultySchema } from "@/lib/schemas";
 import MultiSelect from "../common/MultiSelect";
 import HourDistribution from "./HourDistribution";
+import AutoComplete from "../common/AutoComplete";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
   const [ratioEnabled, setRatioEnabled] = useState(false);
   const [showHourDistribution, setShowHourDistribution] = useState(false);
-  const { hours, days, faculties, courses, updateCourses } = useAppContext();
+  const {
+    hours,
+    days,
+    faculties,
+    courses,
+    groups,
+    updateCourses,
+    updateGroups,
+  } = useAppContext();
 
   const CourseSchema = z.object({
     code: z
@@ -67,11 +76,7 @@ export const AddCourse = (props: any) => {
     }
     if (form.getValues("hours") === 0) {
       setRatioEnabled(false);
-    }
-    if (
-      form.getValues("hours") > 0 &&
-      form.getValues("faculties")?.length > 0
-    ) {
+    } else {
       setRatioEnabled(false);
     }
   }, [form]);
@@ -125,7 +130,12 @@ export const AddCourse = (props: any) => {
               <FormItem>
                 <FormLabel>Code</FormLabel>
                 <FormControl>
-                  <Input placeholder="ABC123" {...field} />
+                  <Input
+                    placeholder="ABC123"
+                    {...field}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,7 +151,11 @@ export const AddCourse = (props: any) => {
                   <span className="opacity-50 text-xs">{`(optional)`}</span>
                 </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -177,7 +191,11 @@ export const AddCourse = (props: any) => {
               <FormItem>
                 <FormLabel>Hours</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -189,10 +207,7 @@ export const AddCourse = (props: any) => {
               name="hoursDistribution"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Course Name
-                    <span className="opacity-50 text-xs">{`(optional)`}</span>
-                  </FormLabel>
+                  <FormLabel>Hour Distribution</FormLabel>
                   <FormControl>
                     <HourDistribution
                       {...field}
@@ -213,12 +228,16 @@ export const AddCourse = (props: any) => {
             name="studentGroup"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Student Group
-                  <span className="opacity-50 text-xs">{`(optional)`}</span>
-                </FormLabel>
+                <FormLabel>Student Group</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <AutoComplete
+                    key={field.value}
+                    data={groups}
+                    {...field}
+                    updateData={updateGroups}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
