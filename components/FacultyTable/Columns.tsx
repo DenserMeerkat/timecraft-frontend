@@ -135,7 +135,7 @@ const OccupiedCell = (props: any) => {
       {occupied.map((hour: number, index: number) => (
         <div
           key={index}
-          className="text-xs px-2 py-1 rounded-md bg-rose-200 dark:bg-rose-400/[0.4]"
+          className="text-xs px-2 py-1 rounded-md bg-rose-200 dark:bg-rose-400/40"
         >
           {resolveCell(hour)}
         </div>

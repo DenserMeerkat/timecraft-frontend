@@ -56,7 +56,7 @@ export const DataTable = (props: any) => {
   if (!isDomLoaded) return <TableSkeleton />;
   return (
     <div>
-      <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/[0.4] dark:bg-zinc-950/[0.4]">
+      <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/40 dark:bg-zinc-950/40">
         <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -23,9 +23,9 @@ const toggleVariants = cva(
       color: {
         zinc: "data-[state=on]:bg-zinc-100 dark:hover:bg-zinc-800 dark:data-[state=on]:bg-zinc-800 ",
 
-        rose: "hover:bg-rose-100 data-[state=on]:bg-rose-200 dark:hover:bg-rose-400/[0.2] dark:data-[state=on]:bg-rose-400/[0.4]",
+        rose: "hover:bg-rose-100 data-[state=on]:bg-rose-200 dark:hover:bg-rose-400/20 dark:data-[state=on]:bg-rose-400/40",
 
-        sky: "hover:bg-sky-100 data-[state=on]:bg-sky-200 dark:hover:bg-sky-400/[0.2] dark:data-[state=on]:bg-sky-400/[0.4]",
+        sky: "hover:bg-sky-100 data-[state=on]:bg-sky-200 dark:hover:bg-sky-400/20 dark:data-[state=on]:bg-sky-400/40",
       },
     },
     defaultVariants: {

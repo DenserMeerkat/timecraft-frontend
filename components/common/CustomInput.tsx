@@ -11,7 +11,7 @@ const CustomInput = (props: any) => {
   const [inputValue, setInputValue] = useState(defaultVal);
   const commonClasses = `ml-2 m-0 pl-3 h-12 rounded-none border-0 focus-visible:ring-0 focus-visible:bg-zinc-100 focus-visible:dark:bg-zinc-900/[0.6] focus-visible:border-zinc-400 focus-visible:dark:border-zinc-500 ${
     disabled
-      ? "bg-zinc-100 dark:bg-zinc-950/[0.4]"
+      ? "bg-zinc-100 dark:bg-zinc-950/40"
       : "bg-white dark:bg-zinc-950/[0.9]"
   } text-lg font-semibold`;
   const directionalClass = `border-2 border-zinc-200 dark:border-zinc-800 

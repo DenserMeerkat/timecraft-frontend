@@ -152,8 +152,8 @@
 //           key={index}
 //           className={`text-xs px-2 py-1 rounded-md ${
 //             type == 0
-//               ? "bg-rose-200 dark:bg-rose-400/[0.4] "
-//               : "bg-cyan-200 dark:bg-cyan-400/[0.4] "
+//               ? "bg-rose-200 dark:bg-rose-400/40 "
+//               : "bg-cyan-200 dark:bg-cyan-400/40 "
 //           } `}
 //         >
 //           {item}

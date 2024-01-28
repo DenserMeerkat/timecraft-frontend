@@ -34,7 +34,7 @@ const AvailableCell = (props: any) => {
       {available.map((hour: number, index: number) => (
         <div
           key={index}
-          className="text-xs px-2 py-1 rounded-md bg-sky-200 dark:bg-sky-400/[0.4]"
+          className="text-xs px-2 py-1 rounded-md bg-sky-200 dark:bg-sky-400/40"
         >
           {resolveCell(hour)}
         </div>
