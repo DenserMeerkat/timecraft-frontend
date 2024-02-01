@@ -23,10 +23,10 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { Course } from "@/lib/types";
-import { courseSchema, facultySchema } from "@/lib/schemas";
+import { facultySchema } from "@/lib/schemas";
+import AutoComplete from "../common/AutoComplete";
 import MultiSelect from "../common/MultiSelect";
 import HourDistribution from "./HourDistribution";
-import AutoComplete from "../common/AutoComplete";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
@@ -68,9 +68,14 @@ export const AddCourse = (props: any) => {
     resolver: zodResolver(CourseSchema),
   });
 
+  const [currentHours, setCurrentHours] = useState(form.getValues("hours"));
+  const [currentFaculties, setCurrentFaculties] = useState(
+    form.getValues("faculties")
+  );
+
   useEffect(() => {
-    const faculties = form.getValues("faculties");
-    const hours = form.getValues("hours");
+    const hours = form.watch("hours");
+    const faculties = form.watch("faculties");
     if (faculties?.length > 1) {
       setShowHourDistribution(true);
     } else {
@@ -81,7 +86,9 @@ export const AddCourse = (props: any) => {
     } else {
       setRatioEnabled(false);
     }
-  }, [form.watch("faculties"), form.watch("hours")]);
+    setCurrentHours(hours);
+    setCurrentFaculties(faculties);
+  }, [form.formState]);
 
   function onSubmit(data: z.infer<typeof CourseSchema>) {
     const course: Course = {
@@ -93,7 +100,7 @@ export const AddCourse = (props: any) => {
       studentGroup: data.studentGroup,
     };
     updateCourses([...courses, course]);
-    closeDialog();
+    handleOpenChange();
     toast({
       title: "New course added successfully",
       description: (
@@ -110,9 +117,9 @@ export const AddCourse = (props: any) => {
     });
   }
 
-  const closeDialog = () => {
+  const handleOpenChange = () => {
+    setOpen((prev: boolean) => !prev);
     form.reset();
-    setOpen(false);
   };
 
   return (
@@ -213,8 +220,9 @@ export const AddCourse = (props: any) => {
                   <FormControl>
                     <HourDistribution
                       {...field}
-                      max={form.getValues("hours")}
-                      data={form.getValues("faculties")}
+                      key={currentHours}
+                      max={currentHours}
+                      data={currentFaculties}
                       disabled={ratioEnabled}
                       value={field.value ?? []}
                       onChange={field.onChange}
@@ -249,7 +257,7 @@ export const AddCourse = (props: any) => {
             <Button
               variant={"secondary"}
               type="button"
-              onClick={closeDialog}
+              onClick={handleOpenChange}
               className="mt-4 min-[640px]:mt-0"
             >
               Cancel

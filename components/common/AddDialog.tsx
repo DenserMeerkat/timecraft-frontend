@@ -11,7 +11,11 @@ const AddDialog = (props: any) => {
   const state = useAppContext();
   const { lock } = state;
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog
+      // key={Date.now()}
+      open={open}
+      onOpenChange={setOpen}
+    >
       <AlertDialogTrigger asChild disabled={!lock}>
         <Button size={"sm"} variant={"secondary"}>
           <p>Add {itemName}</p>
