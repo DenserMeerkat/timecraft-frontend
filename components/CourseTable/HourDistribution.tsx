@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus } from "lucide-react";
@@ -13,94 +13,97 @@ export interface HourDistributonProps<T extends ItemType> {
   onChange: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-const HourDistribution = ({
-  max,
-  data,
-  value,
-  disabled,
-  onChange,
-}: HourDistributonProps<any>) => {
-  const [defaultValues, setDefaultValues] = useState<number[]>(
-    value != null && value.length === 2
-      ? value
-      : [Math.floor(max / 2), Math.ceil(max / 2)]
-  );
-  const gridCols = {
-    display: "grid",
-    gridTemplateColumns: `repeat(${max}, minmax(0, 1fr))`,
-    gap: "0.25rem",
-    placeItems: "center",
-  };
-  const [firstColStyle, setFirstColStyle] = useState({
-    gridColumn: `span ${defaultValues[0]}`,
-  });
-  const [secondColStyle, setSecondColStyle] = useState({
-    gridColumn: `${defaultValues[0] + 1} / span ${defaultValues[1]}`,
-  });
-
-  useEffect(() => {
-    setFirstColStyle({ gridColumn: `span ${defaultValues[0]}` });
-    setSecondColStyle({
+const HourDistribution = React.forwardRef(
+  (
+    { max, data, value, disabled, onChange }: HourDistributonProps<any>,
+    ref
+  ) => {
+    const [defaultValues, setDefaultValues] = useState<number[]>([
+      Math.floor(max / 2),
+      Math.ceil(max / 2),
+    ]);
+    const gridCols = {
+      display: "grid",
+      gridTemplateColumns: `repeat(${max}, minmax(0, 1fr))`,
+      gap: "0.25rem",
+      placeItems: "center",
+      maxWidth: "100%",
+    };
+    const [firstColStyle, setFirstColStyle] = useState({
+      gridColumn: `span ${defaultValues[0]}`,
+    });
+    const [secondColStyle, setSecondColStyle] = useState({
       gridColumn: `${defaultValues[0] + 1} / span ${defaultValues[1]}`,
     });
-    onChange(defaultValues);
-  }, [defaultValues]);
 
-  if (disabled) {
-    return (
-      <div
-        className={cn(
-          "border rounded-md px-2 py-1.5 border-zinc-200 dark:border-zinc-800",
-          { "cursor-not-allowed opacity-70": disabled }
-        )}
-      >
-        <p className="pl-2 text-popover-foreground">Hours required</p>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        className={cn(
-          "border rounded-md px-2 py-2 border-zinc-200 dark:border-zinc-800 flex flex-col space-y-4"
-        )}
-      >
-        <div className="flex flex-col space-y-2">
-          {data?.map((item, index) => {
-            return (
-              <HourDistributionItem
-                key={index}
-                item={item}
-                index={index}
-                values={defaultValues}
-                setValues={setDefaultValues}
-                max={max}
-              />
-            );
-          })}
+    useEffect(() => {
+      setFirstColStyle({ gridColumn: `span ${defaultValues[0]}` });
+      setSecondColStyle({
+        gridColumn: `${defaultValues[0] + 1} / span ${defaultValues[1]}`,
+      });
+      onChange(defaultValues);
+    }, [defaultValues]);
+
+    if (disabled) {
+      return (
+        <div className="pb-2">
+          <div
+            className={cn(
+              "border rounded-md px-2 py-1.5 border-zinc-200 dark:border-zinc-800",
+              { "cursor-not-allowed opacity-70": disabled }
+            )}
+          >
+            <p className="pl-2 text-popover-foreground">Hours required</p>
+          </div>
         </div>
-        <div
-          style={gridCols}
-          className={
-            "grid border h-3 p-0.5 rounded-full border-zinc-200 dark:border-zinc-800"
-          }
-        >
-          <span
-            style={firstColStyle}
-            className={
-              "h-full w-full rounded-full bg-rose-200 dark:bg-rose-400/40"
-            }
-          ></span>
-          <span
-            style={secondColStyle}
-            className={
-              "h-full w-full rounded-full bg-blue-200 dark:bg-blue-400/40"
-            }
-          ></span>
+      );
+    } else {
+      return (
+        <div className="pb-2">
+          <div
+            className={cn(
+              "border rounded-md px-2 py-2 border-zinc-200 dark:border-zinc-800 flex flex-col space-y-4"
+            )}
+          >
+            <div className="flex flex-col space-y-2">
+              {data?.map((item, index) => {
+                return (
+                  <HourDistributionItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    values={defaultValues}
+                    setValues={setDefaultValues}
+                    max={max}
+                  />
+                );
+              })}
+            </div>
+            <div
+              style={gridCols}
+              className={
+                "grid border h-3 p-0.5 rounded-full border-zinc-200 dark:border-zinc-800"
+              }
+            >
+              <span
+                style={firstColStyle}
+                className={
+                  "h-full w-full rounded-full bg-rose-200 dark:bg-rose-400/40"
+                }
+              ></span>
+              <span
+                style={secondColStyle}
+                className={
+                  "h-full w-full rounded-full bg-blue-200 dark:bg-blue-400/40"
+                }
+              ></span>
+            </div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
-};
+);
 
 export default HourDistribution;
 

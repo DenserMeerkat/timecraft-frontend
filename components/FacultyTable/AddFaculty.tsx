@@ -78,7 +78,10 @@ export const AddFaculty = (props: any) => {
   };
 
   return (
-    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto">
+    <AlertDialogContent
+      onEscapeKeyDown={(event: KeyboardEvent) => closeDialog()}
+      className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto"
+    >
       <AlertDialogHeader>
         <AlertDialogTitle>New Faculty</AlertDialogTitle>
         <AlertDialogDescription>

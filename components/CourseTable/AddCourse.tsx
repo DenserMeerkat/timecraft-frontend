@@ -27,10 +27,12 @@ import { facultySchema } from "@/lib/schemas";
 import AutoComplete from "../common/AutoComplete";
 import MultiSelect from "../common/MultiSelect";
 import HourDistribution from "./HourDistribution";
+import { Checkbox } from "../ui/checkbox";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
   const [ratioEnabled, setRatioEnabled] = useState(false);
+  const [showIsShared, setShowIsShared] = useState(false);
   const [showHourDistribution, setShowHourDistribution] = useState(false);
   const {
     hours,
@@ -56,16 +58,20 @@ export const AddCourse = (props: any) => {
       .array(facultySchema)
       .min(1, { message: "Select at least one" })
       .max(2, { message: "Select at most two" }),
-    hours: z
+    hours: z.coerce
       .number()
       .min(1, { message: "Enter valid hours" })
       .max((hours ?? 1) * (days ?? 1), { message: "Exceeded max hours" }),
+    isShared: z.boolean().default(false).optional(),
     hoursDistribution: z.array(z.number()).optional(),
     studentGroup: z.string().min(1),
   });
 
   const form = useForm<z.infer<typeof CourseSchema>>({
     resolver: zodResolver(CourseSchema),
+    defaultValues: {
+      isShared: false,
+    },
   });
 
   const [currentHours, setCurrentHours] = useState(form.getValues("hours"));
@@ -74,21 +80,24 @@ export const AddCourse = (props: any) => {
   );
 
   useEffect(() => {
+    const isShared = form.watch("isShared");
     const hours = form.watch("hours");
     const faculties = form.watch("faculties");
-    if (faculties?.length > 1) {
-      setShowHourDistribution(true);
-    } else {
-      setShowHourDistribution(false);
-    }
-    if (hours == null || hours <= 0) {
-      setRatioEnabled(true);
-    } else {
-      setRatioEnabled(false);
-    }
     setCurrentHours(hours);
     setCurrentFaculties(faculties);
-  }, [form.formState]);
+    faculties?.length > 1 ? setShowIsShared(true) : setShowIsShared(false);
+    isShared ? setShowHourDistribution(true) : setShowHourDistribution(false);
+    hours == null || hours <= 1
+      ? setRatioEnabled(true)
+      : setRatioEnabled(false);
+  }, [
+    form.formState,
+    currentHours,
+    currentFaculties,
+    ratioEnabled,
+    showIsShared,
+    showHourDistribution,
+  ]);
 
   function onSubmit(data: z.infer<typeof CourseSchema>) {
     const course: Course = {
@@ -100,7 +109,7 @@ export const AddCourse = (props: any) => {
       studentGroup: data.studentGroup,
     };
     updateCourses([...courses, course]);
-    handleOpenChange();
+    closeDialog();
     toast({
       title: "New course added successfully",
       description: (
@@ -117,13 +126,16 @@ export const AddCourse = (props: any) => {
     });
   }
 
-  const handleOpenChange = () => {
+  const closeDialog = () => {
     setOpen((prev: boolean) => !prev);
     form.reset();
   };
 
   return (
-    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto">
+    <AlertDialogContent
+      onEscapeKeyDown={(event: KeyboardEvent) => closeDialog()}
+      className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto"
+    >
       <AlertDialogHeader>
         <AlertDialogTitle>New Course</AlertDialogTitle>
         <AlertDialogDescription>
@@ -202,6 +214,7 @@ export const AddCourse = (props: any) => {
                 <FormControl>
                   <Input
                     {...field}
+                    type="number"
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -210,6 +223,26 @@ export const AddCourse = (props: any) => {
               </FormItem>
             )}
           />
+          {showIsShared && (
+            <FormField
+              control={form.control}
+              name="isShared"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 py-4 pl-1.5">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="rounded-[0.175rem]"
+                    />
+                  </FormControl>
+                  <div className="leading-none">
+                    <FormLabel>Is Shared?</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+          )}
           {showHourDistribution && (
             <FormField
               control={form.control}
@@ -257,7 +290,7 @@ export const AddCourse = (props: any) => {
             <Button
               variant={"secondary"}
               type="button"
-              onClick={handleOpenChange}
+              onClick={closeDialog}
               className="mt-4 min-[640px]:mt-0"
             >
               Cancel
