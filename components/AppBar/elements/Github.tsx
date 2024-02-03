@@ -41,7 +41,7 @@ const GitHubLink = () => {
         setBackStars(data.stargazers_count);
       });
     setIsDomLoaded(true);
-  });
+  }, []);
 
   if (!isDomLoaded) {
     return (

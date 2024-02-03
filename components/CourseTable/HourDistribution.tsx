@@ -88,7 +88,7 @@ const HourDistribution = React.forwardRef(
               <span
                 style={firstColStyle}
                 className={
-                  "h-full w-full rounded-full bg-rose-200 dark:bg-rose-400/40"
+                  "h-full w-full rounded-full bg-teal-200 dark:bg-teal-400/40"
                 }
               ></span>
               <span
@@ -115,7 +115,7 @@ const HourDistributionItem = (props: any) => {
         className={cn(
           "px-2 py-1 text-center rounded-md text-sm tracking-widest",
           index === 0
-            ? "bg-rose-200 dark:bg-rose-400/40"
+            ? "bg-teal-200 dark:bg-teal-400/40"
             : "bg-blue-200 dark:bg-blue-400/40"
         )}
       >

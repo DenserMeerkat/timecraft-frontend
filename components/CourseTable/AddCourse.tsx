@@ -104,8 +104,9 @@ export const AddCourse = (props: any) => {
     const course: Course = {
       code: data.code,
       name: data.name || "",
-      faculties: data.faculties,
       hours: data.hours,
+      isShared: data.isShared,
+      faculties: data.faculties,
       hoursDistribution: data.hoursDistribution,
       studentGroup: data.studentGroup,
     };
@@ -185,6 +186,24 @@ export const AddCourse = (props: any) => {
           />
           <FormField
             control={form.control}
+            name="hours"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Hours</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="number"
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="faculties"
             render={({ field }) => (
               <FormItem>
@@ -199,24 +218,6 @@ export const AddCourse = (props: any) => {
                         : "Select Faculties"
                     }
                     value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="hours"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Hours</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="number"
-                    value={field.value}
                     onChange={field.onChange}
                   />
                 </FormControl>

@@ -10,6 +10,7 @@ export const courseSchema = z.object({
   code: z.string(),
   name: z.string().optional(),
   faculties: z.array(facultySchema),
+  isShared: z.boolean().default(false).optional(),
   hours: z.number(),
   hoursDistribution: z.array(z.number()).optional(),
   studentGroup: z.string(),
