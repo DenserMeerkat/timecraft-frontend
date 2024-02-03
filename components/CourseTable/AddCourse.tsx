@@ -91,6 +91,7 @@ export const AddCourse = (props: any) => {
       ? setRatioEnabled(true)
       : setRatioEnabled(false);
   }, [
+    form,
     form.formState,
     currentHours,
     currentFaculties,

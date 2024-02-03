@@ -42,7 +42,7 @@ const HourDistribution = React.forwardRef(
         gridColumn: `${defaultValues[0] + 1} / span ${defaultValues[1]}`,
       });
       onChange(defaultValues);
-    }, [defaultValues]);
+    }, [onChange, defaultValues]);
 
     if (disabled) {
       return (
@@ -157,3 +157,5 @@ const HourDistributionItem = (props: any) => {
     </div>
   );
 };
+
+HourDistribution.displayName = "HourDistribution";

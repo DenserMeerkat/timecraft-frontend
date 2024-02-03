@@ -53,7 +53,7 @@ export const AutoComplete = React.forwardRef(
         updateData([...data, item]);
         setSelectable((prev) => [...prev, item]);
       },
-      [updateData]
+      [updateData, data]
     );
 
     const handleDelete = React.useCallback(
@@ -62,7 +62,7 @@ export const AutoComplete = React.forwardRef(
         setSelectable((prev) => prev.filter((i) => i != item));
         inputRef.current?.blur();
       },
-      [updateData]
+      [updateData, data]
     );
 
     const handleSelect = React.useCallback(
@@ -72,7 +72,7 @@ export const AutoComplete = React.forwardRef(
         onChange(item);
         setOpen(false);
       },
-      [onChange, selected]
+      [onChange]
     );
 
     const handleKeyDown = React.useCallback(
@@ -229,3 +229,5 @@ export const AutoComplete = React.forwardRef(
 );
 
 export default AutoComplete;
+
+AutoComplete.displayName = "AutoComplete";

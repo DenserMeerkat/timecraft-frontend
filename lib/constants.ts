@@ -1,4 +1,18 @@
-const frontendUrl = "https://github.com/DenserMeerkat/timecraft-frontend";
-const backendUrl = "https://github.com/Sajith17/timecraft-backend";
+// import FrontendOwner from "/DenserMeerkat.jpg";
+// import BackendOwner from "/Sajith17.jpg";
 
-export { frontendUrl, backendUrl };
+const frontend = {
+  url: "https://github.com/DenserMeerkat/timecraft-frontend",
+  userName: "DenserMeerkat",
+  repoName: "timecraft-frontend",
+  fallbackImage: "/avatars/DenserMeerkat.jpg",
+};
+
+const backend = {
+  url: "https://github.com/Sajith17/timecraft-backend",
+  userName: "Sajith17",
+  repoName: "timecraft-backend",
+  fallbackImage: "/avatars/Sajith17.jpg",
+};
+
+export { frontend, backend };

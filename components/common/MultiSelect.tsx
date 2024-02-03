@@ -176,3 +176,5 @@ export const MultiSelect = React.forwardRef(
 );
 
 export default MultiSelect;
+
+MultiSelect.displayName = "MultiSelect";
