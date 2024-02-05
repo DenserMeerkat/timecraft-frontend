@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { Faculty, Course, JointCourseSchema } from "./types";
+import { Faculty, Course, JointCourse } from "./types";
 
 interface AppContextType {
   hours: number | null;
@@ -13,14 +13,14 @@ interface AppContextType {
   lock: boolean;
   faculties: Faculty[];
   courses: Course[];
-  subjects: JointCourseSchema[];
+  subjects: JointCourse[];
   groups: string[];
   updateHours: (hours: number | null) => void;
   updateDays: (days: number | null) => void;
   updateLock: () => void;
   updateFaculties: (faculties: Faculty[]) => void;
   updateCourses: (courses: Course[]) => void;
-  updateJointCourseSchemas: (subjects: JointCourseSchema[]) => void;
+  updateJointCourseSchemas: (subjects: JointCourse[]) => void;
   updateGroups: (groups: string[]) => void;
   reset: () => void;
 }
@@ -56,7 +56,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [lock, setLock] = useState(false);
   const [faculties, setFaculties] = useState([] as Faculty[]);
   const [courses, setCourses] = useState([] as Course[]);
-  const [subjects, setJointCourseSchemas] = useState([] as JointCourseSchema[]);
+  const [subjects, setJointCourseSchemas] = useState([] as JointCourse[]);
   const [groups, setGroups] = useState([] as string[]);
   const updateHours = (hours: number | null) => {
     setHours(hours);
@@ -73,7 +73,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const updateCourses = (courses: Course[]) => {
     setCourses(courses);
   };
-  const updateJointCourseSchemas = (subjects: JointCourseSchema[]) => {
+  const updateJointCourseSchemas = (subjects: JointCourse[]) => {
     setJointCourseSchemas(subjects);
   };
   const updateGroups = (groups: string[]) => {

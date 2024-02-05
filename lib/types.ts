@@ -5,7 +5,7 @@ export type Course = z.infer<typeof courseSchema>;
 
 export type Faculty = z.infer<typeof facultySchema>;
 
-export type JointCourseSchema = z.infer<typeof joinCoursesSchema>;
+export type JointCourse = z.infer<typeof joinCoursesSchema>;
 
 export type Schedule = {
   id: string;
