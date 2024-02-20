@@ -1,7 +1,7 @@
 import FacultyTable from "@/components/FacultyTable/FacultyTable";
 import CourseTable from "@/components/CourseTable/CourseTable";
+import EventTable from "@/components/EventTable/EventTable";
 import Fields from "@/components/Fields";
-// import AssignmentTable from "@/components/AssignmentTable/AssignmentTable";
 
 export default function Home() {
   return (
@@ -15,11 +15,11 @@ export default function Home() {
           <CourseTable />
         </div>
       </section>
-      {/* <section className="pt-8 pb-4">
+      <section className="pt-8 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-0">
-          <AssignmentTable />
+          <EventTable />
         </div>
-      </section> */}
+      </section>
     </main>
   );
 }

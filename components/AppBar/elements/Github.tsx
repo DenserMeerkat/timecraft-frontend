@@ -118,7 +118,6 @@ export default GitHubLink;
 
 const RepoCard = (props: any) => {
   const { repoName, stars, url, img, owner } = props;
-  console.log(img);
   return (
     <Link
       href={url}

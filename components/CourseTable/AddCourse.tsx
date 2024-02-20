@@ -219,6 +219,7 @@ export const AddCourse = (props: any) => {
                     }
                     value={field.value ?? []}
                     onChange={field.onChange}
+                    maxSelectable={2}
                   />
                 </FormControl>
                 <FormMessage />

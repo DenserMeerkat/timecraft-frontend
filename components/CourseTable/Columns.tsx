@@ -123,7 +123,6 @@ export const columns: ColumnDef<Course>[] = [
       const hoursDistribution: number[] = row.getValue("hoursDistribution") ?? [
         row.getValue("hours"),
       ];
-      console.log(hoursDistribution);
       return (
         <div className="flex flex-col gap-2 w-fit">
           {faculties.map((faculty, index: number) => (

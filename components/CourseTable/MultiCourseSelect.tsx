@@ -6,19 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "@/lib/utils";
-import { ItemType } from "@/lib/types";
+import { Course } from "@/lib/types";
 
-export interface MultiSelectProps<T extends ItemType> {
+export interface MultiCourseSelectProps {
   label?: string;
   placeholder?: string;
   parentClassName?: string;
-  data: T[];
-  value: T[];
-  onChange: React.Dispatch<React.SetStateAction<T[]>>;
+  data: Course[];
+  value: Course[];
+  onChange: React.Dispatch<React.SetStateAction<Course[]>>;
   maxSelectable?: number;
 }
 
-export const MultiSelect = React.forwardRef(
+export const MultiCourseSelect = React.forwardRef(
   (
     {
       label,
@@ -28,7 +28,7 @@ export const MultiSelect = React.forwardRef(
       value,
       onChange,
       maxSelectable,
-    }: MultiSelectProps<any>,
+    }: MultiCourseSelectProps,
     ref
   ) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -41,21 +41,26 @@ export const MultiSelect = React.forwardRef(
     const disabled = data.length === 0;
 
     const handleUnselect = React.useCallback(
-      (item: ItemType) => {
+      (item: Course) => {
         const newSelected = selected.filter((i) => i.code !== item.code);
         setSelected(newSelected);
-        setSelectable((prev) => [...prev, item]);
+        if (newSelected.length > 0) {
+          const hours = newSelected[0].hours;
+          setSelectable((prev) => prev.filter((i) => i.hours === hours));
+        } else {
+          setSelectable(data);
+        }
         onChange(newSelected);
       },
-      [onChange, selected]
+      [onChange, selected, data]
     );
 
     const handleSelect = React.useCallback(
-      (item: ItemType) => {
+      (item: Course) => {
         setInputValue("");
         if (!selected.includes(item)) {
           setSelected((prev) => [...prev, item]);
-          setSelectable((prev) => prev.filter((i) => i !== item));
+          setSelectable((prev) => prev.filter((i) => i.hours === item.hours));
           onChange([...selected, item]);
         }
       },
@@ -71,15 +76,31 @@ export const MultiSelect = React.forwardRef(
               setSelected((prev) => {
                 const newSelected = [...prev];
                 newSelected.pop();
+                if (newSelected.length > 0) {
+                  const hours = newSelected[0].hours;
+                  setSelectable((prev) =>
+                    prev.filter((i) => i.hours === hours)
+                  );
+                } else {
+                  setSelectable(data);
+                }
                 return newSelected;
               });
               setSelectable((prev) => {
                 const last = selected[selected.length - 1];
                 return [...prev, last];
               });
-              onChange(() => {
-                const newSelected = [...value];
+              onChange((prevSelected) => {
+                const newSelected = [...prevSelected];
                 newSelected.pop();
+                if (newSelected.length > 0) {
+                  const hours = newSelected[0].hours;
+                  setSelectable((prev) =>
+                    prev.filter((i) => i.hours === hours)
+                  );
+                } else {
+                  setSelectable(data);
+                }
                 return newSelected;
               });
             }
@@ -89,16 +110,27 @@ export const MultiSelect = React.forwardRef(
           }
         }
       },
-      [onChange, value, selected]
+      [onChange, data, selected]
     );
 
     React.useEffect(() => {
-      setSelectable(data.filter((item) => !selected.includes(item)));
+      if (selected.length > 0) {
+        const hours = selected[0].hours;
+        setSelectable(
+          data.filter(
+            (item) => item.hours === hours && !selected.includes(item)
+          )
+        );
+      } else {
+        setSelectable(data);
+      }
       if (maxSelectable && selected.length === maxSelectable) {
         setInputValue("");
         setOpen(false);
       }
-    }, [value, data, selected, maxSelectable]);
+      console.log("selected", selected);
+      console.log("selectable", selectable);
+    }, [value, data, selected, maxSelectable, selectable]);
 
     return (
       <div
@@ -148,11 +180,12 @@ export const MultiSelect = React.forwardRef(
                 onFocus={() => setOpen(true)}
                 disabled={
                   disabled ||
-                  (maxSelectable != null && value.length === maxSelectable)
+                  (maxSelectable != null && value.length === maxSelectable) ||
+                  selectable.length === 0
                 }
                 placeholder={placeholder}
                 className={cn(
-                  "ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1",
+                  "ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1 w-8",
                   disabled && "cursor-not-allowed"
                 )}
               />
@@ -173,9 +206,12 @@ export const MultiSelect = React.forwardRef(
                         onSelect={(value) => {
                           handleSelect(item);
                         }}
-                        className={"cursor-pointer"}
+                        className={
+                          "cursor-pointer flex items-center gap-2 justify-between"
+                        }
                       >
                         {item.code}
+                        <span>{item.hours}</span>
                       </CommandItem>
                     );
                   })}
@@ -189,6 +225,6 @@ export const MultiSelect = React.forwardRef(
   }
 );
 
-export default MultiSelect;
+export default MultiCourseSelect;
 
-MultiSelect.displayName = "MultiSelect";
+MultiCourseSelect.displayName = "MultiCourseSelect";

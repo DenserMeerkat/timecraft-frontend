@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   AlertDialogContent,
   AlertDialogDescription,
@@ -26,10 +26,6 @@ import { Faculty } from "@/lib/types";
 export const AddFaculty = (props: any) => {
   const { open, setOpen } = props;
   const { hours, days, faculties, updateFaculties } = useAppContext();
-  const [selectedHours, setSelectedHours] = useState<number[]>([]);
-  const handleHourChange = (newValue: number[]) => {
-    setSelectedHours(newValue);
-  };
   const FormSchema = z.object({
     code: z
       .string()
@@ -42,6 +38,7 @@ export const AddFaculty = (props: any) => {
         return isCodeUnique;
       }, "Code must be unique"),
     name: z.string().optional(),
+    occupiedSlots: z.array(z.number()).optional(),
   });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -51,7 +48,7 @@ export const AddFaculty = (props: any) => {
     const faculty: Faculty = {
       code: data.code,
       name: data.name || "",
-      occupiedSlots: selectedHours,
+      occupiedSlots: data.occupiedSlots,
     };
     updateFaculties([...faculties, faculty]);
     form.reset();
@@ -73,7 +70,6 @@ export const AddFaculty = (props: any) => {
   }
   const closeDialog = () => {
     form.reset();
-    setSelectedHours([]);
     setOpen(false);
   };
 
@@ -129,20 +125,26 @@ export const AddFaculty = (props: any) => {
             )}
           />
 
-          <FormItem>
-            <FormLabel>
-              Occupied{" "}
-              <span className="opacity-50 text-xs">{`(optional)`}</span>
-            </FormLabel>
-            <HourGrid
-              columns={hours!}
-              rows={days!}
-              bg="rose"
-              value={selectedHours}
-              onChange={handleHourChange}
-            />
-            <FormMessage />
-          </FormItem>
+          <FormField
+            control={form.control}
+            name="occupiedSlots"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Occupied{" "}
+                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                </FormLabel>
+                <HourGrid
+                  columns={hours!}
+                  rows={days!}
+                  bg="rose"
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <AlertDialogFooter className="pt-4">
             <Button
               variant={"secondary"}

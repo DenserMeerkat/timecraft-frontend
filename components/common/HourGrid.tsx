@@ -5,10 +5,22 @@ import { Schedule } from "@/lib/types";
 const HourGrid: React.FC<{
   rows: number;
   columns: number;
-  bg: "rose" | "zinc" | "sky" | undefined;
+  bg: "rose" | "zinc" | "sky" | "emerald" | "orange" | undefined;
   value?: number[];
   onChange: (newValue: number[]) => void;
-}> = ({ rows, columns, bg, value, onChange }) => {
+  disabled?: boolean;
+  unselectable?: number[];
+  maxSelection?: number;
+}> = ({
+  rows,
+  columns,
+  bg,
+  value,
+  onChange,
+  disabled,
+  unselectable,
+  maxSelection,
+}) => {
   const [isFocussed, setIsFocussed] = useState(false);
 
   const indexList: number[] = [];
@@ -61,7 +73,14 @@ const HourGrid: React.FC<{
         isFocussed
           ? "dark:border-zinc-300 border-black"
           : "dark:border-zinc-800 border-zinc-200"
-      }`}
+      }
+      ${
+        disabled ??
+        (false || (maxSelection && value && value.length >= maxSelection))
+          ? "opacity-50 pointer-events-none cursor-not-allowed"
+          : ""
+      }
+      `}
       style={gridStyle}
       onFocus={() => setIsFocussed(true)}
       onBlur={() => setIsFocussed(false)}
@@ -78,18 +97,34 @@ const HourGrid: React.FC<{
         <React.Fragment key={day.id}>
           <p className="text-center col-span-1">{day.id}</p>
           <>
-            {day.periods.map((period: number, index: number) => (
-              <Toggle
-                key={index}
-                size={"sm"}
-                variant={"outline"}
-                color={bg}
-                className={`text-xs col-span-1 w-10 text-zinc-300 data-[state=on]:text-zinc-900 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200`}
-                onClick={() => updateList(period)}
-              >
-                {day.id + (index + 1)}
-              </Toggle>
-            ))}
+            {day.periods.map((period: number, index: number) => {
+              if (unselectable && unselectable.includes(period)) {
+                return (
+                  <Toggle
+                    key={index}
+                    size={"sm"}
+                    variant={"outline"}
+                    color={bg}
+                    disabled
+                    className={`text-xs col-span-1 min-[450px]:w-10 text-zinc-300 data-[state=on]:text-zinc-900 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200`}
+                  >
+                    {day.id + (index + 1)}
+                  </Toggle>
+                );
+              }
+              return (
+                <Toggle
+                  key={index}
+                  size={"sm"}
+                  variant={"outline"}
+                  color={bg}
+                  className={`text-xs col-span-1 min-[450px]:w-10 text-zinc-400 data-[state=on]:text-zinc-950 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200`}
+                  onClick={() => updateList(period)}
+                >
+                  {day.id + (index + 1)}
+                </Toggle>
+              );
+            })}
           </>
         </React.Fragment>
       ))}

@@ -26,6 +26,12 @@ const toggleVariants = cva(
         rose: "hover:bg-rose-100 data-[state=on]:bg-rose-200 dark:hover:bg-rose-400/20 dark:data-[state=on]:bg-rose-400/40",
 
         sky: "hover:bg-sky-100 data-[state=on]:bg-sky-200 dark:hover:bg-sky-400/20 dark:data-[state=on]:bg-sky-400/40",
+
+        emerald:
+          "hover:bg-emerald-100 data-[state=on]:bg-emerald-200 dark:hover:bg-emerald-400/20 dark:data-[state=on]:bg-emerald-400/40",
+
+        orange:
+          "hover:bg-orange-100 data-[state=on]:bg-orange-200 dark:hover:bg-orange-400/20 dark:data-[state=on]:bg-orange-400/40",
       },
     },
     defaultVariants: {
