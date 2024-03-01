@@ -118,7 +118,7 @@ const FixedCell = (props: any) => {
 
   return (
     <div className="flex w-fit gap-2">
-      {fixedSlots.map((hour: number, index: number) => (
+      {(fixedSlots ?? []).map((hour: number, index: number) => (
         <div
           key={index}
           className="rounded-md bg-blue-200 px-2 py-1 text-xs dark:bg-blue-400/40"

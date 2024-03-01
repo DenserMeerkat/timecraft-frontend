@@ -124,7 +124,7 @@ const OccupiedCell = (props: any) => {
 
   return (
     <div className="flex w-fit gap-2">
-      {occupied.map((hour: number, index: number) => (
+      {(occupied ?? []).map((hour: number, index: number) => (
         <div
           key={index}
           className="rounded-md bg-rose-200 px-2 py-1 text-xs dark:bg-rose-400/40"
