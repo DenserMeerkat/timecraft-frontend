@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 
 const AddDialog = (props: any) => {
   const [open, setOpen] = useState(false);

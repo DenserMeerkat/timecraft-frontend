@@ -16,6 +16,7 @@ export interface MultiSelectProps<T extends ItemType> {
   value: T[];
   onChange: React.Dispatch<React.SetStateAction<T[]>>;
   maxSelectable?: number;
+  disabled?: boolean;
 }
 
 export const MultiSelect = React.forwardRef(
@@ -28,6 +29,7 @@ export const MultiSelect = React.forwardRef(
       value,
       onChange,
       maxSelectable,
+      disabled,
     }: MultiSelectProps<any>,
     ref,
   ) => {
@@ -38,7 +40,7 @@ export const MultiSelect = React.forwardRef(
       data.filter((item) => !value.includes(item)),
     );
     const [inputValue, setInputValue] = React.useState("");
-    const disabled = data.length === 0;
+    const isDisabled = disabled || data.length === 0;
 
     const handleUnselect = React.useCallback(
       (item: ItemType) => {
@@ -106,7 +108,7 @@ export const MultiSelect = React.forwardRef(
           label && "gap-1.5",
           parentClassName,
           "grid w-full items-center",
-          disabled && "cursor-not-allowed",
+          isDisabled && "cursor-not-allowed",
         )}
       >
         <Command
@@ -147,13 +149,13 @@ export const MultiSelect = React.forwardRef(
                 onBlur={() => setOpen(false)}
                 onFocus={() => setOpen(true)}
                 disabled={
-                  disabled ||
+                  isDisabled ||
                   (maxSelectable != null && value.length === maxSelectable)
                 }
                 placeholder={placeholder}
                 className={cn(
                   "placeholder:text-muted-foreground ml-2 flex-1 bg-transparent outline-none",
-                  disabled && "cursor-not-allowed",
+                  isDisabled && "cursor-not-allowed",
                 )}
               />
             </div>

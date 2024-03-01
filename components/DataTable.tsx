@@ -20,7 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import { TableSkeleton } from "@/components/skeleton/TableSkeleton";
 
 export const DataTable = (props: any) => {

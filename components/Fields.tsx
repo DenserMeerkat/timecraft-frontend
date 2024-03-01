@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import CustomInput from "./common/CustomInput";
 import { Toggle } from "@/components/ui/toggle";
 

@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import { DataTable } from "@/components/DataTable";
 import { columns } from "./Columns";
 import AddDialog from "@/components/common/AddDialog";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import { AddFaculty } from "./AddFaculty";
 import { GraduationCap } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";

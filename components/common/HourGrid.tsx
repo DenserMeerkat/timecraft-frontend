@@ -50,6 +50,10 @@ const HourGrid: React.FC<{
       updatedValue.sort((a, b) => a - b);
       onChange(updatedValue);
     } else {
+      if (maxSelection && value && value.length == maxSelection) {
+        console.log("Max selection reached");
+        return;
+      }
       const updatedValue = [...(value || []), index];
       updatedValue.sort((a, b) => a - b);
       onChange(updatedValue);
@@ -75,8 +79,7 @@ const HourGrid: React.FC<{
           : "border-zinc-200 dark:border-zinc-800"
       }
       ${
-        disabled ??
-        (false || (maxSelection && value && value.length >= maxSelection))
+        disabled ?? false
           ? "pointer-events-none cursor-not-allowed opacity-50"
           : ""
       }

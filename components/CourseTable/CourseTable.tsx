@@ -4,7 +4,7 @@ import { DataTable } from "@/components/DataTable";
 import { columns } from "./Columns";
 import { Course } from "@/lib/types";
 import AddDialog from "@/components/common/AddDialog";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import { AddCourse } from "./AddCourse";
 import SectionHeading from "../common/SectionHeading";
 import { BookOpen } from "lucide-react";

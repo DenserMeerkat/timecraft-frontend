@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import HourGrid from "@/components/common/HourGrid";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import { toast } from "@/components/ui/use-toast";
 import { Faculty } from "@/lib/types";
 

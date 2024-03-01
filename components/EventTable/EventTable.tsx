@@ -2,7 +2,7 @@
 import React, { Suspense } from "react";
 import { DataTable } from "@/components/DataTable";
 // import { columns } from "./Columns";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 // import { AddEvent } from "./AddEvent";
 import { CalendarPlus } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";

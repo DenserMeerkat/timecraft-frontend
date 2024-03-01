@@ -18,7 +18,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
@@ -219,6 +219,7 @@ export const AddCourse = (props: any) => {
                     }
                     value={field.value ?? []}
                     onChange={field.onChange}
+                    disabled={form.watch("isShared") || false}
                     maxSelectable={2}
                   />
                 </FormControl>

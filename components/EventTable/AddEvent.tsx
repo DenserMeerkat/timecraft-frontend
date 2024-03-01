@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -18,15 +18,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import { toast } from "@/components/ui/use-toast";
-import { JointCourse } from "@/lib/types";
+import { Course, JointCourse } from "@/lib/types";
 import { courseSchema } from "@/lib/schemas";
 import HourGrid from "@/components/common/HourGrid";
 import { MultiCourseSelect } from "../CourseTable/MultiCourseSelect";
@@ -39,10 +38,11 @@ export const AddEvent = (props: any) => {
     lock,
     faculties,
     courses,
-    subjects,
+    jointCourses,
     updateJointCourseSchemas,
   } = useAppContext();
   const [facOccupiedHours, setFacOccupiedHours] = useState<number[]>([]);
+  const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
   const [courseHours, setCourseHours] = useState<number | undefined>(undefined);
   const JointCourseSchema = z.object({
     courses: z.array(courseSchema).min(1, { message: "Select at least 1" }),
@@ -52,8 +52,8 @@ export const AddEvent = (props: any) => {
     resolver: zodResolver(JointCourseSchema),
   });
   function onSubmit(data: z.infer<typeof JointCourseSchema>) {
-    const subject: JointCourse = data;
-    updateJointCourseSchemas([...subjects, subject]);
+    const jointCourse: JointCourse = data;
+    updateJointCourseSchemas([...jointCourses, jointCourse]);
     form.reset();
     closeAlertDialog();
     toast({
@@ -70,6 +70,24 @@ export const AddEvent = (props: any) => {
       ),
     });
   }
+
+  useEffect(() => {
+    if (jointCourses && jointCourses.length > 0) {
+      let availableCourses: Course[] = [];
+      courses.forEach((course) => {
+        jointCourses.forEach((jointCourse) => {
+          if (
+            !jointCourse.courses.find((c: Course) => c.code === course.code)
+          ) {
+            availableCourses.push(course);
+          }
+        });
+      });
+      setAvailableCourses(availableCourses);
+    } else {
+      setAvailableCourses(courses);
+    }
+  }, [courses, jointCourses]);
 
   useEffect(() => {
     if (form.watch("courses")?.length > 0) {
@@ -90,7 +108,7 @@ export const AddEvent = (props: any) => {
       setFacOccupiedHours([]);
       setCourseHours(undefined);
     }
-  }, [form.watch("courses")]);
+  }, [form, form.watch("courses")]);
 
   const closeAlertDialog = () => {
     form.reset();
@@ -121,7 +139,7 @@ export const AddEvent = (props: any) => {
                   placeholder={`${
                     courses.length > 0 ? "" : "No Courses added yet."
                   } `}
-                  data={courses ?? []}
+                  data={availableCourses ?? []}
                   {...field}
                   value={field.value ?? []}
                   onChange={field.onChange}

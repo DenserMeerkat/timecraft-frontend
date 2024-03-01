@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
-import { useAppContext } from "@/lib/AppStateContext";
+import { useAppContext } from "@/components/context/AppStateContext";
 import { cn } from "@/lib/utils";
 import HourDistribution from "./HourDistribution";
 

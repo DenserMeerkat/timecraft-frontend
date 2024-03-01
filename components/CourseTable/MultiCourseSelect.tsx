@@ -29,13 +29,13 @@ export const MultiCourseSelect = React.forwardRef(
       onChange,
       maxSelectable,
     }: MultiCourseSelectProps,
-    ref
+    ref,
   ) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState(value);
     const [selectable, setSelectable] = React.useState(
-      data.filter((item) => !value.includes(item))
+      data.filter((item) => !value.includes(item)),
     );
     const [inputValue, setInputValue] = React.useState("");
     const disabled = data.length === 0;
@@ -44,15 +44,9 @@ export const MultiCourseSelect = React.forwardRef(
       (item: Course) => {
         const newSelected = selected.filter((i) => i.code !== item.code);
         setSelected(newSelected);
-        if (newSelected.length > 0) {
-          const hours = newSelected[0].hours;
-          setSelectable((prev) => prev.filter((i) => i.hours === hours));
-        } else {
-          setSelectable(data);
-        }
         onChange(newSelected);
       },
-      [onChange, selected, data]
+      [onChange, selected],
     );
 
     const handleSelect = React.useCallback(
@@ -60,11 +54,10 @@ export const MultiCourseSelect = React.forwardRef(
         setInputValue("");
         if (!selected.includes(item)) {
           setSelected((prev) => [...prev, item]);
-          setSelectable((prev) => prev.filter((i) => i.hours === item.hours));
           onChange([...selected, item]);
         }
       },
-      [onChange, selected]
+      [onChange, selected],
     );
 
     const handleKeyDown = React.useCallback(
@@ -79,7 +72,7 @@ export const MultiCourseSelect = React.forwardRef(
                 if (newSelected.length > 0) {
                   const hours = newSelected[0].hours;
                   setSelectable((prev) =>
-                    prev.filter((i) => i.hours === hours)
+                    prev.filter((i) => i.hours === hours),
                   );
                 } else {
                   setSelectable(data);
@@ -96,7 +89,7 @@ export const MultiCourseSelect = React.forwardRef(
                 if (newSelected.length > 0) {
                   const hours = newSelected[0].hours;
                   setSelectable((prev) =>
-                    prev.filter((i) => i.hours === hours)
+                    prev.filter((i) => i.hours === hours),
                   );
                 } else {
                   setSelectable(data);
@@ -110,7 +103,7 @@ export const MultiCourseSelect = React.forwardRef(
           }
         }
       },
-      [onChange, data, selected]
+      [onChange, data, selected],
     );
 
     React.useEffect(() => {
@@ -118,8 +111,8 @@ export const MultiCourseSelect = React.forwardRef(
         const hours = selected[0].hours;
         setSelectable(
           data.filter(
-            (item) => item.hours === hours && !selected.includes(item)
-          )
+            (item) => item.hours === hours && !selected.includes(item),
+          ),
         );
       } else {
         setSelectable(data);
@@ -128,7 +121,7 @@ export const MultiCourseSelect = React.forwardRef(
         setInputValue("");
         setOpen(false);
       }
-    }, [value, data, selected, maxSelectable, selectable]);
+    }, [value, data, selected, maxSelectable]);
 
     return (
       <div
@@ -136,22 +129,22 @@ export const MultiCourseSelect = React.forwardRef(
           label && "gap-1.5",
           parentClassName,
           "grid w-full items-center",
-          disabled && "cursor-not-allowed"
+          disabled && "cursor-not-allowed",
         )}
       >
         <Command
           onKeyDown={handleKeyDown}
           className="overflow-visible bg-transparent"
         >
-          <div className="group border border-input dark:border-zinc-800 px-3 py-2 text-sm rounded-md focus-within:ring-1 focus-within:ring-zinc-100">
-            <div className="flex gap-1 flex-wrap">
+          <div className="border-input group rounded-md border px-3 py-2 text-sm focus-within:ring-1 focus-within:ring-zinc-100 dark:border-zinc-800">
+            <div className="flex flex-wrap gap-1">
               {selected.map((item) => {
                 return (
                   <Badge key={item.code} variant="secondary">
                     {item.code}
                     <button
                       type="button"
-                      className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           handleUnselect(item);
@@ -165,14 +158,14 @@ export const MultiCourseSelect = React.forwardRef(
                         handleUnselect(item);
                       }}
                     >
-                      <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                      <X className="text-muted-foreground hover:text-foreground h-3 w-3" />
                     </button>
                   </Badge>
                 );
               })}
               <CommandPrimitive.Input
                 ref={inputRef}
-                value={inputValue}
+                value={inputValue ?? ""}
                 onValueChange={setInputValue}
                 onBlur={() => setOpen(false)}
                 onFocus={() => setOpen(true)}
@@ -183,15 +176,15 @@ export const MultiCourseSelect = React.forwardRef(
                 }
                 placeholder={placeholder}
                 className={cn(
-                  "ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1 w-8",
-                  disabled && "cursor-not-allowed"
+                  "placeholder:text-muted-foreground ml-2 w-8 flex-1 bg-transparent outline-none",
+                  disabled && "cursor-not-allowed",
                 )}
               />
             </div>
           </div>
           <div className="relative mt-2">
             {open && selectable.length > 0 ? (
-              <div className="bg-zinc-50 dark:bg-zinc-950 absolute w-full top-0 rounded-md border dark:border-zinc-700 bg-popover z-10 text-popover-foreground shadow-md outline-none animate-in">
+              <div className="bg-popover text-popover-foreground absolute top-0 z-10 w-full rounded-md border bg-zinc-50 shadow-md outline-none animate-in dark:border-zinc-700 dark:bg-zinc-950">
                 <CommandGroup className="h-full overflow-auto">
                   {selectable.map((item) => {
                     return (
@@ -205,7 +198,7 @@ export const MultiCourseSelect = React.forwardRef(
                           handleSelect(item);
                         }}
                         className={
-                          "cursor-pointer flex items-center gap-2 justify-between"
+                          "flex cursor-pointer items-center justify-between gap-2"
                         }
                       >
                         {item.code}
@@ -220,7 +213,7 @@ export const MultiCourseSelect = React.forwardRef(
         </Command>
       </div>
     );
-  }
+  },
 );
 
 export default MultiCourseSelect;
