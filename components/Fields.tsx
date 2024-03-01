@@ -16,7 +16,7 @@ const Test = () => {
   }, [isDomLoaded]);
   if (!isDomLoaded) return <FieldSkeleton />;
   return (
-    <div className="mx-auto max-w-[16rem] h-12 flex items-center">
+    <div className="mx-auto flex h-12 max-w-[16rem] items-center">
       <CustomInput
         disabled={lock}
         defaultVal={days}

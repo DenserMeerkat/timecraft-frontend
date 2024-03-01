@@ -56,7 +56,7 @@ export const DataTable = (props: any) => {
   if (!isDomLoaded) return <TableSkeleton />;
   return (
     <div>
-      <div className="rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100/40 dark:bg-zinc-950/40">
+      <div className="rounded-md border border-zinc-200 bg-zinc-100/40 dark:border-zinc-700 dark:bg-zinc-950/40">
         <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -71,7 +71,7 @@ export const DataTable = (props: any) => {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -85,13 +85,13 @@ export const DataTable = (props: any) => {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="border-t border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-950/[0.7]"
+                  className="border-t border-zinc-300 hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-950/[0.7]"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -130,7 +130,7 @@ export const DataTable = (props: any) => {
       </div>
       {table.getFilteredSelectedRowModel().rows.length > 0 && (
         <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
+          <div className="text-muted-foreground flex-1 text-sm">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>

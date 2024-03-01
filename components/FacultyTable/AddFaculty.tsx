@@ -33,7 +33,7 @@ export const AddFaculty = (props: any) => {
       .max(8, { message: "Maximum 8 characters" })
       .refine((value) => {
         const isCodeUnique = faculties.every(
-          (faculty) => faculty.code !== value
+          (faculty) => faculty.code !== value,
         );
         return isCodeUnique;
       }, "Code must be unique"),
@@ -76,7 +76,7 @@ export const AddFaculty = (props: any) => {
   return (
     <AlertDialogContent
       onEscapeKeyDown={(event: KeyboardEvent) => closeDialog()}
-      className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto"
+      className="h-fit max-h-[100dvh] overflow-y-auto sm:max-w-[425px]"
     >
       <AlertDialogHeader>
         <AlertDialogTitle>New Faculty</AlertDialogTitle>
@@ -111,7 +111,7 @@ export const AddFaculty = (props: any) => {
               <FormItem>
                 <FormLabel>
                   Name{" "}
-                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                  <span className="text-xs opacity-50">{`(optional)`}</span>
                 </FormLabel>
                 <Input
                   id="name"
@@ -132,7 +132,7 @@ export const AddFaculty = (props: any) => {
               <FormItem>
                 <FormLabel>
                   Occupied{" "}
-                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                  <span className="text-xs opacity-50">{`(optional)`}</span>
                 </FormLabel>
                 <HourGrid
                   columns={hours!}

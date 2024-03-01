@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const LogoTitle = () => {
   return (
-    <Link href={"/"} className="cursor-pointer flex gap-2 items-center">
+    <Link href={"/"} className="flex cursor-pointer items-center gap-2">
       <CalendarRange className="h-8 w-8 p-1.5" />
       <p className="font-bold">TimeCraft</p>
     </Link>

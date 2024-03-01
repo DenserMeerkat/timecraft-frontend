@@ -42,7 +42,7 @@ const CustomInput = (props: any) => {
         onChange={handleInputChange}
         className={`${commonClasses} ${directionalClass}`}
       />
-      <p className="absolute top-3 right-4 text-md text-zinc-500 pointer-events-none">
+      <p className="text-md pointer-events-none absolute right-4 top-3 text-zinc-500">
         {suffix}
       </p>
     </div>

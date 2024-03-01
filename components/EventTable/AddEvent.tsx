@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -42,10 +42,10 @@ export const AddEvent = (props: any) => {
     subjects,
     updateJointCourseSchemas,
   } = useAppContext();
-
+  const [facOccupiedHours, setFacOccupiedHours] = useState<number[]>([]);
+  const [courseHours, setCourseHours] = useState<number | undefined>(undefined);
   const JointCourseSchema = z.object({
     courses: z.array(courseSchema).min(1, { message: "Select at least 1" }),
-    hours: z.number().optional(),
     fixedSlots: z.array(z.number()).min(1, { message: "Select at least 1" }),
   });
   const form = useForm<z.infer<typeof JointCourseSchema>>({
@@ -70,13 +70,35 @@ export const AddEvent = (props: any) => {
       ),
     });
   }
+
+  useEffect(() => {
+    if (form.watch("courses")?.length > 0) {
+      const hours = form.watch("courses")?.[0].hours;
+      let occupiedHours: number[] = [];
+      form
+        .watch("courses")
+        ?.forEach((course) =>
+          course.faculties.forEach((faculty) =>
+            occupiedHours.push(
+              ...(faculty.occupiedSlots?.map((slot) => slot) || []),
+            ),
+          ),
+        );
+      setFacOccupiedHours(occupiedHours);
+      setCourseHours(hours);
+    } else {
+      setFacOccupiedHours([]);
+      setCourseHours(undefined);
+    }
+  }, [form.watch("courses")]);
+
   const closeAlertDialog = () => {
     form.reset();
     setOpen(false);
   };
 
   return (
-    <AlertDialogContent className="sm:max-w-[425px] h-fit max-h-screen overflow-y-auto">
+    <AlertDialogContent className="h-fit max-h-screen overflow-y-auto sm:max-w-[425px]">
       <AlertDialogHeader>
         <AlertDialogTitle>{`New Event`}</AlertDialogTitle>
         <AlertDialogDescription>
@@ -108,23 +130,11 @@ export const AddEvent = (props: any) => {
             />
 
             {form.watch("courses")?.length > 0 && (
-              <FormField
-                control={form.control}
-                name="hours"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Hours</FormLabel>
-                    <Input
-                      id="hours"
-                      placeholder=""
-                      {...field}
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <FormItem>
+                <FormLabel>Hours</FormLabel>
+                <Input id="hours" placeholder="" value={courseHours} disabled />
+                <FormMessage />
+              </FormItem>
             )}
 
             <FormField
@@ -139,6 +149,9 @@ export const AddEvent = (props: any) => {
                     bg="orange"
                     value={field.value}
                     onChange={field.onChange}
+                    unselectable={facOccupiedHours}
+                    maxSelection={courseHours}
+                    disabled={courseHours === undefined}
                   />
                   <FormMessage />
                 </FormItem>

@@ -99,14 +99,14 @@ export const columns: ColumnDef<Faculty>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-cyan-700 focus:text-cyan-700 dark:text-cyan-500 dark:focus:text-cyan-500">
-              <PenSquare className="h-4 w-4 mr-2" />
+              <PenSquare className="mr-2 h-4 w-4" />
               <p>Edit</p>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-rose-700 focus:text-rose-700 dark:text-rose-500 dark:focus:text-rose-500"
               onClick={() => {}}
             >
-              <Trash2 className="h-4 w-4 mr-2" />
+              <Trash2 className="mr-2 h-4 w-4" />
               <p>Delete</p>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -131,11 +131,11 @@ const OccupiedCell = (props: any) => {
   }
 
   return (
-    <div className="flex gap-2 w-fit">
+    <div className="flex w-fit gap-2">
       {occupied.map((hour: number, index: number) => (
         <div
           key={index}
-          className="text-xs px-2 py-1 rounded-md bg-rose-200 dark:bg-rose-400/40"
+          className="rounded-md bg-rose-200 px-2 py-1 text-xs dark:bg-rose-400/40"
         >
           {resolveCell(hour)}
         </div>

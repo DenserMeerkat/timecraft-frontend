@@ -15,8 +15,8 @@ const FacultyTable = (props: any) => {
   const { faculties } = useAppContext();
 
   return (
-    <div className={cn("min-h-[200px] my-6 w-full", className)}>
-      <div className="flex items-center justify-between mb-8">
+    <div className={cn("my-6 min-h-[200px] w-full", className)}>
+      <div className="mb-8 flex items-center justify-between">
         <SectionHeading Icon={GraduationCap} title={"Faculties"} />
         <AddDialog itemName={"Faculty"} Content={AddFaculty} />
       </div>

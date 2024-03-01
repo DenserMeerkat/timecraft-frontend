@@ -71,13 +71,13 @@ const HourGrid: React.FC<{
       className={`rounded-md border p-2 
       ${
         isFocussed
-          ? "dark:border-zinc-300 border-black"
-          : "dark:border-zinc-800 border-zinc-200"
+          ? "border-black dark:border-zinc-300"
+          : "border-zinc-200 dark:border-zinc-800"
       }
       ${
         disabled ??
         (false || (maxSelection && value && value.length >= maxSelection))
-          ? "opacity-50 pointer-events-none cursor-not-allowed"
+          ? "pointer-events-none cursor-not-allowed opacity-50"
           : ""
       }
       `}
@@ -95,7 +95,7 @@ const HourGrid: React.FC<{
       </>
       {week.map((day: Schedule) => (
         <React.Fragment key={day.id}>
-          <p className="text-center col-span-1">{day.id}</p>
+          <p className="col-span-1 text-center">{day.id}</p>
           <>
             {day.periods.map((period: number, index: number) => {
               if (unselectable && unselectable.includes(period)) {
@@ -106,7 +106,7 @@ const HourGrid: React.FC<{
                     variant={"outline"}
                     color={bg}
                     disabled
-                    className={`text-xs col-span-1 min-[450px]:w-10 text-zinc-300 data-[state=on]:text-zinc-900 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200`}
+                    className={`col-span-1 text-xs text-zinc-300 data-[state=on]:text-zinc-900 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200 min-[450px]:w-10`}
                   >
                     {day.id + (index + 1)}
                   </Toggle>
@@ -118,7 +118,7 @@ const HourGrid: React.FC<{
                   size={"sm"}
                   variant={"outline"}
                   color={bg}
-                  className={`text-xs col-span-1 min-[450px]:w-10 text-zinc-400 data-[state=on]:text-zinc-950 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200`}
+                  className={`col-span-1 text-xs text-zinc-400 data-[state=on]:text-zinc-950 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200 min-[450px]:w-10`}
                   onClick={() => updateList(period)}
                 >
                   {day.id + (index + 1)}

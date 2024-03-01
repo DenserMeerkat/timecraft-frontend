@@ -28,13 +28,13 @@ export const AutoComplete = React.forwardRef(
       onChange,
       updateData,
     }: AutoCompleteProps,
-    ref
+    ref,
   ) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<string | null>(value);
     const [selectable, setSelectable] = React.useState(
-      value ? data.filter((item) => item !== value) : data
+      value ? data.filter((item) => item !== value) : data,
     );
     const [inputValue, setInputValue] = React.useState("");
     const disabled = false;
@@ -45,7 +45,7 @@ export const AutoComplete = React.forwardRef(
         setSelectable((prev) => [...prev, item]);
         onChange("");
       },
-      [onChange]
+      [onChange],
     );
 
     const handleAdd = React.useCallback(
@@ -53,7 +53,7 @@ export const AutoComplete = React.forwardRef(
         updateData([...data, item]);
         setSelectable((prev) => [...prev, item]);
       },
-      [updateData, data]
+      [updateData, data],
     );
 
     const handleDelete = React.useCallback(
@@ -62,7 +62,7 @@ export const AutoComplete = React.forwardRef(
         setSelectable((prev) => prev.filter((i) => i != item));
         inputRef.current?.blur();
       },
-      [updateData, data]
+      [updateData, data],
     );
 
     const handleSelect = React.useCallback(
@@ -72,7 +72,7 @@ export const AutoComplete = React.forwardRef(
         onChange(item);
         setOpen(false);
       },
-      [onChange]
+      [onChange],
     );
 
     const handleKeyDown = React.useCallback(
@@ -90,7 +90,7 @@ export const AutoComplete = React.forwardRef(
           }
         }
       },
-      [onChange]
+      [onChange],
     );
 
     React.useEffect(() => {
@@ -113,21 +113,21 @@ export const AutoComplete = React.forwardRef(
           label && "gap-1.5",
           parentClassName,
           "grid w-full items-center",
-          disabled && "cursor-not-allowed"
+          disabled && "cursor-not-allowed",
         )}
       >
         <Command
           onKeyDown={handleKeyDown}
           className="overflow-visible bg-transparent"
         >
-          <div className="group border border-input dark:border-zinc-800 px-3 py-2 text-sm rounded-md focus-within:ring-1 focus-within:ring-zinc-100">
-            <div className="flex gap-1 flex-wrap">
+          <div className="border-input group rounded-md border px-3 py-2 text-sm focus-within:ring-1 focus-within:ring-zinc-100 dark:border-zinc-800">
+            <div className="flex flex-wrap gap-1">
               {selected != null && selected !== "" && (
                 <Badge key={selected} variant="secondary">
                   {selected}
                   <button
                     type="button"
-                    className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         handleUnselect(selected);
@@ -141,7 +141,7 @@ export const AutoComplete = React.forwardRef(
                       handleUnselect(selected);
                     }}
                   >
-                    <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                    <X className="text-muted-foreground hover:text-foreground h-3 w-3" />
                   </button>
                 </Badge>
               )}
@@ -155,8 +155,8 @@ export const AutoComplete = React.forwardRef(
                 disabled={disabled || (selected != null && selected !== "")}
                 placeholder={placeholder}
                 className={cn(
-                  "ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1",
-                  disabled && "cursor-not-allowed"
+                  "placeholder:text-muted-foreground ml-2 flex-1 bg-transparent outline-none",
+                  disabled && "cursor-not-allowed",
                 )}
               />
             </div>
@@ -164,7 +164,7 @@ export const AutoComplete = React.forwardRef(
           <div className="relative mt-2">
             {open &&
             selectable.some((item: string) => item.includes(inputValue)) ? (
-              <div className="bg-zinc-50 dark:bg-zinc-950 absolute w-full top-0 rounded-lg border dark:border-zinc-700 bg-popover text-popover-foreground shadow-md outline-none animate-in">
+              <div className="bg-popover text-popover-foreground absolute top-0 w-full rounded-lg border bg-zinc-50 shadow-md outline-none animate-in dark:border-zinc-700 dark:bg-zinc-950">
                 <CommandGroup className="h-full overflow-auto">
                   {selectable.map((item: string) => {
                     return (
@@ -178,7 +178,7 @@ export const AutoComplete = React.forwardRef(
                           handleSelect(item);
                         }}
                         className={
-                          "cursor-pointer flex items-center w-full px-0 py-0 "
+                          "flex w-full cursor-pointer items-center px-0 py-0 "
                         }
                       >
                         <span className="w-full px-2 py-1.5">{item}</span>
@@ -189,9 +189,9 @@ export const AutoComplete = React.forwardRef(
                             event.stopPropagation();
                             handleDelete(item);
                           }}
-                          className="text-red-500 dark:text-red-500 p-1.5"
+                          className="p-1.5 text-red-500 dark:text-red-500"
                         >
-                          <XCircle className="h-4 w-4 text-muted-foreground" />
+                          <XCircle className="text-muted-foreground h-4 w-4" />
                         </button>
                       </CommandItem>
                     );
@@ -211,11 +211,11 @@ export const AutoComplete = React.forwardRef(
                       handleSelect(value);
                       handleAdd(value);
                     }}
-                    className={"cursor-pointer flex items-center gap-2"}
+                    className={"flex cursor-pointer items-center gap-2"}
                   >
                     <span className="w-full pl-2">{inputValue}</span>
                     <div className="p-1">
-                      <PlusCircle className="h-4 w-4 text-muted-foreground" />
+                      <PlusCircle className="text-muted-foreground h-4 w-4" />
                     </div>
                   </CommandItem>
                 </CommandGroup>
@@ -225,7 +225,7 @@ export const AutoComplete = React.forwardRef(
         </Command>
       </div>
     );
-  }
+  },
 );
 
 export default AutoComplete;

@@ -25,7 +25,7 @@ const GitHubLink = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.github.com/repos/${frontend.userName}/${frontend.repoName}`
+      `https://api.github.com/repos/${frontend.userName}/${frontend.repoName}`,
     )
       .then((response) => response.json())
       .then((data) => {
@@ -33,7 +33,7 @@ const GitHubLink = () => {
         setFrontStars(data.stargazers_count);
       });
     fetch(
-      `https://api.github.com/repos/${backend.userName}/${backend.repoName}`
+      `https://api.github.com/repos/${backend.userName}/${backend.repoName}`,
     )
       .then((response) => response.json())
       .then((data) => {
@@ -60,7 +60,7 @@ const GitHubLink = () => {
           </Button>
         </DrawerTrigger>
         <DrawerContent className="p-2">
-          <div className="flex flex-col gap-2 text-sm w-full max-w-xs mx-auto mt-4">
+          <div className="mx-auto mt-4 flex w-full max-w-xs flex-col gap-2 text-sm">
             <RepoCard
               repoName={backend.repoName}
               stars={backStars}
@@ -93,7 +93,7 @@ const GitHubLink = () => {
           tooltip={"GitHub"}
         ></TooltipElement>
       </PopoverTrigger>
-      <PopoverContent className="p-2 w-[300px]">
+      <PopoverContent className="w-[300px] p-2">
         <div className="flex flex-col gap-2 text-sm">
           <RepoCard
             repoName={backend.repoName}
@@ -122,7 +122,7 @@ const RepoCard = (props: any) => {
     <Link
       href={url}
       target="_blank"
-      className="group px-2 py-2 rounded-md border bg-zinc-100 hover:bg-zinc-200  dark:hover:bg-zinc-800/90 dark:bg-zinc-900 dark:border-zinc-800/80 flex items-center justify-between transition-all"
+      className="group flex items-center justify-between rounded-md border bg-zinc-100  px-2 py-2 transition-all hover:bg-zinc-200 dark:border-zinc-800/80 dark:bg-zinc-900 dark:hover:bg-zinc-800/90"
     >
       <div className="flex items-center gap-3">
         <Image
@@ -133,22 +133,22 @@ const RepoCard = (props: any) => {
           className="rounded-full border-2 border-zinc-300 dark:border-zinc-950/40"
         />
         <div className="flex flex-col">
-          <span className="text-[0.65rem] leading-none opacity-80 font-medium dark:font-normal">
+          <span className="text-[0.65rem] font-medium leading-none opacity-80 dark:font-normal">
             {owner}
           </span>
-          <span className="font-medium tracking-wide leading-tight">
+          <span className="font-medium leading-tight tracking-wide">
             {repoName}
           </span>
 
-          <div className="flex items-center gap-1 mt-1.5">
+          <div className="mt-1.5 flex items-center gap-1">
             <Star className="h-3 w-3" />
-            <span className="font-medium text-xs leading-none ml-0.5">
+            <span className="ml-0.5 text-xs font-medium leading-none">
               {stars}
             </span>
           </div>
         </div>
       </div>
-      <ChevronRight className="h-4 w-4 -translate-x-3 opacity-40 group-hover:-translate-x-1 group-hover:opacity-90 transition-all" />
+      <ChevronRight className="h-4 w-4 -translate-x-3 opacity-40 transition-all group-hover:-translate-x-1 group-hover:opacity-90" />
     </Link>
   );
 };

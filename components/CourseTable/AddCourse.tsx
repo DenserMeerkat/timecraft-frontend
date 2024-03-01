@@ -76,7 +76,7 @@ export const AddCourse = (props: any) => {
 
   const [currentHours, setCurrentHours] = useState(form.getValues("hours"));
   const [currentFaculties, setCurrentFaculties] = useState(
-    form.getValues("faculties")
+    form.getValues("faculties"),
   );
 
   useEffect(() => {
@@ -136,7 +136,7 @@ export const AddCourse = (props: any) => {
   return (
     <AlertDialogContent
       onEscapeKeyDown={(event: KeyboardEvent) => closeDialog()}
-      className="sm:max-w-[425px] h-fit max-h-[100dvh] overflow-y-auto"
+      className="h-fit max-h-[100dvh] overflow-y-auto sm:max-w-[425px]"
     >
       <AlertDialogHeader>
         <AlertDialogTitle>New Course</AlertDialogTitle>
@@ -171,7 +171,7 @@ export const AddCourse = (props: any) => {
               <FormItem>
                 <FormLabel>
                   Course Name{" "}
-                  <span className="opacity-50 text-xs">{`(optional)`}</span>
+                  <span className="text-xs opacity-50">{`(optional)`}</span>
                 </FormLabel>
                 <FormControl>
                   <Input

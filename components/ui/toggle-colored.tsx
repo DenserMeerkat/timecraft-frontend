@@ -39,7 +39,7 @@ const toggleVariants = cva(
       size: "default",
       color: "zinc",
     },
-  }
+  },
 );
 
 const Toggle = React.forwardRef<

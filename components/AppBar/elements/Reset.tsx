@@ -44,7 +44,7 @@ const ResetButton = () => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction className="p-0 bg-transparent dark:bg-transparent">
+          <AlertDialogAction className="bg-transparent p-0 dark:bg-transparent">
             <Button
               variant={"destructive"}
               className="w-full px-6"

@@ -128,8 +128,6 @@ export const MultiCourseSelect = React.forwardRef(
         setInputValue("");
         setOpen(false);
       }
-      console.log("selected", selected);
-      console.log("selectable", selectable);
     }, [value, data, selected, maxSelectable, selectable]);
 
     return (
@@ -193,7 +191,7 @@ export const MultiCourseSelect = React.forwardRef(
           </div>
           <div className="relative mt-2">
             {open && selectable.length > 0 ? (
-              <div className="bg-zinc-50 dark:bg-zinc-950 absolute w-full top-0 rounded-md border dark:border-zinc-700 bg-popover text-popover-foreground shadow-md outline-none animate-in">
+              <div className="bg-zinc-50 dark:bg-zinc-950 absolute w-full top-0 rounded-md border dark:border-zinc-700 bg-popover z-10 text-popover-foreground shadow-md outline-none animate-in">
                 <CommandGroup className="h-full overflow-auto">
                   {selectable.map((item) => {
                     return (

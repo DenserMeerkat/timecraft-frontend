@@ -20,15 +20,15 @@ import HourDistribution from "./HourDistribution";
 const FacultyCell = (props: any) => {
   const { faculties } = props;
   return (
-    <div className="flex flex-col gap-2 w-fit">
+    <div className="flex w-fit flex-col gap-2">
       {faculties.map((code: string, index: number) => (
         <div
           key={index}
           className={cn(
-            "text-xs px-2 py-1 rounded-md",
+            "rounded-md px-2 py-1 text-xs",
             index === 0
               ? "bg-teal-200 dark:bg-teal-400/40"
-              : "bg-blue-200 dark:bg-blue-400/40"
+              : "bg-blue-200 dark:bg-blue-400/40",
           )}
         >
           {code}
@@ -124,15 +124,15 @@ export const columns: ColumnDef<Course>[] = [
         row.getValue("hours"),
       ];
       return (
-        <div className="flex flex-col gap-2 w-fit">
+        <div className="flex w-fit flex-col gap-2">
           {faculties.map((faculty, index: number) => (
             <div key={index} className="flex items-center gap-3">
               <div
                 className={cn(
-                  "text-xs px-2 py-1 rounded-md",
+                  "rounded-md px-2 py-1 text-xs",
                   index === 0
                     ? "bg-teal-200 dark:bg-teal-400/40"
-                    : "bg-blue-200 dark:bg-blue-400/40"
+                    : "bg-blue-200 dark:bg-blue-400/40",
                 )}
               >
                 {faculty.code}
@@ -151,15 +151,15 @@ export const columns: ColumnDef<Course>[] = [
         row.getValue("hours"),
       ];
       return (
-        <div className="flex flex-col gap-2 w-fit">
+        <div className="flex w-fit flex-col gap-2">
           {hoursDistribution.map((hours, index: number) => (
             <div
               key={index}
               className={cn(
-                "text-xs px-2 py-1 rounded-md",
+                "rounded-md px-2 py-1 text-xs",
                 index === 0
                   ? "bg-teal-200 dark:bg-teal-400/40"
-                  : "bg-blue-200 dark:bg-blue-400/40"
+                  : "bg-blue-200 dark:bg-blue-400/40",
               )}
             >
               {hours}
@@ -187,14 +187,14 @@ export const columns: ColumnDef<Course>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-cyan-700 focus:text-cyan-700 dark:text-cyan-500 dark:focus:text-cyan-500">
-              <PenSquare className="h-4 w-4 mr-2" />
+              <PenSquare className="mr-2 h-4 w-4" />
               <p>Edit</p>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-rose-700 focus:text-rose-700 dark:text-rose-500 dark:focus:text-rose-500"
               onClick={() => {}}
             >
-              <Trash2 className="h-4 w-4 mr-2" />
+              <Trash2 className="mr-2 h-4 w-4" />
               <p>Delete</p>
             </DropdownMenuItem>
           </DropdownMenuContent>

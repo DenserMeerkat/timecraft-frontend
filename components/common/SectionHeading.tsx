@@ -6,7 +6,7 @@ const SectionHeading = (props: any) => {
   return (
     <div className="flex items-center">
       <Icon className="ml-1 mr-3" />
-      <h2 className="font-semibold dark:font-medium text-xl md:text-2xl">
+      <h2 className="text-xl font-semibold dark:font-medium md:text-2xl">
         {title}
       </h2>
     </div>

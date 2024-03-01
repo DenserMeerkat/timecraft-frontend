@@ -14,8 +14,8 @@ const EventTable = () => {
   const { subjects } = useAppContext();
 
   return (
-    <div className="min-h-[200px] mb-12">
-      <div className="flex items-center justify-between mb-8">
+    <div className="mb-12 min-h-[200px]">
+      <div className="mb-8 flex items-center justify-between">
         <SectionHeading Icon={CalendarPlus} title={"Events"} />
         <AddDialog itemName={"Event"} Content={AddEvent} />
       </div>

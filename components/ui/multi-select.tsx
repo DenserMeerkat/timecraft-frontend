@@ -33,7 +33,7 @@ export const MultiSelect = React.forwardRef<
       selected,
       onChange,
     }: MultiSelectProps<any>,
-    ref
+    ref,
   ) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [open, setOpen] = React.useState(false);
@@ -41,10 +41,10 @@ export const MultiSelect = React.forwardRef<
     const handleUnselect = React.useCallback(
       (item: Record<string, string>) => {
         onChange((selected) =>
-          selected.filter((item1) => item1.id !== item.id)
+          selected.filter((item1) => item1.id !== item.id),
         );
       },
-      [onChange]
+      [onChange],
     );
     const disabled = data.length === 0;
     const handleKeyDown = React.useCallback(
@@ -65,7 +65,7 @@ export const MultiSelect = React.forwardRef<
           }
         }
       },
-      [onChange, selected]
+      [onChange, selected],
     );
 
     const selectables = data.filter((item) => !selected.includes(item));
@@ -76,7 +76,7 @@ export const MultiSelect = React.forwardRef<
           label && "gap-1.5",
           parentClassName,
           "grid w-full items-center",
-          disabled && "cursor-not-allowed"
+          disabled && "cursor-not-allowed",
         )}
       >
         {label && <Label className="text-sm font-medium">{label}</Label>}
@@ -84,14 +84,14 @@ export const MultiSelect = React.forwardRef<
           onKeyDown={handleKeyDown}
           className="overflow-visible bg-transparent"
         >
-          <div className="group border border-input dark:border-zinc-800 px-3 py-2 text-sm rounded-md focus-within:ring-1 focus-within:ring-zinc-100">
-            <div className="flex gap-1 flex-wrap">
+          <div className="border-input group rounded-md border px-3 py-2 text-sm focus-within:ring-1 focus-within:ring-zinc-100 dark:border-zinc-800">
+            <div className="flex flex-wrap gap-1">
               {selected.map((item, index) => {
                 return (
                   <Badge key={item.value} variant="secondary">
                     {item.id}
                     <button
-                      className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           handleUnselect(item);
@@ -103,7 +103,7 @@ export const MultiSelect = React.forwardRef<
                       }}
                       onClick={() => handleUnselect(item)}
                     >
-                      <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                      <X className="text-muted-foreground hover:text-foreground h-3 w-3" />
                     </button>
                   </Badge>
                 );
@@ -117,15 +117,15 @@ export const MultiSelect = React.forwardRef<
                 placeholder={placeholder}
                 disabled={disabled}
                 className={clsx(
-                  "ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1",
-                  disabled && "cursor-not-allowed"
+                  "placeholder:text-muted-foreground ml-2 flex-1 bg-transparent outline-none",
+                  disabled && "cursor-not-allowed",
                 )}
               />
             </div>
           </div>
           <div className="relative mt-2">
             {open && selectables.length > 0 ? (
-              <div className="bg-zinc-50 dark:bg-zinc-950 absolute w-full top-0 rounded-md border dark:border-zinc-700 bg-popover text-popover-foreground shadow-md outline-none animate-in">
+              <div className="bg-popover text-popover-foreground absolute top-0 w-full rounded-md border bg-zinc-50 shadow-md outline-none animate-in dark:border-zinc-700 dark:bg-zinc-950">
                 <CommandGroup className="h-full overflow-auto">
                   {selectables.map((framework) => {
                     return (
@@ -140,9 +140,9 @@ export const MultiSelect = React.forwardRef<
                           onChange(
                             selected?.some((item) => item.id === framework.id)
                               ? selected.filter(
-                                  (item) => item.id !== framework.id
+                                  (item) => item.id !== framework.id,
                                 )
-                              : [...selected, framework]
+                              : [...selected, framework],
                           );
                         }}
                       >
@@ -151,7 +151,7 @@ export const MultiSelect = React.forwardRef<
                             "mr-2 h-4 w-4",
                             selected?.some((item) => item.id === framework.id)
                               ? "opacity-100"
-                              : "opacity-0"
+                              : "opacity-0",
                           )}
                         />
                         {framework.id}
@@ -165,7 +165,7 @@ export const MultiSelect = React.forwardRef<
         </Command>
       </div>
     );
-  }
+  },
 );
 
 MultiSelect.displayName = "MultiSelect";

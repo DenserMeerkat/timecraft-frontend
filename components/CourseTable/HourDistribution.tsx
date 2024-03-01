@@ -16,7 +16,7 @@ export interface HourDistributonProps<T extends ItemType> {
 const HourDistribution = React.forwardRef(
   (
     { max, data, value, disabled, onChange }: HourDistributonProps<any>,
-    ref
+    ref,
   ) => {
     const [defaultValues, setDefaultValues] = useState<number[]>([
       Math.floor(max / 2),
@@ -49,11 +49,11 @@ const HourDistribution = React.forwardRef(
         <div className="pb-2">
           <div
             className={cn(
-              "border rounded-md px-2 py-1.5 border-zinc-200 dark:border-zinc-800",
-              { "cursor-not-allowed opacity-70": disabled }
+              "rounded-md border border-zinc-200 px-2 py-1.5 dark:border-zinc-800",
+              { "cursor-not-allowed opacity-70": disabled },
             )}
           >
-            <p className="pl-2 text-popover-foreground">Hours required</p>
+            <p className="text-popover-foreground pl-2">Hours required</p>
           </div>
         </div>
       );
@@ -62,7 +62,7 @@ const HourDistribution = React.forwardRef(
         <div className="pb-2">
           <div
             className={cn(
-              "border rounded-md px-2 py-2 border-zinc-200 dark:border-zinc-800 flex flex-col space-y-4"
+              "flex flex-col space-y-4 rounded-md border border-zinc-200 px-2 py-2 dark:border-zinc-800",
             )}
           >
             <div className="flex flex-col space-y-2">
@@ -82,7 +82,7 @@ const HourDistribution = React.forwardRef(
             <div
               style={gridCols}
               className={
-                "grid border h-3 p-0.5 rounded-full border-zinc-200 dark:border-zinc-800"
+                "grid h-3 rounded-full border border-zinc-200 p-0.5 dark:border-zinc-800"
               }
             >
               <span
@@ -102,7 +102,7 @@ const HourDistribution = React.forwardRef(
         </div>
       );
     }
-  }
+  },
 );
 
 export default HourDistribution;
@@ -110,18 +110,18 @@ export default HourDistribution;
 const HourDistributionItem = (props: any) => {
   const { item, index, values, setValues, max } = props;
   return (
-    <div className="flex justify-between items-center px-2">
+    <div className="flex items-center justify-between px-2">
       <p
         className={cn(
-          "px-2 py-1 text-center rounded-md text-sm tracking-widest",
+          "rounded-md px-2 py-1 text-center text-sm tracking-widest",
           index === 0
             ? "bg-teal-200 dark:bg-teal-400/40"
-            : "bg-blue-200 dark:bg-blue-400/40"
+            : "bg-blue-200 dark:bg-blue-400/40",
         )}
       >
         {item.code}
       </p>
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         <Button
           type="button"
           variant={"secondary"}
@@ -136,7 +136,7 @@ const HourDistributionItem = (props: any) => {
         >
           <Minus className="h-4 w-4" />
         </Button>
-        <p className="border border-zinc-200 dark:border-zinc-800 px-2.5 py-1.5 mx-0.5 text-sm rounded-md">
+        <p className="mx-0.5 rounded-md border border-zinc-200 px-2.5 py-1.5 text-sm dark:border-zinc-800">
           {values[index]}
         </p>
         <Button
