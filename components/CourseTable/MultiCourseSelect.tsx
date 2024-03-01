@@ -70,9 +70,12 @@ export const MultiCourseSelect = React.forwardRef(
                 const newSelected = [...prev];
                 newSelected.pop();
                 if (newSelected.length > 0) {
-                  const hours = newSelected[0].hours;
                   setSelectable((prev) =>
-                    prev.filter((i) => i.hours === hours),
+                    prev.filter(
+                      (i) =>
+                        i.hours === newSelected[0].hours &&
+                        i.studentGroup === newSelected[0].studentGroup,
+                    ),
                   );
                 } else {
                   setSelectable(data);
@@ -108,10 +111,12 @@ export const MultiCourseSelect = React.forwardRef(
 
     React.useEffect(() => {
       if (selected.length > 0) {
-        const hours = selected[0].hours;
         setSelectable(
           data.filter(
-            (item) => item.hours === hours && !selected.includes(item),
+            (item) =>
+              item.hours === selected[0].hours &&
+              item.studentGroup === selected[0].studentGroup &&
+              !selected.includes(item),
           ),
         );
       } else {

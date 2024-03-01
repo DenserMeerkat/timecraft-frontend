@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
+import { resolveHour } from "@/lib/functions";
 
 export const columns: ColumnDef<Faculty>[] = [
   {
@@ -121,15 +122,6 @@ const OccupiedCell = (props: any) => {
   const state = useAppContext();
   const { hours, days } = state;
 
-  function resolveCell(hour: number) {
-    let cell: string = "";
-    const day = Math.floor(hour / hours!);
-    const hourWithinDay = (hour % hours!) + 1;
-    cell = String.fromCharCode(65 + day);
-    cell += hourWithinDay;
-    return cell;
-  }
-
   return (
     <div className="flex w-fit gap-2">
       {occupied.map((hour: number, index: number) => (
@@ -137,7 +129,7 @@ const OccupiedCell = (props: any) => {
           key={index}
           className="rounded-md bg-rose-200 px-2 py-1 text-xs dark:bg-rose-400/40"
         >
-          {resolveCell(hour)}
+          {resolveHour(hour, hours!)}
         </div>
       ))}
     </div>

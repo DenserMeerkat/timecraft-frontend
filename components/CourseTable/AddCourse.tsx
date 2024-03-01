@@ -22,12 +22,13 @@ import { useAppContext } from "@/components/context/AppStateContext";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
-import { Course } from "@/lib/types";
+import { Course, Faculty } from "@/lib/types";
 import { facultySchema } from "@/lib/schemas";
 import AutoComplete from "../common/AutoComplete";
 import MultiSelect from "../common/MultiSelect";
 import HourDistribution from "./HourDistribution";
 import { Checkbox } from "../ui/checkbox";
+import { getAvailableFaculties } from "@/lib/functions";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;
@@ -213,8 +214,8 @@ export const AddCourse = (props: any) => {
                     {...field}
                     data={faculties ?? []}
                     placeholder={
-                      faculties?.length === 0
-                        ? "No faculties"
+                      (faculties ?? []).length === 0
+                        ? "No Faculties available"
                         : "Select Faculties"
                     }
                     value={field.value ?? []}

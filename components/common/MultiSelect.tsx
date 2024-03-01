@@ -136,6 +136,7 @@ export const MultiSelect = React.forwardRef(
                       onClick={() => {
                         handleUnselect(item);
                       }}
+                      disabled={isDisabled}
                     >
                       <X className="text-muted-foreground hover:text-foreground h-3 w-3" />
                     </button>

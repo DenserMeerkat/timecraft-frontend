@@ -29,6 +29,7 @@ import { Course, JointCourse } from "@/lib/types";
 import { courseSchema } from "@/lib/schemas";
 import HourGrid from "@/components/common/HourGrid";
 import { MultiCourseSelect } from "../CourseTable/MultiCourseSelect";
+import { getAvailableCourses, getOccupiedSlots } from "@/lib/functions";
 
 export const AddEvent = (props: any) => {
   const { open, setOpen } = props;
@@ -52,7 +53,10 @@ export const AddEvent = (props: any) => {
     resolver: zodResolver(JointCourseSchema),
   });
   function onSubmit(data: z.infer<typeof JointCourseSchema>) {
-    const jointCourse: JointCourse = data;
+    const jointCourse: JointCourse = {
+      courses: data.courses,
+      fixedSlots: data.fixedSlots,
+    };
     updateJointCourseSchemas([...jointCourses, jointCourse]);
     form.reset();
     closeAlertDialog();
@@ -72,43 +76,24 @@ export const AddEvent = (props: any) => {
   }
 
   useEffect(() => {
-    if (jointCourses && jointCourses.length > 0) {
-      let availableCourses: Course[] = [];
-      courses.forEach((course) => {
-        jointCourses.forEach((jointCourse) => {
-          if (
-            !jointCourse.courses.find((c: Course) => c.code === course.code)
-          ) {
-            availableCourses.push(course);
-          }
-        });
-      });
-      setAvailableCourses(availableCourses);
-    } else {
-      setAvailableCourses(courses);
-    }
+    setAvailableCourses(getAvailableCourses(courses, jointCourses));
   }, [courses, jointCourses]);
 
   useEffect(() => {
     if (form.watch("courses")?.length > 0) {
       const hours = form.watch("courses")?.[0].hours;
+
       let occupiedHours: number[] = [];
-      form
-        .watch("courses")
-        ?.forEach((course) =>
-          course.faculties.forEach((faculty) =>
-            occupiedHours.push(
-              ...(faculty.occupiedSlots?.map((slot) => slot) || []),
-            ),
-          ),
-        );
+      form.watch("courses")?.forEach((course) => {
+        occupiedHours.push(...getOccupiedSlots(course));
+      });
       setFacOccupiedHours(occupiedHours);
       setCourseHours(hours);
     } else {
       setFacOccupiedHours([]);
       setCourseHours(undefined);
     }
-  }, [form, form.watch("courses")]);
+  }, [form]);
 
   const closeAlertDialog = () => {
     form.reset();
@@ -136,10 +121,12 @@ export const AddEvent = (props: any) => {
               render={({ field: { ...field } }) => (
                 <MultiCourseSelect
                   label="Courses"
-                  placeholder={`${
-                    courses.length > 0 ? "" : "No Courses added yet."
-                  } `}
                   data={availableCourses ?? []}
+                  placeholder={
+                    availableCourses.length === 0
+                      ? "No Courses available"
+                      : "Select Courses"
+                  }
                   {...field}
                   value={field.value ?? []}
                   onChange={field.onChange}
@@ -164,7 +151,7 @@ export const AddEvent = (props: any) => {
                   <HourGrid
                     columns={hours!}
                     rows={days!}
-                    bg="orange"
+                    bg="blue"
                     value={field.value}
                     onChange={field.onChange}
                     unselectable={facOccupiedHours}

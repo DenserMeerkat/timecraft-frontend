@@ -5,7 +5,7 @@ import { Schedule } from "@/lib/types";
 const HourGrid: React.FC<{
   rows: number;
   columns: number;
-  bg: "rose" | "zinc" | "sky" | "emerald" | "orange" | undefined;
+  bg: "rose" | "zinc" | "sky" | "emerald" | "blue" | undefined;
   value?: number[];
   onChange: (newValue: number[]) => void;
   disabled?: boolean;
@@ -50,10 +50,6 @@ const HourGrid: React.FC<{
       updatedValue.sort((a, b) => a - b);
       onChange(updatedValue);
     } else {
-      if (maxSelection && value && value.length == maxSelection) {
-        console.log("Max selection reached");
-        return;
-      }
       const updatedValue = [...(value || []), index];
       updatedValue.sort((a, b) => a - b);
       onChange(updatedValue);
@@ -121,6 +117,11 @@ const HourGrid: React.FC<{
                   size={"sm"}
                   variant={"outline"}
                   color={bg}
+                  disabled={
+                    maxSelection !== undefined &&
+                    (value ?? []).length == maxSelection &&
+                    !value?.includes(period)
+                  }
                   className={`col-span-1 text-xs text-zinc-400 data-[state=on]:text-zinc-950 dark:text-zinc-600 data-[state=on]:dark:text-zinc-200 min-[450px]:w-10`}
                   onClick={() => updateList(period)}
                 >

@@ -30,8 +30,7 @@ const toggleVariants = cva(
         emerald:
           "hover:bg-emerald-100 data-[state=on]:bg-emerald-200 dark:hover:bg-emerald-400/20 dark:data-[state=on]:bg-emerald-400/40",
 
-        orange:
-          "hover:bg-orange-100 data-[state=on]:bg-orange-200 dark:hover:bg-orange-400/20 dark:data-[state=on]:bg-orange-400/40",
+        blue: "hover:bg-blue-100 data-[state=on]:bg-blue-200 dark:hover:bg-blue-400/20 dark:data-[state=on]:bg-blue-400/40",
       },
     },
     defaultVariants: {

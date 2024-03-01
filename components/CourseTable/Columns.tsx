@@ -15,28 +15,6 @@ import {
 import { PenSquare, Trash2 } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { cn } from "@/lib/utils";
-import HourDistribution from "./HourDistribution";
-
-const FacultyCell = (props: any) => {
-  const { faculties } = props;
-  return (
-    <div className="flex w-fit flex-col gap-2">
-      {faculties.map((code: string, index: number) => (
-        <div
-          key={index}
-          className={cn(
-            "rounded-md px-2 py-1 text-xs",
-            index === 0
-              ? "bg-teal-200 dark:bg-teal-400/40"
-              : "bg-blue-200 dark:bg-blue-400/40",
-          )}
-        >
-          {code}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 export const columns: ColumnDef<Course>[] = [
   {
@@ -120,9 +98,6 @@ export const columns: ColumnDef<Course>[] = [
     header: "Faculties",
     cell: ({ row }) => {
       const faculties: Faculty[] = row.getValue("faculties");
-      const hoursDistribution: number[] = row.getValue("hoursDistribution") ?? [
-        row.getValue("hours"),
-      ];
       return (
         <div className="flex w-fit flex-col gap-2">
           {faculties.map((faculty, index: number) => (
