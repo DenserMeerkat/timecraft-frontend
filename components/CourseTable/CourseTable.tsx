@@ -1,6 +1,6 @@
 "use client";
 import React, { Suspense } from "react";
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/common/DataTable";
 import { columns } from "./Columns";
 import AddDialog from "@/components/common/AddDialog";
 import { useAppContext } from "@/components/context/AppStateContext";

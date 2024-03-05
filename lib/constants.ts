@@ -1,6 +1,3 @@
-// import FrontendOwner from "/DenserMeerkat.jpg";
-// import BackendOwner from "/Sajith17.jpg";
-
 const frontend = {
   url: "https://github.com/DenserMeerkat/timecraft-frontend",
   userName: "DenserMeerkat",
@@ -15,4 +12,10 @@ const backend = {
   fallbackImage: "/avatars/Sajith17.jpg",
 };
 
-export { frontend, backend };
+const request = {
+  localhostURL: "https://localhost",
+  port: 5000,
+  endpoint: "/create_timetable",
+};
+
+export { frontend, backend, request };

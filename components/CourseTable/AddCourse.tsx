@@ -105,7 +105,7 @@ export const AddCourse = (props: any) => {
     const course: Course = {
       code: data.code,
       name: data.name || "",
-      hours: data.hours,
+      noHours: data.hours,
       isShared: data.isShared,
       faculties: data.faculties,
       hoursDistribution: data.hoursDistribution,

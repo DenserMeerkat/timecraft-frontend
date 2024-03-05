@@ -13,3 +13,12 @@ export type Schedule = {
 };
 
 export type ItemType = { code: string; name?: string };
+
+export type TimeTableRequest = {
+  noHours: number;
+  noDays: number;
+  studentGroups: string[];
+  faculties: Faculty[];
+  courses: Course[];
+  jointCoursesList: JointCourse[];
+};

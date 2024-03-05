@@ -2,6 +2,7 @@ import FacultyTable from "@/components/FacultyTable/FacultyTable";
 import CourseTable from "@/components/CourseTable/CourseTable";
 import EventTable from "@/components/EventTable/EventTable";
 import Fields from "@/components/Fields";
+import GenerateButton from "@/components/Generate/GenerateButton";
 
 export default function Home() {
   return (
@@ -13,11 +14,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 xl:px-0">
           <FacultyTable className="mb-10" />
           <CourseTable />
+          <EventTable />
         </div>
       </section>
       <section className="pb-4 pt-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 xl:px-0">
-          <EventTable />
+          <GenerateButton />
         </div>
       </section>
     </main>

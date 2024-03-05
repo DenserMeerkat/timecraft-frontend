@@ -51,3 +51,14 @@ export function resolveHour(hour: number, hours: number) {
   res += hourWithinDay;
   return res;
 }
+
+export function courseListToJointCourseList(courses: Course[]): JointCourse[] {
+  return courses.map((course) => courseToJointCourse(course));
+}
+
+export function courseToJointCourse(course: Course): JointCourse {
+  return {
+    courses: [course],
+    fixedSlots: [],
+  } as JointCourse;
+}

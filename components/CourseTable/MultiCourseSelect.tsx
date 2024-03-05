@@ -73,7 +73,7 @@ export const MultiCourseSelect = React.forwardRef(
                   setSelectable((prev) =>
                     prev.filter(
                       (i) =>
-                        i.hours === newSelected[0].hours &&
+                        i.noHours === newSelected[0].noHours &&
                         i.studentGroup === newSelected[0].studentGroup,
                     ),
                   );
@@ -90,9 +90,9 @@ export const MultiCourseSelect = React.forwardRef(
                 const newSelected = [...prevSelected];
                 newSelected.pop();
                 if (newSelected.length > 0) {
-                  const hours = newSelected[0].hours;
+                  const hours = newSelected[0].noHours;
                   setSelectable((prev) =>
-                    prev.filter((i) => i.hours === hours),
+                    prev.filter((i) => i.noHours === hours),
                   );
                 } else {
                   setSelectable(data);
@@ -114,7 +114,7 @@ export const MultiCourseSelect = React.forwardRef(
         setSelectable(
           data.filter(
             (item) =>
-              item.hours === selected[0].hours &&
+              item.noHours === selected[0].noHours &&
               item.studentGroup === selected[0].studentGroup &&
               !selected.includes(item),
           ),
@@ -207,7 +207,7 @@ export const MultiCourseSelect = React.forwardRef(
                         }
                       >
                         {item.code}
-                        <span>{item.hours}</span>
+                        <span>{item.noHours}</span>
                       </CommandItem>
                     );
                   })}

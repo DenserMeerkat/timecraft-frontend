@@ -81,7 +81,7 @@ export const AddEvent = (props: any) => {
 
   useEffect(() => {
     if (form.watch("courses")?.length > 0) {
-      const hours = form.watch("courses")?.[0].hours;
+      const hours = form.watch("courses")?.[0].noHours;
 
       let occupiedHours: number[] = [];
       form.watch("courses")?.forEach((course) => {
