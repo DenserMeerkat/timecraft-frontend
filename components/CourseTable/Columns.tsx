@@ -89,9 +89,9 @@ export const columns: ColumnDef<Course>[] = [
     cell: ({ row }) => <div>{row.getValue("studentGroup")}</div>,
   },
   {
-    accessorKey: "hours",
+    accessorKey: "noHours",
     header: "Hours",
-    cell: ({ row }) => <div>{row.getValue("hours")}</div>,
+    cell: ({ row }) => <div>{row.getValue("noHours")}</div>,
   },
   {
     accessorKey: "faculties",
@@ -123,7 +123,7 @@ export const columns: ColumnDef<Course>[] = [
     header: "Hour Distribution",
     cell: ({ row }) => {
       const hoursDistribution: number[] = row.getValue("hoursDistribution") ?? [
-        row.getValue("hours"),
+        row.getValue("noHours"),
       ];
       return (
         <div className="flex w-fit flex-col gap-2">

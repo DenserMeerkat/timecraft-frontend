@@ -33,6 +33,7 @@ export async function generateTimetable(timetableRequest: TimeTableRequest) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(timetableRequest),
   };
+  console.log("Request:", timetableRequest);
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();

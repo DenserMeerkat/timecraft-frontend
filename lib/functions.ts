@@ -4,14 +4,17 @@ export function getAvailableCourses(
   courses: Course[],
   jointCourses: JointCourse[],
 ) {
-  if (jointCourses && jointCourses.length > 0) {
+  if (jointCourses.length > 0) {
     let availableCourses: Course[] = [];
     courses.forEach((course) => {
-      jointCourses.forEach((jointCourse) => {
-        if (!jointCourse.courses.find((c: Course) => c.code === course.code)) {
-          availableCourses.push(course);
-        }
-      });
+      if (
+        jointCourses.every(
+          (jointCourse) =>
+            !jointCourse.courses.find((c: Course) => c.code === course.code),
+        )
+      ) {
+        availableCourses.push(course);
+      }
     });
     return availableCourses;
   } else {
