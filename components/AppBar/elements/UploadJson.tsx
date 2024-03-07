@@ -12,31 +12,27 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { Upload } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
 
-const ResetButton = () => {
+const UploadJson = () => {
   const state = useAppContext();
 
-  function handleClick() {
-    state.reset();
-  }
+  function handleClick() {}
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Button variant={"destructive"} asChild>
-          <div className="flex w-full cursor-pointer">
-            <RotateCcw className={"mr-2 h-4 w-4"} />
-            Reset Data
+      <AlertDialogTrigger asChild>
+        <Button variant={"secondary"} asChild>
+          <div className="flex w-full cursor-pointer items-center">
+            <Upload className="mr-2 h-4 w-4" /> Upload
           </div>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Upload Warning</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete all
-            current data.
+            Uploading data with JSON resets current data.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -47,7 +43,7 @@ const ResetButton = () => {
               className="w-full px-6"
               onClick={handleClick}
             >
-              Reset
+              Reset & Upload
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -55,4 +51,4 @@ const ResetButton = () => {
     </AlertDialog>
   );
 };
-export default ResetButton;
+export default UploadJson;

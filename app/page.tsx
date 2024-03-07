@@ -11,7 +11,7 @@ export default function Home() {
         <Fields />
       </section>
       <section className="border-b pb-4 pt-5 dark:border-zinc-800 dark:bg-zinc-900/30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 xl:px-0">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 2xl:px-0">
           <FacultyTable className="mb-10" />
           <CourseTable />
           <EventTable />

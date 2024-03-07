@@ -5,7 +5,13 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { Faculty, Course, JointCourse } from "../../lib/types";
+import { Faculty, Course, JointCourse, TimeTableRequest } from "@/lib/types";
+import {
+  generateTimetableRequestType,
+  courseListToJointCourseList,
+  filterNullJointCourses,
+  getAvailableCourses,
+} from "@/lib/functions";
 
 interface AppContextType {
   hours: number | null;
@@ -20,9 +26,11 @@ interface AppContextType {
   updateLock: () => void;
   updateFaculties: (faculties: Faculty[]) => void;
   updateCourses: (courses: Course[]) => void;
-  updateJointCourseSchemas: (jointCourses: JointCourse[]) => void;
+  updateJointCourses: (jointCourses: JointCourse[]) => void;
   updateGroups: (groups: string[]) => void;
   reset: () => void;
+  upload: (data: TimeTableRequest) => void;
+  download: () => TimeTableRequest | null;
 }
 
 const defaultAppContext: AppContextType = {
@@ -38,9 +46,11 @@ const defaultAppContext: AppContextType = {
   updateLock: () => {},
   updateFaculties: () => {},
   updateCourses: () => {},
-  updateJointCourseSchemas: () => {},
+  updateJointCourses: () => {},
   updateGroups: () => {},
   reset: () => {},
+  upload: (data: TimeTableRequest) => {},
+  download: () => null,
 };
 const AppContext = createContext<AppContextType>(defaultAppContext);
 
@@ -56,28 +66,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [lock, setLock] = useState(false);
   const [faculties, setFaculties] = useState([] as Faculty[]);
   const [courses, setCourses] = useState([] as Course[]);
-  const [jointCourses, setJointCourseSchemas] = useState([] as JointCourse[]);
+  const [jointCourses, setJointCourses] = useState([] as JointCourse[]);
   const [groups, setGroups] = useState([] as string[]);
-  const updateHours = (hours: number | null) => {
-    setHours(hours);
-  };
-  const updateDays = (days: number | null) => {
-    setDays(days);
-  };
+
   const updateLock = () => {
     setLock((prev) => !prev);
-  };
-  const updateFaculties = (faculties: Faculty[]) => {
-    setFaculties(faculties);
-  };
-  const updateCourses = (courses: Course[]) => {
-    setCourses(courses);
-  };
-  const updateJointCourseSchemas = (jointCourses: JointCourse[]) => {
-    setJointCourseSchemas(jointCourses);
-  };
-  const updateGroups = (groups: string[]) => {
-    setGroups(groups);
   };
 
   const resetState = () => {
@@ -86,9 +79,47 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     setLock(false);
     setFaculties([]);
     setCourses([]);
-    setJointCourseSchemas([]);
+    setJointCourses([]);
     setGroups([]);
     localStorage.removeItem("appState");
+  };
+
+  const uploadState = (data: TimeTableRequest) => {
+    const filteredJointCourses = filterNullJointCourses(data.jointCoursesList);
+    resetState();
+    setHours(data.noHours);
+    setDays(data.noDays);
+    setLock(true);
+    setFaculties(data.faculties);
+    setCourses(data.courses);
+    setJointCourses(filteredJointCourses);
+    setGroups(data.studentGroups);
+  };
+
+  const downloadState = () => {
+    const storedState = localStorage.getItem("appState");
+    if (storedState) {
+      const parsedState = JSON.parse(storedState);
+      let convertedJointCourses: JointCourse[] = [];
+      const availableCourses = getAvailableCourses(
+        parsedState.courses,
+        parsedState.jointCourses,
+      );
+      convertedJointCourses = courseListToJointCourseList(availableCourses);
+      const allJointCourses = [
+        ...parsedState.jointCourses,
+        ...convertedJointCourses,
+      ];
+      return generateTimetableRequestType(
+        parsedState.hours,
+        parsedState.days,
+        parsedState.groups,
+        parsedState.faculties,
+        parsedState.courses,
+        allJointCourses,
+      );
+    }
+    return null;
   };
 
   const state: AppContextType = {
@@ -100,13 +131,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     jointCourses,
     groups,
     updateLock,
-    updateHours,
-    updateDays,
-    updateCourses,
-    updateFaculties,
-    updateJointCourseSchemas,
-    updateGroups,
+    updateHours: setHours,
+    updateDays: setDays,
+    updateCourses: setCourses,
+    updateFaculties: setFaculties,
+    updateJointCourses: setJointCourses,
+    updateGroups: setGroups,
     reset: resetState,
+    upload: uploadState,
+    download: downloadState,
   };
 
   useEffect(() => {
@@ -118,10 +151,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       setLock(parsedState.lock);
       setFaculties(parsedState.faculties);
       setCourses(parsedState.courses);
-      setJointCourseSchemas(parsedState.jointCourses);
+      setJointCourses(parsedState.jointCourses);
       setGroups(parsedState.groups);
     }
-    console.log("storedState", storedState);
   }, []);
 
   useEffect(() => {

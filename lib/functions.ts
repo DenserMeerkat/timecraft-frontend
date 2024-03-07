@@ -1,4 +1,11 @@
-import { Course, Faculty, JointCourse } from "./types";
+import { Course, Faculty, JointCourse, TimeTableRequest } from "./types";
+
+export function filterNullJointCourses(jointCourses: JointCourse[]) {
+  return jointCourses.filter(
+    (jointCourse) =>
+      jointCourse.fixedSlots != undefined && jointCourse.fixedSlots?.length > 0,
+  );
+}
 
 export function getAvailableCourses(
   courses: Course[],
@@ -64,4 +71,28 @@ export function courseToJointCourse(course: Course): JointCourse {
     courses: [course],
     fixedSlots: [],
   } as JointCourse;
+}
+
+export function generateTimetableRequestType(
+  hours: number,
+  days: number,
+  studentGroups: string[],
+  faculties: Faculty[],
+  courses: Course[],
+  jointCourses: JointCourse[],
+) {
+  let convertedJointCourses: JointCourse[] = [];
+  const availableCourses = getAvailableCourses(courses, jointCourses);
+  convertedJointCourses = courseListToJointCourseList(availableCourses);
+  const allJointCourses = [...jointCourses, ...convertedJointCourses];
+
+  const timetableRequest: TimeTableRequest = {
+    noHours: hours,
+    noDays: days,
+    studentGroups: studentGroups,
+    faculties: faculties,
+    courses: courses,
+    jointCoursesList: allJointCourses,
+  };
+  return timetableRequest;
 }

@@ -50,6 +50,7 @@ export const AutoComplete = React.forwardRef(
 
     const handleAdd = React.useCallback(
       (item: string) => {
+        if (data.includes(item) || selectable.includes(item)) return;
         updateData([...data, item]);
         setSelectable((prev) => [...prev, item]);
       },

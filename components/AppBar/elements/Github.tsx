@@ -59,7 +59,7 @@ const GitHubLink = () => {
             <Github className={"p-0.5"} />
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="p-2">
+        <DrawerContent className="p-2 pb-4">
           <div className="mx-auto mt-4 flex w-full max-w-xs flex-col gap-2 text-sm">
             <RepoCard
               repoName={backend.repoName}
@@ -82,7 +82,7 @@ const GitHubLink = () => {
   }
 
   return (
-    <Popover>
+    <Popover modal={true}>
       <PopoverTrigger>
         <TooltipElement
           element={
@@ -93,7 +93,7 @@ const GitHubLink = () => {
           tooltip={"GitHub"}
         ></TooltipElement>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-2">
+      <PopoverContent align="end" alignOffset={-45} className="w-[300px] p-2">
         <div className="flex flex-col gap-2 text-sm">
           <RepoCard
             repoName={backend.repoName}

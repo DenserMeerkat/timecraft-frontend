@@ -5,7 +5,8 @@ import { Sparkles } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { TimeTableRequest } from "@/lib/types";
-import { generateTimetableRequestType, generateTimetable } from "@/lib/request";
+import { generateTimetable } from "@/lib/request";
+import { generateTimetableRequestType } from "@/lib/functions";
 
 const GenerateButton = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);

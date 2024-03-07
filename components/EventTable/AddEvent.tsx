@@ -40,7 +40,7 @@ export const AddEvent = (props: any) => {
     faculties,
     courses,
     jointCourses,
-    updateJointCourseSchemas,
+    updateJointCourses,
   } = useAppContext();
   const [facOccupiedHours, setFacOccupiedHours] = useState<number[]>([]);
   const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
@@ -57,7 +57,7 @@ export const AddEvent = (props: any) => {
       courses: data.courses,
       fixedSlots: data.fixedSlots,
     };
-    updateJointCourseSchemas([...jointCourses, jointCourse]);
+    updateJointCourses([...jointCourses, jointCourse]);
     form.reset();
     closeAlertDialog();
     toast({
