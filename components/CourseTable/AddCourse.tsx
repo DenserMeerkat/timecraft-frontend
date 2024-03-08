@@ -22,13 +22,12 @@ import { useAppContext } from "@/components/context/AppStateContext";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
-import { Course, Faculty } from "@/lib/types";
+import { Course } from "@/lib/types";
 import { facultySchema } from "@/lib/schemas";
-import AutoComplete from "../common/AutoComplete";
-import MultiSelect from "../common/MultiSelect";
+import AutoComplete from "@/components//common/AutoComplete";
+import MultiSelect from "@/components//common/MultiSelect";
 import HourDistribution from "./HourDistribution";
-import { Checkbox } from "../ui/checkbox";
-import { getAvailableFaculties } from "@/lib/functions";
+import { Checkbox } from "@/components//ui/checkbox";
 
 export const AddCourse = (props: any) => {
   const { open, setOpen } = props;

@@ -5,9 +5,9 @@ import { columns } from "./Columns";
 import AddDialog from "@/components/common/AddDialog";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { AddCourse } from "./AddCourse";
-import SectionHeading from "../common/SectionHeading";
+import SectionHeading from "@/components/common/SectionHeading";
 import { BookOpen } from "lucide-react";
-import { TableSkeleton } from "../skeleton/TableSkeleton";
+import { TableSkeleton } from "@/components/skeleton/TableSkeleton";
 import { cn } from "@/lib/utils";
 
 const CourseTable = (props: any) => {

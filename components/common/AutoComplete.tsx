@@ -59,8 +59,8 @@ export const AutoComplete = React.forwardRef(
 
     const handleDelete = React.useCallback(
       (item: string) => {
-        updateData(data.filter((i) => i != item));
-        setSelectable((prev) => prev.filter((i) => i != item));
+        updateData(data.filter((i) => i != item.toUpperCase()));
+        setSelectable((prev) => prev.filter((i) => i != item.toUpperCase()));
         inputRef.current?.blur();
       },
       [updateData, data],
@@ -69,8 +69,8 @@ export const AutoComplete = React.forwardRef(
     const handleSelect = React.useCallback(
       (item: string) => {
         setInputValue("");
-        setSelected(item);
-        onChange(item);
+        setSelected(item.toUpperCase());
+        onChange(item.toUpperCase());
         setOpen(false);
       },
       [onChange],
@@ -97,7 +97,7 @@ export const AutoComplete = React.forwardRef(
     React.useEffect(() => {
       let newSelectable;
       if (value) {
-        newSelectable = data.filter((item) => item !== value);
+        newSelectable = data.filter((item) => item !== value.toUpperCase());
       } else {
         newSelectable = data;
       }
@@ -176,13 +176,15 @@ export const AutoComplete = React.forwardRef(
                           e.stopPropagation();
                         }}
                         onSelect={(value) => {
-                          handleSelect(item);
+                          handleSelect(item.toUpperCase());
                         }}
                         className={
                           "flex w-full cursor-pointer items-center px-0 py-0 "
                         }
                       >
-                        <span className="w-full px-2 py-1.5">{item}</span>
+                        <span className="w-full px-2 py-1.5">
+                          {item.toUpperCase()}
+                        </span>
                         <button
                           type="button"
                           key={item}
@@ -214,7 +216,9 @@ export const AutoComplete = React.forwardRef(
                     }}
                     className={"flex cursor-pointer items-center gap-2"}
                   >
-                    <span className="w-full pl-2">{inputValue}</span>
+                    <span className="w-full pl-2">
+                      {inputValue.toUpperCase()}
+                    </span>
                     <div className="p-1">
                       <PlusCircle className="text-muted-foreground h-4 w-4" />
                     </div>

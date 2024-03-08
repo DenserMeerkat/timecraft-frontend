@@ -27,7 +27,7 @@ const ResetButton = () => {
         <Button variant={"destructive"} asChild>
           <div className="flex w-full cursor-pointer">
             <RotateCcw className={"mr-2 h-4 w-4"} />
-            Reset Data
+            Reset
           </div>
         </Button>
       </AlertDialogTrigger>

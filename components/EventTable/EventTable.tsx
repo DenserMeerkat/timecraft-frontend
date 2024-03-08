@@ -4,9 +4,9 @@ import { DataTable } from "@/components/common/DataTable";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { CalendarPlus } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";
-import { TableSkeleton } from "../skeleton/TableSkeleton";
+import { TableSkeleton } from "@/components/skeleton/TableSkeleton";
 import { AddEvent } from "./AddEvent";
-import AddDialog from "../common/AddDialog";
+import AddDialog from "@/components/common/AddDialog";
 import { columns } from "./Columns";
 
 const EventTable = () => {

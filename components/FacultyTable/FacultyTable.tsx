@@ -7,7 +7,7 @@ import { useAppContext } from "@/components/context/AppStateContext";
 import { AddFaculty } from "./AddFaculty";
 import { GraduationCap } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";
-import { TableSkeleton } from "../skeleton/TableSkeleton";
+import { TableSkeleton } from "@/components/skeleton/TableSkeleton";
 import { cn } from "@/lib/utils";
 
 const FacultyTable = (props: any) => {

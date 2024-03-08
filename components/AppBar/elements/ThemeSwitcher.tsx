@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, RotateCw } from "lucide-react";
-import TooltipElement from "../../common/TooltipElement";
+import TooltipElement from "@/components/common/TooltipElement";
 import { Button } from "@/components/ui/button";
 
 const ThemeSwitcher = () => {

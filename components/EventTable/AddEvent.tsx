@@ -28,7 +28,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Course, JointCourse } from "@/lib/types";
 import { courseSchema } from "@/lib/schemas";
 import HourGrid from "@/components/common/HourGrid";
-import { MultiCourseSelect } from "../CourseTable/MultiCourseSelect";
+import { MultiCourseSelect } from "@/components/CourseTable/MultiCourseSelect";
 import { getAvailableCourses, getOccupiedSlots } from "@/lib/functions";
 
 export const AddEvent = (props: any) => {

@@ -2,7 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Faculty } from "@/lib/types";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
