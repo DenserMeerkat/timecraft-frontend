@@ -13,7 +13,7 @@ const backend = {
 };
 
 const request = {
-  localhostURL: "https://localhost",
+  localhostURL: "http://localhost",
   port: 5000,
   endpoint: "/create_timetable",
 };

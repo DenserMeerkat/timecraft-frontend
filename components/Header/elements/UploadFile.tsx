@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Pencil, Upload, FileJson, FileText, FileX } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { cn } from "@/lib/utils";
+import { TimeTableRequest } from "@/lib/types";
 
 const FILE_TYPES = ["application/json", "text/plain"];
 
@@ -55,7 +56,9 @@ const UploadFile = () => {
       if (event.target) {
         const fileContent = event.target.result;
         try {
-          const timetableRequest = JSON.parse(fileContent as string);
+          const timetableRequest: TimeTableRequest = JSON.parse(
+            fileContent as string,
+          );
           state.upload(timetableRequest);
           toast({
             title: "Upload successfull",
