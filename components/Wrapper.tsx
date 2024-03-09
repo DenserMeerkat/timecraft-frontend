@@ -1,7 +1,7 @@
 "use client";
 import { ThemeProvider } from "next-themes";
 import { AppContextProvider } from "@/components/context/AppStateContext";
-import AppBar from "@/components/AppBar/AppBar";
+import Header from "@/components/Header/Header";
 
 export default function RootComponet({
   children,
@@ -11,7 +11,7 @@ export default function RootComponet({
   return (
     <AppContextProvider>
       <ThemeProvider enableSystem attribute="class">
-        <AppBar />
+        <Header />
         {children}
       </ThemeProvider>
     </AppContextProvider>

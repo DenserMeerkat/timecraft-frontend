@@ -34,7 +34,7 @@ const ResetButton = () => {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="text-base">
             This action cannot be undone. This will permanently delete all
             current data.
           </AlertDialogDescription>

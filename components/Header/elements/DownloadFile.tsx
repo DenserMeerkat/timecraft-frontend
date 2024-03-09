@@ -1,16 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -26,7 +24,6 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -63,7 +60,7 @@ const DownloadFile = () => {
     const json = state.download();
     if (json) {
       const blob = new Blob([JSON.stringify(json)], {
-        type: `text/${data.type === "json" ? "json" : "plain"};charset=utf-8`,
+        type: data.type === "json" ? "application/json" : "text/plain",
       });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -96,23 +93,21 @@ const DownloadFile = () => {
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
         <Button variant={"outline"} asChild>
           <div className="flex w-full cursor-pointer items-center">
             <Download className="mr-2 h-4 w-4" /> Download
           </div>
         </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent
-        onEscapeKeyDown={(event: KeyboardEvent) => closeDialog()}
-      >
-        <AlertDialogHeader>
-          <AlertDialogTitle>Download</AlertDialogTitle>
-          <AlertDialogDescription>
+      </DialogTrigger>
+      <DialogContent onEscapeKeyDown={(event: KeyboardEvent) => closeDialog()}>
+        <DialogHeader>
+          <DialogTitle>Download</DialogTitle>
+          <DialogDescription>
             Download data in your desired format.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+          </DialogDescription>
+        </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-3">
             <FormField
@@ -127,9 +122,6 @@ const DownloadFile = () => {
                     placeholder="timecraft-data"
                     {...field}
                   />
-                  <FormDescription>
-                    File Name without extension.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -179,7 +171,7 @@ const DownloadFile = () => {
               )}
             />
 
-            <AlertDialogFooter className="pt-4">
+            <DialogFooter className="pt-4">
               <Button
                 variant={"secondary"}
                 type="button"
@@ -189,11 +181,11 @@ const DownloadFile = () => {
                 Cancel
               </Button>
               <Button type="submit">Download</Button>
-            </AlertDialogFooter>
+            </DialogFooter>
           </form>
         </Form>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   );
 };
 export default DownloadFile;

@@ -51,7 +51,7 @@ const Menu = () => {
   }
 
   return (
-    <Popover modal={true}>
+    <Popover>
       <PopoverTrigger>
         <TooltipElement
           element={
@@ -59,7 +59,7 @@ const Menu = () => {
               <Settings2 className={"p-2"} />
             </Button>
           }
-          tooltip={"More"}
+          tooltip={"Actions"}
         ></TooltipElement>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[200px] p-2">

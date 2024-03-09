@@ -93,7 +93,7 @@ export const AddEvent = (props: any) => {
       setFacOccupiedHours([]);
       setCourseHours(undefined);
     }
-  }, [form.watch("courses")]);
+  }, [form, form.watch("courses")]);
 
   const closeAlertDialog = () => {
     form.reset();

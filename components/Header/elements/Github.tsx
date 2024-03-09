@@ -82,7 +82,7 @@ const GitHubLink = () => {
   }
 
   return (
-    <Popover modal={true}>
+    <Popover>
       <PopoverTrigger>
         <TooltipElement
           element={

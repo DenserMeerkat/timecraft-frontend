@@ -2,7 +2,7 @@ import React from "react";
 import LogoTitle from "./elements/LogoTitle";
 import Tray from "./Tray";
 
-const AppBar = () => {
+const Header = () => {
   return (
     <header
       className="sticky top-0 z-50 border-b border-zinc-300 bg-zinc-50/[0.5]
@@ -18,4 +18,4 @@ const AppBar = () => {
   );
 };
 
-export default AppBar;
+export default Header;

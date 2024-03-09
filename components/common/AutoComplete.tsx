@@ -54,7 +54,7 @@ export const AutoComplete = React.forwardRef(
         updateData([...data, item]);
         setSelectable((prev) => [...prev, item]);
       },
-      [updateData, data],
+      [updateData, data, selectable],
     );
 
     const handleDelete = React.useCallback(
