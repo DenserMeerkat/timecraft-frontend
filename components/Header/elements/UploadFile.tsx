@@ -37,7 +37,7 @@ const UploadFile = () => {
     file: z
       .instanceof(FileList, { message: "File required" })
       .refine((files) => {
-        return FILE_TYPES.includes(files[0].type);
+        return files[0] ?? false ? FILE_TYPES.includes(files[0].type) : false;
       }, "File must be of TXT or JSON format"),
   });
 
@@ -80,12 +80,14 @@ const UploadFile = () => {
               </div>
             ),
           });
+          closeDialog();
         }
       }
     };
 
     reader.onerror = function () {
       console.error("Error reading file:", reader.error);
+      form.reset();
     };
 
     reader.readAsText(file);
@@ -93,8 +95,9 @@ const UploadFile = () => {
   }
 
   const closeDialog = () => {
-    setOpen((prev: boolean) => !prev);
+    setFile(null);
     form.reset();
+    setOpen((prev: boolean) => !prev);
   };
 
   return (
@@ -129,10 +132,10 @@ const UploadFile = () => {
                       id="file"
                       type="file"
                       accept=".json, .txt"
-                      {...fileRef}
                       style={{
                         opacity: 0,
                       }}
+                      {...fileRef}
                       onChange={(e) => {
                         field.onChange(
                           e.target.files ? e.target.files[0] : null,
