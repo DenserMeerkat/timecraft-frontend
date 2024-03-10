@@ -14,6 +14,17 @@ export type Schedule = {
 
 export type ItemType = { code: string; name?: string };
 
+export type Class = {
+  courseCode: string;
+  faculties: Faculty[];
+  noHours: number;
+};
+
+export type Event = {
+  classes: Class[];
+  studentGroup: string;
+};
+
 export type TimeTableRequest = {
   noHours: number;
   noDays: number;
@@ -21,4 +32,21 @@ export type TimeTableRequest = {
   faculties: Faculty[];
   courses: Course[];
   jointCoursesList: JointCourse[];
+};
+
+export type TimeTableResponse = {
+  events: Event[];
+  studentGroups: string[];
+  timetable: number[][];
+};
+
+export type LocalStorageState = {
+  hours: number;
+  days: number;
+  lock: boolean;
+  studentGroups: string[];
+  faculties: Faculty[];
+  courses: Course[];
+  jointCourses: JointCourse[];
+  response: TimeTableResponse;
 };

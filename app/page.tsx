@@ -2,7 +2,8 @@ import FacultyTable from "@/components/FacultyTable/FacultyTable";
 import CourseTable from "@/components/CourseTable/CourseTable";
 import EventTable from "@/components/EventTable/EventTable";
 import Fields from "@/components/Fields";
-import GenerateButton from "@/components/Generate/GenerateButton";
+import GenerateButton from "@/components/CraftTable.tsx/GenerateButton";
+import CraftTables from "@/components/CraftTable.tsx/CraftTables";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <section className="pb-4 pt-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 xl:px-0">
           <GenerateButton />
+          <CraftTables />
         </div>
       </section>
     </main>

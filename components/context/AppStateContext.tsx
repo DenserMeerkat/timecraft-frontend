@@ -5,13 +5,21 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { Faculty, Course, JointCourse, TimeTableRequest } from "@/lib/types";
+import {
+  Faculty,
+  Course,
+  JointCourse,
+  TimeTableRequest,
+  TimeTableResponse,
+  LocalStorageState,
+} from "@/lib/types";
 import {
   generateTimetableRequestType,
   courseListToJointCourseList,
   filterNullJointCourses,
   getAvailableCourses,
 } from "@/lib/functions";
+import { set } from "zod";
 
 interface AppContextType {
   hours: number | null;
@@ -21,6 +29,7 @@ interface AppContextType {
   courses: Course[];
   jointCourses: JointCourse[];
   groups: string[];
+  response: TimeTableResponse;
   updateHours: (hours: number | null) => void;
   updateDays: (days: number | null) => void;
   updateLock: () => void;
@@ -28,6 +37,7 @@ interface AppContextType {
   updateCourses: (courses: Course[]) => void;
   updateJointCourses: (jointCourses: JointCourse[]) => void;
   updateGroups: (groups: string[]) => void;
+  updateResponse: (response: TimeTableResponse) => void;
   reset: () => void;
   upload: (data: TimeTableRequest) => void;
   download: () => TimeTableRequest | null;
@@ -41,6 +51,11 @@ const defaultAppContext: AppContextType = {
   courses: [],
   jointCourses: [],
   groups: [],
+  response: {
+    events: [],
+    studentGroups: [],
+    timetable: [],
+  },
   updateHours: () => {},
   updateDays: () => {},
   updateLock: () => {},
@@ -48,6 +63,7 @@ const defaultAppContext: AppContextType = {
   updateCourses: () => {},
   updateJointCourses: () => {},
   updateGroups: () => {},
+  updateResponse: (response: TimeTableResponse) => {},
   reset: () => {},
   upload: (data: TimeTableRequest) => {},
   download: () => null,
@@ -68,6 +84,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [courses, setCourses] = useState([] as Course[]);
   const [jointCourses, setJointCourses] = useState([] as JointCourse[]);
   const [groups, setGroups] = useState([] as string[]);
+  const [response, setResponse] = useState<TimeTableResponse>({
+    events: [],
+    studentGroups: [],
+    timetable: [],
+  });
 
   const updateLock = () => {
     setLock((prev) => !prev);
@@ -94,6 +115,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     setCourses(data.courses);
     setJointCourses(filteredJointCourses);
     setGroups(data.studentGroups);
+    setResponse({
+      events: [],
+      studentGroups: [],
+      timetable: [],
+    });
   };
 
   const downloadState = () => {
@@ -130,6 +156,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     courses,
     jointCourses,
     groups,
+    response,
     updateLock,
     updateHours: setHours,
     updateDays: setDays,
@@ -137,6 +164,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     updateFaculties: setFaculties,
     updateJointCourses: setJointCourses,
     updateGroups: setGroups,
+    updateResponse: setResponse,
     reset: resetState,
     upload: uploadState,
     download: downloadState,
@@ -153,6 +181,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       setCourses(parsedState.courses);
       setJointCourses(parsedState.jointCourses);
       setGroups(parsedState.groups);
+      setResponse(parsedState.response);
     }
   }, []);
 
@@ -165,9 +194,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       courses,
       jointCourses,
       groups,
+      response,
     });
     localStorage.setItem("appState", stateToStore);
-  }, [hours, days, lock, faculties, courses, jointCourses, groups]);
+  }, [hours, days, lock, faculties, courses, jointCourses, groups, response]);
 
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
 };

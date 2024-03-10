@@ -36,7 +36,7 @@ const CustomInput = (props: any) => {
       <Input
         disabled={disabled}
         type="number"
-        value={inputValue === 0 ? "" : inputValue}
+        value={inputValue == null || inputValue === 0 ? "" : inputValue}
         placeholder="0"
         autoFocus={autofocus}
         onChange={handleInputChange}

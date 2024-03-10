@@ -1,7 +1,10 @@
 import { request } from "./constants";
-import { TimeTableRequest } from "./types";
+import { TimeTableRequest, TimeTableResponse } from "./types";
 
-export async function generateTimetable(timetableRequest: TimeTableRequest) {
+export async function craftTimetable(
+  timetableRequest: TimeTableRequest,
+  updateResponse: (response: TimeTableResponse) => void,
+) {
   const url = `${request.localhostURL}:${request.port}${request.endpoint}`;
   const requestOptions = {
     method: "POST",
@@ -12,7 +15,8 @@ export async function generateTimetable(timetableRequest: TimeTableRequest) {
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
-    console.log("Success:", data);
+    console.log("Response:", data);
+    updateResponse(data);
   } catch (error) {
     console.error("Error:", error);
   }

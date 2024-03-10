@@ -5,14 +5,22 @@ import { Sparkles } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { TimeTableRequest } from "@/lib/types";
-import { generateTimetable } from "@/lib/request";
+import { craftTimetable } from "@/lib/request";
 import { generateTimetableRequestType } from "@/lib/functions";
 
 const GenerateButton = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { lock, days, hours, groups, faculties, courses, jointCourses } =
-    useAppContext();
+  const {
+    lock,
+    days,
+    hours,
+    groups,
+    faculties,
+    courses,
+    jointCourses,
+    updateResponse,
+  } = useAppContext();
 
   const handleGenerateClick = async () => {
     setIsLoading(true);
@@ -24,7 +32,7 @@ const GenerateButton = () => {
       courses,
       jointCourses,
     );
-    await generateTimetable(timetableRequest);
+    await craftTimetable(timetableRequest, updateResponse);
     setIsLoading(false);
   };
 

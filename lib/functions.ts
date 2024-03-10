@@ -3,7 +3,9 @@ import { Course, Faculty, JointCourse, TimeTableRequest } from "./types";
 export function filterNullJointCourses(jointCourses: JointCourse[]) {
   return jointCourses.filter(
     (jointCourse) =>
-      jointCourse.fixedSlots != undefined && jointCourse.fixedSlots?.length > 0,
+      (jointCourse.fixedSlots != undefined &&
+        jointCourse.fixedSlots?.length > 0) ||
+      jointCourse.courses.length > 1,
   );
 }
 
