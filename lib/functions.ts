@@ -1,4 +1,70 @@
-import { Course, Faculty, JointCourse, TimeTableRequest } from "./types";
+import {
+  Course,
+  Faculty,
+  JointCourse,
+  TimeTableRequest,
+  Event,
+  FacultyTimeTable,
+} from "./types";
+
+export function generateFacultyTimeTables(
+  events: Event[],
+  timetable: number[][],
+  studentGroups: string[],
+): FacultyTimeTable[] {
+  let facultyTimeTables: FacultyTimeTable[] = [];
+  events.forEach((event, eventIndex) => {
+    event.classes.forEach((course, courseIndex) => {
+      course.faculties.forEach((faculty, facultyIndex) => {
+        let indices: number[] = [];
+        timetable[studentGroups.indexOf(event.studentGroup)].forEach(
+          (slot, slotIndex) => {
+            if (slot === eventIndex) {
+              indices.push(slotIndex);
+            }
+          },
+        );
+        if (
+          facultyTimeTables.find((f) => f.facultyCode === faculty.code) ==
+          undefined
+        ) {
+          facultyTimeTables.push({
+            facultyCode: faculty.code,
+            classes: [
+              {
+                timetable: indices,
+                courseCode: course.courseCode,
+                studentGroup: event.studentGroup,
+              },
+            ],
+          });
+        } else {
+          let facultyIndex = facultyTimeTables.findIndex(
+            (f) => f.facultyCode === faculty.code,
+          );
+          const repeatCourse: any = facultyTimeTables[
+            facultyIndex
+          ].classes.find((c) => c.courseCode === course.courseCode);
+          if (repeatCourse == undefined) {
+            facultyTimeTables[facultyIndex].classes.push({
+              timetable: indices,
+              courseCode: course.courseCode,
+              studentGroup: event.studentGroup,
+            });
+          } else {
+            const ind = facultyTimeTables[facultyIndex].classes.findIndex(
+              (c) => c.courseCode === course.courseCode,
+            );
+            facultyTimeTables[facultyIndex].classes[ind].timetable.push(
+              ...indices,
+            );
+          }
+        }
+      });
+    });
+  });
+  return facultyTimeTables;
+}
 
 export function filterNullJointCourses(jointCourses: JointCourse[]) {
   return jointCourses.filter(

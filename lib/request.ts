@@ -5,7 +5,8 @@ export async function craftTimetable(
   timetableRequest: TimeTableRequest,
   updateResponse: (response: TimeTableResponse) => void,
 ) {
-  const url = `${request.localhostURL}:${request.port}${request.endpoint}`;
+  const localhostURL = `${request.localhostURL}:${request.port}${request.endpoint}`;
+  const deploymentURL = `${request.deploymentURL}${request.endpoint}`;
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -13,7 +14,7 @@ export async function craftTimetable(
   };
   console.log("Request:", timetableRequest);
   try {
-    const response = await fetch(url, requestOptions);
+    const response = await fetch(deploymentURL, requestOptions);
     const data = await response.json();
     console.log("Response:", data);
     updateResponse(data);

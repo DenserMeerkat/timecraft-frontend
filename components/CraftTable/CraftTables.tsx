@@ -2,22 +2,24 @@
 
 import React from "react";
 import { useAppContext } from "@/components/context/AppStateContext";
-import CraftTable from "./CraftTable";
+import GroupTimetable from "./GroupTimetables";
+import FacultyTimetables from "./FacultyTimetables";
 
 const CraftTables = () => {
   const { response } = useAppContext();
   if (response.timetable.length === 0) return null;
   return (
     <div>
-      {response.timetable.map((timeTable, i) => (
-        <CraftTable
-          key={i}
-          studentGroup={response.studentGroups[i]}
-          events={response.events}
-          studentGroups={response.studentGroups}
-          timetable={response.timetable}
-        />
-      ))}
+      <GroupTimetable
+        events={response.events}
+        studentGroups={response.studentGroups}
+        timetable={response.timetable}
+      />
+      <FacultyTimetables
+        events={response.events}
+        studentGroups={response.studentGroups}
+        timetable={response.timetable}
+      />
     </div>
   );
 };

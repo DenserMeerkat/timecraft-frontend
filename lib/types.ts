@@ -40,13 +40,11 @@ export type TimeTableResponse = {
   timetable: number[][];
 };
 
-export type LocalStorageState = {
-  hours: number;
-  days: number;
-  lock: boolean;
-  studentGroups: string[];
-  faculties: Faculty[];
-  courses: Course[];
-  jointCourses: JointCourse[];
-  response: TimeTableResponse;
+export type FacultyTimeTable = {
+  facultyCode: string;
+  classes: {
+    timetable: number[];
+    courseCode: string;
+    studentGroup: string;
+  }[];
 };
