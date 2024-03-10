@@ -34,7 +34,11 @@ const CraftTable = (props: CraftTableProps) => {
         style={gridStyle}
         className="min-w-fit place-items-center gap-1 p-1 sm:gap-2 sm:p-2 md:gap-3 md:p-2.5 lg:gap-4 lg:p-3 xl:gap-5 xl:p-3.5 2xl:gap-6 2xl:p-4"
       >
-        <div></div>
+        <div className="box-content grid place-content-center rounded-md bg-lime-200 px-2 py-1 dark:bg-lime-800/50">
+          <span className="text-xs font-medium tracking-wider">
+            {props.studentGroup}
+          </span>
+        </div>
         {Array.from({ length: hours! }, (_, i) => (
           <div key={i}>
             <p className="text-center">Hour {i + 1}</p>

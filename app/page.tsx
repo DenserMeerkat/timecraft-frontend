@@ -2,8 +2,8 @@ import FacultyTable from "@/components/FacultyTable/FacultyTable";
 import CourseTable from "@/components/CourseTable/CourseTable";
 import EventTable from "@/components/EventTable/EventTable";
 import Fields from "@/components/Fields";
-import GenerateButton from "@/components/CraftTable.tsx/GenerateButton";
-import CraftTables from "@/components/CraftTable.tsx/CraftTables";
+import GenerateButton from "@/components/CraftTable/GenerateButton";
+import CraftTables from "@/components/CraftTable/CraftTables";
 
 export default function Home() {
   return (
