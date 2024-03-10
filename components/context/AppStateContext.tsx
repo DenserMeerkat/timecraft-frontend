@@ -11,7 +11,6 @@ import {
   JointCourse,
   TimeTableRequest,
   TimeTableResponse,
-  LocalStorageState,
 } from "@/lib/types";
 import {
   generateTimetableRequestType,
