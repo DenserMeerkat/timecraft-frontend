@@ -12,6 +12,7 @@ export function generateFacultyTimeTables(
   timetable: number[][],
   studentGroups: string[],
 ): FacultyTimeTable[] {
+  console.log("Generating faculty timetables");
   let facultyTimeTables: FacultyTimeTable[] = [];
   events.forEach((event, eventIndex) => {
     event.classes.forEach((course, courseIndex) => {

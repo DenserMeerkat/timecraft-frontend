@@ -26,12 +26,12 @@ const GroupTimetables = (props: GroupTimetablesProps) => {
       onValueChange={setActiveGroup}
       className="mx-auto mt-12 "
     >
-      <TabsList className="mx-auto flex w-fit space-x-2 md:h-10">
+      <TabsList className="mx-auto flex w-fit space-x-2 rounded-xl md:h-10">
         {studentGroups.map((group, i) => (
           <TabsTrigger
             key={i}
             value={group}
-            className="rounded-md px-3 py-1.5 text-xs md:text-sm"
+            className="rounded-lg px-3 py-1.5 text-xs md:text-sm"
           >
             {group}
           </TabsTrigger>

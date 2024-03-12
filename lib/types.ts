@@ -40,11 +40,13 @@ export type TimeTableResponse = {
   timetable: number[][];
 };
 
+export type FacultyClass = {
+  courseCode: string;
+  studentGroup: string;
+  timetable: number[];
+};
+
 export type FacultyTimeTable = {
   facultyCode: string;
-  classes: {
-    timetable: number[];
-    courseCode: string;
-    studentGroup: string;
-  }[];
+  classes: FacultyClass[];
 };
