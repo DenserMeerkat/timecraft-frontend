@@ -101,6 +101,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     setCourses([]);
     setJointCourses([]);
     setGroups([]);
+    setResponse({
+      events: [],
+      studentGroups: [],
+      timetable: [],
+    });
     localStorage.removeItem("appState");
   };
 
