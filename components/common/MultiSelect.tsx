@@ -166,9 +166,10 @@ export const MultiSelect = React.forwardRef(
               <div className="bg-popover text-popover-foreground absolute top-0 z-10 w-full rounded-md border bg-zinc-50 shadow-md outline-none animate-in dark:border-zinc-700 dark:bg-zinc-950">
                 <CommandGroup className="h-full overflow-auto">
                   {selectable.map((item) => {
+                    const itemTyped = item as ItemType;
                     return (
                       <CommandItem
-                        key={item.code}
+                        key={itemTyped.code}
                         onMouseDown={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
@@ -178,7 +179,12 @@ export const MultiSelect = React.forwardRef(
                         }}
                         className={"cursor-pointer"}
                       >
-                        {item.code}
+                        <div className="flex items-center space-x-3">
+                          <span className="min-w-[48px] rounded-md bg-zinc-100 px-1 py-0.5 text-center text-xs dark:bg-zinc-800">
+                            {itemTyped.code}
+                          </span>
+                          <span className="text-start">{itemTyped?.name}</span>
+                        </div>
                       </CommandItem>
                     );
                   })}
