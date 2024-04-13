@@ -13,6 +13,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Reset from "./Reset";
 import UploadJson from "./UploadFile";
 import DownloadJson from "./DownloadFile";
+import DevToggle from "./DevToggle";
 
 const Menu = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -41,6 +42,7 @@ const Menu = () => {
         </DrawerTrigger>
         <DrawerContent className="p-2 pb-4">
           <div className="mx-auto mt-4 flex w-full max-w-xs flex-col gap-2 text-sm">
+            <DevToggle />
             <UploadJson />
             <DownloadJson />
             <Reset />
@@ -64,6 +66,7 @@ const Menu = () => {
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[200px] p-2">
         <div className="flex flex-col gap-2 text-sm">
+          <DevToggle />
           <UploadJson />
           <DownloadJson />
           <Reset />

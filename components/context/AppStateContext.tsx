@@ -18,7 +18,6 @@ import {
   filterNullJointCourses,
   getAvailableCourses,
 } from "@/lib/functions";
-import { set } from "zod";
 
 interface AppContextType {
   hours: number | null;
@@ -29,6 +28,7 @@ interface AppContextType {
   jointCourses: JointCourse[];
   groups: string[];
   response: TimeTableResponse;
+  isDevMode: boolean;
   updateHours: (hours: number | null) => void;
   updateDays: (days: number | null) => void;
   updateLock: () => void;
@@ -40,6 +40,7 @@ interface AppContextType {
   reset: () => void;
   upload: (data: TimeTableRequest) => void;
   download: () => TimeTableRequest | null;
+  updateIsDevMode: () => void;
 }
 
 const defaultAppContext: AppContextType = {
@@ -55,6 +56,7 @@ const defaultAppContext: AppContextType = {
     studentGroups: [],
     timetable: [],
   },
+  isDevMode: false,
   updateHours: () => {},
   updateDays: () => {},
   updateLock: () => {},
@@ -66,6 +68,7 @@ const defaultAppContext: AppContextType = {
   reset: () => {},
   upload: (data: TimeTableRequest) => {},
   download: () => null,
+  updateIsDevMode: () => {},
 };
 const AppContext = createContext<AppContextType>(defaultAppContext);
 
@@ -88,9 +91,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     studentGroups: [],
     timetable: [],
   });
+  const [isDevMode, setIsDevMode] = useState(false);
 
   const updateLock = () => {
     setLock((prev) => !prev);
+  };
+  const updateDevMode = () => {
+    setIsDevMode((prev) => !prev);
   };
 
   const resetState = () => {
@@ -161,6 +168,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     jointCourses,
     groups,
     response,
+    isDevMode,
     updateLock,
     updateHours: setHours,
     updateDays: setDays,
@@ -172,6 +180,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     reset: resetState,
     upload: uploadState,
     download: downloadState,
+    updateIsDevMode: updateDevMode,
   };
 
   useEffect(() => {
@@ -186,6 +195,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       setJointCourses(parsedState.jointCourses);
       setGroups(parsedState.groups);
       setResponse(parsedState.response);
+      setIsDevMode(parsedState.isDevMode ?? false);
     }
   }, []);
 
@@ -199,9 +209,20 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       jointCourses,
       groups,
       response,
+      isDevMode,
     });
     localStorage.setItem("appState", stateToStore);
-  }, [hours, days, lock, faculties, courses, jointCourses, groups, response]);
+  }, [
+    hours,
+    days,
+    lock,
+    faculties,
+    courses,
+    jointCourses,
+    groups,
+    response,
+    isDevMode,
+  ]);
 
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
 };

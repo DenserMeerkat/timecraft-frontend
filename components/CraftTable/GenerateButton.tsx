@@ -20,6 +20,7 @@ const GenerateButton = () => {
     courses,
     jointCourses,
     updateResponse,
+    isDevMode,
   } = useAppContext();
 
   const handleGenerateClick = async () => {
@@ -32,7 +33,7 @@ const GenerateButton = () => {
       courses,
       jointCourses,
     );
-    await craftTimetable(timetableRequest, updateResponse);
+    await craftTimetable(timetableRequest, updateResponse, isDevMode);
     setIsLoading(false);
   };
 
