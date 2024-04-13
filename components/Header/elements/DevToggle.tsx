@@ -21,12 +21,12 @@ const DevToggle = () => {
   return (
     <div className="flex items-center px-1">
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip delayDuration={100}>
           <TooltipTrigger asChild className="mr-2">
             <Info className="h-4 w-4 opacity-60" />
           </TooltipTrigger>
           <TooltipContent>
-            <p>Should use localhost URL</p>
+            <p>Enable this to use the localhost URL</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
