@@ -1,0 +1,580 @@
+{
+  "noHours": 5,
+  "noDays": 6,
+  "studentGroups": ["21UMT", "22UMT", "23UMT"],
+  "faculties": [
+    { "code": "MAR", "name": "Mr.Aravind Raj", "occupiedSlots": null },
+    { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null },
+    { "code": "DB", "name": "Dr.Bharathi", "occupiedSlots": null },
+    { "code": "DM", "name": "Mr.Mathew", "occupiedSlots": null },
+    { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null },
+    { "code": "DGK", "name": "Dr.Geno Kadwin", "occupiedSlots": null },
+    { "code": "DC", "name": "Dr.Cynthia", "occupiedSlots": null },
+    { "code": "DJ", "name": "Dr.Janci", "occupiedSlots": null },
+    {
+      "code": "DIR",
+      "name": "Dr.Iruthaya Raj",
+      "occupiedSlots": [3, 5, 20, 26]
+    },
+    { "code": "DML", "name": "Dr.Mahalakshmi", "occupiedSlots": null },
+    { "code": "MX", "name": "Mr.Xavier", "occupiedSlots": null },
+    {
+      "code": "MEFR",
+      "name": "Mr.Emmanuel. F.R.",
+      "occupiedSlots": [2, 5, 12, 18]
+    },
+    { "code": "DJS", "name": "Dr.Janet Sheeba", "occupiedSlots": null },
+    { "code": "DPC", "name": "Dr.Prince Charles", "occupiedSlots": null },
+    { "code": "DAY", "name": "Dr.Annaiyappan", "occupiedSlots": null }
+  ],
+  "courses": [
+    {
+      "code": "UEL1202",
+      "faculties": [
+        { "code": "MX", "name": "Mr.Xavier", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT1501",
+      "faculties": [
+        { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT1502",
+      "faculties": [
+        {
+          "code": "DIR",
+          "name": "Dr.Iruthaya Raj",
+          "occupiedSlots": [3, 5, 20, 26]
+        }
+      ],
+      "noHours": 6,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UPH1302",
+      "faculties": [
+        { "code": "DC", "name": "Dr.Cynthia", "occupiedSlots": null }
+      ],
+      "noHours": 2,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UTL1101",
+      "faculties": [
+        { "code": "DPC", "name": "Dr.Prince Charles", "occupiedSlots": null }
+      ],
+      "noHours": 3,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UHE1001",
+      "faculties": [
+        { "code": "DJ", "name": "Dr.Janci", "occupiedSlots": null }
+      ],
+      "noHours": 3,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UPH1301",
+      "faculties": [
+        { "code": "DC", "name": "Dr.Cynthia", "occupiedSlots": null }
+      ],
+      "noHours": 4,
+      "studentGroup": "23UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UEL3202",
+      "faculties": [
+        { "code": "MAR", "name": "Mr.Aravind Raj", "occupiedSlots": null },
+        { "code": "MX", "name": "Mr.Xavier", "occupiedSlots": null }
+      ],
+      "noHours": 5,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT3502",
+      "faculties": [
+        { "code": "DGK", "name": "Dr.Geno Kadwin", "occupiedSlots": null },
+        { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": [4, 2]
+    },
+    {
+      "code": "UMT3501",
+      "faculties": [
+        { "code": "DB", "name": "Dr.Bharathi", "occupiedSlots": null },
+        { "code": "DGK", "name": "Dr.Geno Kadwin", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": [4, 2]
+    },
+    {
+      "code": "UTL3101",
+      "faculties": [
+        { "code": "DAY", "name": "Dr.Annaiyappan", "occupiedSlots": null }
+      ],
+      "noHours": 3,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UST3401",
+      "faculties": [
+        { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null }
+      ],
+      "noHours": 5,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UOL3801",
+      "faculties": [
+        { "code": "DML", "name": "Dr.Mahalakshmi", "occupiedSlots": null }
+      ],
+      "noHours": 3,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UHE3801",
+      "faculties": [
+        { "code": "DM", "name": "Mr.Mathew", "occupiedSlots": null }
+      ],
+      "noHours": 2,
+      "studentGroup": "22UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5503",
+      "faculties": [
+        { "code": "DJS", "name": "Dr.Janet Sheeba", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5504",
+      "faculties": [
+        { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null }
+      ],
+      "noHours": 3,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5505",
+      "faculties": [
+        { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null }
+      ],
+      "noHours": 3,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5501",
+      "faculties": [
+        {
+          "code": "MEFR",
+          "name": "Mr.Emmanuel. F.R.",
+          "occupiedSlots": [2, 5, 12, 18]
+        }
+      ],
+      "noHours": 6,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5601",
+      "faculties": [
+        { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5602",
+      "faculties": [
+        { "code": "DJS", "name": "Dr.Janet Sheeba", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    },
+    {
+      "code": "UMT5502",
+      "faculties": [
+        { "code": "DB", "name": "Dr.Bharathi", "occupiedSlots": null }
+      ],
+      "noHours": 6,
+      "studentGroup": "21UMT",
+      "name": null,
+      "hoursDistribution": null
+    }
+  ],
+  "jointCoursesList": [
+    {
+      "courses": [
+        {
+          "code": "UEL1202",
+          "faculties": [
+            { "code": "MX", "name": "Mr.Xavier", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [17, 2, 7, 24, 27, 12]
+    },
+    {
+      "courses": [
+        {
+          "code": "UTL1101",
+          "faculties": [
+            {
+              "code": "DPC",
+              "name": "Dr.Prince Charles",
+              "occupiedSlots": null
+            }
+          ],
+          "noHours": 3,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [1, 26, 14]
+    },
+    {
+      "courses": [
+        {
+          "code": "UPH1302",
+          "faculties": [
+            { "code": "DC", "name": "Dr.Cynthia", "occupiedSlots": null }
+          ],
+          "noHours": 2,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [22, 23]
+    },
+    {
+      "courses": [
+        {
+          "code": "UPH1301",
+          "faculties": [
+            { "code": "DC", "name": "Dr.Cynthia", "occupiedSlots": null }
+          ],
+          "noHours": 4,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [16, 3, 11, 6]
+    },
+    {
+      "courses": [
+        {
+          "code": "UHE1001",
+          "faculties": [
+            { "code": "DJ", "name": "Dr.Janci", "occupiedSlots": null }
+          ],
+          "noHours": 3,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [8, 18, 29]
+    },
+    {
+      "courses": [
+        {
+          "code": "UEL3202",
+          "faculties": [
+            { "code": "MAR", "name": "Mr.Aravind Raj", "occupiedSlots": null },
+            { "code": "MX", "name": "Mr.Xavier", "occupiedSlots": null }
+          ],
+          "noHours": 5,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [3, 6, 23, 28, 14]
+    },
+    {
+      "courses": [
+        {
+          "code": "UTL3101",
+          "faculties": [
+            { "code": "DAY", "name": "Dr.Annaiyappan", "occupiedSlots": null }
+          ],
+          "noHours": 3,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [11, 27, 22]
+    },
+    {
+      "courses": [
+        {
+          "code": "UOL3801",
+          "faculties": [
+            { "code": "DML", "name": "Dr.Mahalakshmi", "occupiedSlots": null }
+          ],
+          "noHours": 3,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [19, 13, 7]
+    },
+    {
+      "courses": [
+        {
+          "code": "UHE3801",
+          "faculties": [
+            { "code": "DM", "name": "Mr.Mathew", "occupiedSlots": null }
+          ],
+          "noHours": 2,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [17, 12]
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT5505",
+          "faculties": [
+            { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null }
+          ],
+          "noHours": 3,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [18, 7, 23]
+    },
+    {
+      "courses": [
+        {
+          "code": "UST3401",
+          "faculties": [
+            { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null }
+          ],
+          "noHours": 5,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": [4, 5]
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT1501",
+          "faculties": [
+            { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT1502",
+          "faculties": [
+            {
+              "code": "DIR",
+              "name": "Dr.Iruthaya Raj",
+              "occupiedSlots": [3, 5, 20, 26]
+            }
+          ],
+          "noHours": 6,
+          "studentGroup": "23UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT3502",
+          "faculties": [
+            { "code": "DGK", "name": "Dr.Geno Kadwin", "occupiedSlots": null },
+            { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": [4, 2]
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT3501",
+          "faculties": [
+            { "code": "DB", "name": "Dr.Bharathi", "occupiedSlots": null },
+            { "code": "DGK", "name": "Dr.Geno Kadwin", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "22UMT",
+          "name": null,
+          "hoursDistribution": [4, 2]
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT5503",
+          "faculties": [
+            { "code": "DJS", "name": "Dr.Janet Sheeba", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT5504",
+          "faculties": [
+            { "code": "MKD", "name": "Mr.Kumanan. D", "occupiedSlots": null }
+          ],
+          "noHours": 3,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT5501",
+          "faculties": [
+            {
+              "code": "MEFR",
+              "name": "Mr.Emmanuel. F.R.",
+              "occupiedSlots": [2, 5, 12, 18]
+            }
+          ],
+          "noHours": 6,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT5602",
+          "faculties": [
+            { "code": "DJS", "name": "Dr.Janet Sheeba", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        },
+        {
+          "code": "UMT5601",
+          "faculties": [
+            { "code": "MC", "name": "Mr.Christopher", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    },
+    {
+      "courses": [
+        {
+          "code": "UMT5502",
+          "faculties": [
+            { "code": "DB", "name": "Dr.Bharathi", "occupiedSlots": null }
+          ],
+          "noHours": 6,
+          "studentGroup": "21UMT",
+          "name": null,
+          "hoursDistribution": null
+        }
+      ],
+      "fixedSlots": null
+    }
+  ]
+}
