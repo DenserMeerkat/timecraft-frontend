@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import TooltipElement from "@/components/common/TooltipElement";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Github, Star, BookMarked, User } from "lucide-react";
+import { ChevronRight, Github, Star } from "lucide-react";
 import Link from "next/link";
 import { frontend, backend } from "@/lib/constants";
 import {
@@ -118,6 +118,8 @@ export default GitHubLink;
 
 const RepoCard = (props: any) => {
   const { repoName, stars, url, img, owner } = props;
+  const size = 40;
+  const showStars = false;
   return (
     <Link
       href={url}
@@ -128,8 +130,8 @@ const RepoCard = (props: any) => {
         <Image
           src={img}
           alt="Repo Owner Avatar"
-          width={54}
-          height={54}
+          width={size}
+          height={size}
           className="rounded-full border-2 border-zinc-300 dark:border-zinc-950/40"
         />
         <div className="flex flex-col">
@@ -140,12 +142,14 @@ const RepoCard = (props: any) => {
             {repoName}
           </span>
 
-          <div className="mt-1.5 flex items-center gap-1">
-            <Star className="h-3 w-3" />
-            <span className="ml-0.5 text-xs font-medium leading-none">
-              {stars}
-            </span>
-          </div>
+          {showStars && (
+            <div className="mt-1.5 flex items-center gap-1">
+              <Star className="h-3 w-3" />
+              <span className="ml-0.5 text-xs font-medium leading-none">
+                {stars}
+              </span>
+            </div>
+          )}
         </div>
       </div>
       <ChevronRight className="h-4 w-4 -translate-x-3 opacity-40 transition-all group-hover:-translate-x-1 group-hover:opacity-90" />
