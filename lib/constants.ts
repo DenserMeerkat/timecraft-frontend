@@ -14,8 +14,9 @@ const backend = {
 
 const request = {
   localhostURL: "http://localhost",
-  deploymentURL: "https://timecraft-backend.onrender.com",
   port: 5000,
+  deploymentURL:
+    "https://time-craft-d2aeb4bndwbbhbh3.centralindia-01.azurewebsites.net/create_timetable",
   endpoint: "/create_timetable",
 };
 
