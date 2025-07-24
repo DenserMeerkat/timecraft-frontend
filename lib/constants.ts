@@ -16,7 +16,7 @@ const request = {
   localhostURL: "http://localhost",
   port: 5000,
   deploymentURL:
-    "https://time-craft-d2aeb4bndwbbhbh3.centralindia-01.azurewebsites.net/create_timetable",
+    "https://time-craft-d2aeb4bndwbbhbh3.centralindia-01.azurewebsites.net",
   endpoint: "/create_timetable",
 };
 
