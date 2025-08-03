@@ -12,42 +12,28 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { FileText, Trash2 } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
-import { toast } from "@/components/ui/use-toast";
-import sampleData from "@/public/sample.json";
-import { TimeTableRequest } from "@/lib/types";
 
-const ResetButton = () => {
+const ClearButton = () => {
   const state = useAppContext();
 
   function handleClick() {
-    try {
-      const timetableRequest: TimeTableRequest = sampleData;
-      state.upload(timetableRequest);
-      toast({
-        title: "Reset successfull",
-        description: <p>Loaded Sample data.</p>,
-      });
-    } catch (error) {
-      toast({
-        title: "Reset failed",
-      });
-    }
+    state.clear();
   }
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button asChild>
+        <Button variant={"destructive"} asChild>
           <div className="flex w-full cursor-pointer">
-            <RotateCcw className={"mr-2 h-4 w-4"} />
-            Reset
+            <Trash2 className={"mr-2 h-4 w-4"} />
+            Clear
           </div>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Reset to Sample Data?</AlertDialogTitle>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription className="text-base">
             This action cannot be undone. This will permanently delete all
             current data.
@@ -69,4 +55,4 @@ const ResetButton = () => {
     </AlertDialog>
   );
 };
-export default ResetButton;
+export default ClearButton;

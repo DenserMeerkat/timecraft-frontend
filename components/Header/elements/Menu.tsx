@@ -11,6 +11,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Reset from "./Reset";
+import Clear from "./Clear";
 import UploadJson from "./UploadFile";
 import DownloadJson from "./DownloadFile";
 import DevToggle from "./DevToggle";
@@ -46,6 +47,7 @@ const Menu = () => {
             <UploadJson />
             <DownloadJson />
             <Reset />
+            <Clear />
           </div>
         </DrawerContent>
       </Drawer>
@@ -70,6 +72,7 @@ const Menu = () => {
           <UploadJson />
           <DownloadJson />
           <Reset />
+          <Clear />
         </div>
       </PopoverContent>
     </Popover>

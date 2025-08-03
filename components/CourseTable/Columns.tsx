@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PenSquare, Trash2 } from "lucide-react";
-import { useAppContext } from "@/components/context/AppStateContext";
 import { cn } from "@/lib/utils";
 
 export const columns: ColumnDef<Course>[] = [

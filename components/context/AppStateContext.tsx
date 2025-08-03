@@ -37,7 +37,7 @@ interface AppContextType {
   updateJointCourses: (jointCourses: JointCourse[]) => void;
   updateGroups: (groups: string[]) => void;
   updateResponse: (response: TimeTableResponse) => void;
-  reset: () => void;
+  clear: () => void;
   upload: (data: TimeTableRequest) => void;
   download: () => TimeTableRequest | null;
   updateIsDevMode: () => void;
@@ -65,7 +65,7 @@ const defaultAppContext: AppContextType = {
   updateJointCourses: () => {},
   updateGroups: () => {},
   updateResponse: (response: TimeTableResponse) => {},
-  reset: () => {},
+  clear: () => {},
   upload: (data: TimeTableRequest) => {},
   download: () => null,
   updateIsDevMode: () => {},
@@ -100,7 +100,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     setIsDevMode((prev) => !prev);
   };
 
-  const resetState = () => {
+  const clearState = () => {
     setHours(0);
     setDays(0);
     setLock(false);
@@ -118,7 +118,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
   const uploadState = (data: TimeTableRequest) => {
     const filteredJointCourses = filterNullJointCourses(data.jointCoursesList);
-    resetState();
+    clearState();
     setHours(data.noHours);
     setDays(data.noDays);
     setLock(true);
@@ -177,7 +177,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     updateJointCourses: setJointCourses,
     updateGroups: setGroups,
     updateResponse: setResponse,
-    reset: resetState,
+    clear: clearState,
     upload: uploadState,
     download: downloadState,
     updateIsDevMode: updateDevMode,

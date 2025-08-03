@@ -1,9 +1,9 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Faculty, Course, JointCourse } from "@/lib/types";
+import { Course, JointCourse } from "@/lib/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -71,7 +71,7 @@ export const columns: ColumnDef<JointCourse>[] = [
     accessorKey: "fixedSlots",
     header: "Fixed Slots",
     cell: ({ row }) => {
-      const fixedSlots: number[] | undefined = row.original.fixedSlots;
+      const fixedSlots: number[] | undefined | null = row.original.fixedSlots;
 
       return <FixedCell fixedSlots={fixedSlots} />;
     },

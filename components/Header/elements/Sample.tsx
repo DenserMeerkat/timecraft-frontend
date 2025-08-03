@@ -12,13 +12,13 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { BookOpenCheckIcon } from "lucide-react";
 import { useAppContext } from "@/components/context/AppStateContext";
 import { toast } from "@/components/ui/use-toast";
 import sampleData from "@/public/sample.json";
 import { TimeTableRequest } from "@/lib/types";
 
-const ResetButton = () => {
+const SampleButton = () => {
   const state = useAppContext();
 
   function handleClick() {
@@ -26,7 +26,7 @@ const ResetButton = () => {
       const timetableRequest: TimeTableRequest = sampleData;
       state.upload(timetableRequest);
       toast({
-        title: "Reset successfull",
+        title: "Load successfull",
         description: <p>Loaded Sample data.</p>,
       });
     } catch (error) {
@@ -37,17 +37,14 @@ const ResetButton = () => {
   }
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Button asChild>
-          <div className="flex w-full cursor-pointer">
-            <RotateCcw className={"mr-2 h-4 w-4"} />
-            Reset
-          </div>
+      <AlertDialogTrigger asChild>
+        <Button size="icon" variant={"ghost"}>
+          <BookOpenCheckIcon className={"p-0.5"} />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Reset to Sample Data?</AlertDialogTitle>
+          <AlertDialogTitle>Load Sample Data?</AlertDialogTitle>
           <AlertDialogDescription className="text-base">
             This action cannot be undone. This will permanently delete all
             current data.
@@ -61,7 +58,7 @@ const ResetButton = () => {
               className="w-full px-6"
               onClick={handleClick}
             >
-              Reset
+              Load
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -69,4 +66,4 @@ const ResetButton = () => {
     </AlertDialog>
   );
 };
-export default ResetButton;
+export default SampleButton;

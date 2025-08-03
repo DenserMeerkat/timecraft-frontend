@@ -129,7 +129,7 @@ const RepoCard = (props: any) => {
       <div className="flex items-center gap-3">
         <Image
           src={img}
-          alt="Repo Owner Avatar"
+          alt="Avatar"
           width={size}
           height={size}
           className="rounded-full border-2 border-zinc-300 dark:border-zinc-950/40"
