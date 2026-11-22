@@ -13,7 +13,7 @@ const Test = () => {
   const { hours, days, lock, updateHours, updateDays, updateLock } = state;
   useEffect(() => {
     setIsDomLoaded(true);
-  }, [isDomLoaded]);
+  }, []);
   if (!isDomLoaded) return <FieldSkeleton />;
   return (
     <div className="mx-auto flex h-12 max-w-[16rem] items-center">

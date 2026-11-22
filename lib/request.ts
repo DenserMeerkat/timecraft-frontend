@@ -1,6 +1,30 @@
 import { request } from "./constants";
 import { TimeTableRequest, TimeTableResponse } from "./types";
 
+export type ServerHealth = "ready" | "warming" | "offline";
+
+export async function pingBackend(isDevMode: boolean): Promise<ServerHealth> {
+  const localhostURL = `${request.localhostURL}:${request.port}`;
+  const deploymentURL = request.deploymentURL;
+  const baseUrl = isDevMode ? localhostURL : deploymentURL;
+  const url = `${baseUrl}${request.endpoint}`;
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    await fetch(url, {
+      method: "GET",
+      mode: "no-cors",
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    return "ready";
+  } catch (error) {
+    return "warming";
+  }
+}
+
 export async function craftTimetable(
   timetableRequest: TimeTableRequest,
   updateResponse: (response: TimeTableResponse) => void,

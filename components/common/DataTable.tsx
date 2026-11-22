@@ -52,7 +52,7 @@ export const DataTable = (props: any) => {
   });
   useEffect(() => {
     setIsDomLoaded(true);
-  }, [isDomLoaded]);
+  }, []);
   if (!isDomLoaded) return <TableSkeleton />;
   return (
     <div>
